@@ -32,21 +32,16 @@ export default function Header() {
       >
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div
+          <img
+            src="/logo.png"
+            alt="CeloPulse"
             style={{
               width: 40,
               height: 40,
-              borderRadius: 12,
-              background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 20,
-              boxShadow: "0 0 20px rgba(99, 102, 241, 0.4)",
+              borderRadius: 10,
+              objectFit: "contain",
             }}
-          >
-            ⚡
-          </div>
+          />
           <div>
             <h1
               style={{

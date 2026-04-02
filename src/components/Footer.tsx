@@ -21,20 +21,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-            <div
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: 10,
-                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 18,
-              }}
-            >
-              ⚡
-            </div>
+            <img src="/logo.png" alt="CeloPulse" style={{ width: 36, height: 36, borderRadius: 8, objectFit: "contain" }} />
             <span
               style={{
                 fontSize: 18,
@@ -86,8 +73,8 @@ export default function Footer() {
           {[
             { label: "Celo Docs", url: "https://docs.celo.org" },
             { label: "Blockscout", url: "https://explorer.celo.org" },
-            { label: "GitHub", url: "#" },
-            { label: "SDK Docs", url: "#" },
+            { label: "GitHub", url: "https://github.com/Dark-Brain07/celo-pulse" },
+            { label: "SDK Docs", url: "https://github.com/Dark-Brain07/celo-activity-helper" },
           ].map((item) => (
             <a
               key={item.label}
@@ -148,7 +135,7 @@ export default function Footer() {
         }}
       >
         <p style={{ fontSize: 12, color: "#475569" }}>
-          © 2025 CeloPulse. Built on Celo for the Talent Protocol ecosystem.
+          © 2026 CeloPulse. Built on Celo for the Talent Protocol ecosystem.
         </p>
         <div style={{ display: "flex", gap: 16 }}>
           <span style={{ fontSize: 11, color: "#475569" }}>Powered by Celo</span>
