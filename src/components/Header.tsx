@@ -36,10 +36,11 @@ export default function Header() {
             src="/logo.png"
             alt="CeloPulse"
             style={{
-              width: 40,
-              height: 40,
-              borderRadius: 10,
+              width: 120,
+              height: 120,
               objectFit: "contain",
+              margin: "-40px -40px -40px -10px",
+              pointerEvents: "none",
             }}
           />
           <div>

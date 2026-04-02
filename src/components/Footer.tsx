@@ -21,7 +21,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-            <img src="/logo.png" alt="CeloPulse" style={{ width: 36, height: 36, borderRadius: 8, objectFit: "contain" }} />
+            <img src="/logo.png" alt="CeloPulse" style={{ width: 108, height: 108, objectFit: "contain", margin: "-36px -36px -36px -10px", pointerEvents: "none" }} />
             <span
               style={{
                 fontSize: 18,
