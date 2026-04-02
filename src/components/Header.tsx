@@ -39,7 +39,7 @@ export default function Header() {
               width: 120,
               height: 120,
               objectFit: "contain",
-              margin: "-40px -40px -40px -10px",
+              margin: "-40px -20px -40px -30px",
               pointerEvents: "none",
             }}
           />
