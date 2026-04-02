@@ -30,6 +30,9 @@ export const metadata: Metadata = {
       "Earn rewards, climb leaderboards, and drive real onchain engagement on Celo.",
     type: "website",
   },
+  other: {
+    "talentapp:project_verification": "b8e55e668d06babf3822223ce13a1d961f92ad3a357d4717cb12128db7834a866063740f16a4cbd895edcadd38fe727aadd6fda39b8e869c90e8d1288cdad2aa",
+  },
 };
 
 export default function RootLayout({
