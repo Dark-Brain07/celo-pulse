@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="public/logo.png" alt="CeloPulse Logo" width="150"/>
+  <h1>CeloPulse — Frontend Dashboard</h1>
+  <p>The definitive Proof-of-Activity (PoA) dashboard for the Celo Ecosystem.</p>
 
-## Getting Started
+  [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-green.svg)](https://vercel.com/)
+  [![Network](https://img.shields.io/badge/Network-Celo_Mainnet-yellow.svg)](https://celoscan.io/)
+  [![Next.js](https://img.shields.io/badge/Next.js-15.1-blue.svg)](https://nextjs.org/)
+</div>
 
-First, run the development server:
+## 📌 Problem & Solution
+The **CeloPulse Dashboard** is a fast, responsive, and data-rich Web3 application built specifically for the Celo Ecosystem. It incentivizes and visualizes high-frequency onchain interactions.
+
+### The Mechanism
+1. **Connect Wallet:** Seamlessly integrate with any Celo-compatible wallet via Ethers/Wagmi.
+2. **Perform Micro-Actions:** Trigger gamified, low-stakes interactions (Daily Check-ins, Streaks, Gaming) that write to Celo Smart Contracts.
+3. **Earn Rewards:** Achieve high ranks on the global leaderboard, earn badges, and win automatic CELO airdrops through the Reward Pool.
+
+## 🛠️ Tech Stack
+- **Framework:** Next.js 15 (App Router Server Components)
+- **Styling:** Vanilla CSS Modules + Tailwind Utility Classes
+- **Web3 Integration:** `ethers.js` v6 + Custom Celo SDKs
+- **Analytics Visualization:** `recharts` / custom SVGs integrated with the active Blockscout API feed.
+
+## 🚀 Quick Start Local Development
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Copy the environment variables
+cp .env.example .env.local
+
+# 3. Add your Blockscout API key to .env.local
+
+# 4. Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Navigate to `http://localhost:3000` to view your dashboard.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔗 Deployed Contracts Map
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Contract Role | Responsibility |
+|--------------|----------------|
+| **ActivityManager** | Handles 24h cycle check-ins and calculates global streaks. |
+| **MicroActions** | Allows rapid 30s-cooldown gaming actions resulting in 1-tx each. |
+| **RewardDistributor**| Liquidity pool which dispenses rewards upon milestones. |
+| **ReferralSystem** | Manages the dual-reward invite tracking mechanism. |
+| **Leaderboard** | Calculates ranks based on composite onchain weighting. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Environmental Considerations
+Ensure `.env.local` is fully populated. It MUST include your Blockscout API credentials specifically configured for the `Celo Mainnet (42220)`. Wait for 3-5 seconds on first load for the real-time API charts to inject data.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 License
+This project is covered under the MIT open-source license.
