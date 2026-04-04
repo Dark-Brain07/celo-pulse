@@ -1,0 +1,260 @@
+﻿[36m[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:
+
+sourcify: {
+  enabled: true
+}
+
+Or set 'enabled' to false to hide this message.
+
+For more information, visit https://v2.hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify[39m
+npx : [33m[WARNING] 
+Network and 
+explorer-specific api 
+keys are deprecated in 
+favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+At line:1 char:1
++ npx hardhat verify 
+--network celo --force 0x
+52C26081bb28351Dae6A4D678
+ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  ([33m[WARNING] ...f   
+ ig value.[39m:Strin    
+g) [], RemoteExcepti    
+on
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
+[31mhardhat-verify 
+found one or more errors 
+during the verification 
+process:
+
+Etherscan:
+You are using a 
+deprecated V1 endpoint, 
+switch to Etherscan API 
+V2 using https://docs.eth
+erscan.io/v2-migration
+
+[39m
+[36m[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:
+
+sourcify: {
+  enabled: true
+}
+
+Or set 'enabled' to false to hide this message.
+
+For more information, visit https://v2.hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify[39m
+npx : [33m[WARNING] 
+Network and 
+explorer-specific api 
+keys are deprecated in 
+favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+At line:1 char:182
++ ... oding utf8; npx 
+hardhat verify --network 
+celo --force 
+0xC0d5E5a0644CF ...
++                 ~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  ([33m[WARNING] ...f   
+ ig value.[39m:Strin    
+g) [], RemoteExcepti    
+on
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
+[31mhardhat-verify 
+found one or more errors 
+during the verification 
+process:
+
+Etherscan:
+You are using a 
+deprecated V1 endpoint, 
+switch to Etherscan API 
+V2 using https://docs.eth
+erscan.io/v2-migration
+
+[39m
+[36m[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:
+
+sourcify: {
+  enabled: true
+}
+
+Or set 'enabled' to false to hide this message.
+
+For more information, visit https://v2.hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify[39m
+npx : [33m[WARNING] 
+Network and 
+explorer-specific api 
+keys are deprecated in 
+favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+At line:1 char:371
++ ... oding utf8; npx 
+hardhat verify --network 
+celo --force 
+0xDdD816E5e4692 ...
++                 ~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  ([33m[WARNING] ...f   
+ ig value.[39m:Strin    
+g) [], RemoteExcepti    
+on
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
+[31mhardhat-verify 
+found one or more errors 
+during the verification 
+process:
+
+Etherscan:
+You are using a 
+deprecated V1 endpoint, 
+switch to Etherscan API 
+V2 using https://docs.eth
+erscan.io/v2-migration
+
+[39m
+[36m[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:
+
+sourcify: {
+  enabled: true
+}
+
+Or set 'enabled' to false to hide this message.
+
+For more information, visit https://v2.hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify[39m
+npx : [33m[WARNING] 
+Network and 
+explorer-specific api 
+keys are deprecated in 
+favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+At line:1 char:560
++ ... oding utf8; npx 
+hardhat verify --network 
+celo --force 
+0xb2137812BC7b1 ...
++                 ~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  ([33m[WARNING] ...f   
+ ig value.[39m:Strin    
+g) [], RemoteExcepti    
+on
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
+[31mhardhat-verify 
+found one or more errors 
+during the verification 
+process:
+
+Etherscan:
+You are using a 
+deprecated V1 endpoint, 
+switch to Etherscan API 
+V2 using https://docs.eth
+erscan.io/v2-migration
+
+[39m
+[36m[INFO] Sourcify Verification Skipped: Sourcify verification is currently disabled. To enable it, add the following entry to your Hardhat configuration:
+
+sourcify: {
+  enabled: true
+}
+
+Or set 'enabled' to false to hide this message.
+
+For more information, visit https://v2.hardhat.org/hardhat-runner/plugins/nomicfoundation-hardhat-verify#verifying-on-sourcify[39m
+npx : [33m[WARNING] 
+Network and 
+explorer-specific api 
+keys are deprecated in 
+favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+At line:1 char:749
++ ... oding utf8; npx 
+hardhat verify --network 
+celo --force 
+0x7f4E1Cbe199B1 ...
++                 ~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  ([33m[WARNING] ...f   
+ ig value.[39m:Strin    
+g) [], RemoteExcepti    
+on
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
+[31mhardhat-verify 
+found one or more errors 
+during the verification 
+process:
+
+Etherscan:
+You are using a 
+deprecated V1 endpoint, 
+switch to Etherscan API 
+V2 using https://docs.eth
+erscan.io/v2-migration
+
+[39m
