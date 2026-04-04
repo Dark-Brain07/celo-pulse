@@ -172,6 +172,9 @@ export default function ActivityGuide() {
 
             <button
               onClick={() => setExpanded(!expanded)}
+              aria-expanded={expanded}
+              aria-controls="activity-suggestions-list"
+              aria-label={expanded ? "Hide Activity Guide" : "Show Activity Guide"}
               style={{
                 padding: "6px 12px",
                 borderRadius: 8,
@@ -189,7 +192,7 @@ export default function ActivityGuide() {
 
         {/* Suggestions list */}
         {expanded && (
-          <div style={{ borderTop: "1px solid rgba(99, 102, 241, 0.08)", padding: "16px 24px" }}>
+          <div id="activity-suggestions-list" style={{ borderTop: "1px solid rgba(99, 102, 241, 0.08)", padding: "16px 24px" }}>
             <p style={{ fontSize: 12, fontWeight: 600, color: "#64748b", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>
               Suggested Actions — earn up to {totalPossiblePoints} points
             </p>
