@@ -1,0 +1,20 @@
+{
+  "name": "celo-pulse",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CeloPulse — Proof-of-Activity dApp for the Celo ecosystem",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/frontend",
+    "build": "npm run build --workspace=apps/frontend",
+    "contracts:compile": "npm run compile --workspace=packages/contracts",
+    "contracts:test": "npm run test --workspace=packages/contracts",
+    "contracts:deploy": "npm run deploy --workspace=packages/contracts"
+  },
+  "keywords": ["celo", "web3", "dapp", "proof-of-activity", "talent-protocol"],
+  "author": "CeloPulse Team",
+  "license": "MIT"
+}

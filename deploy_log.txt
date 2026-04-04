@@ -1,0 +1,115 @@
+﻿≡ƒÜÇ Deploying CeloPulse contracts to celo ...
+
+≡ƒôì Deployer: 0x63c201bF0B21A8153FE12Db2eaD90837ff737FcC
+≡ƒÆ░ Balance: 0.397578137695425286 CELO
+
+1∩╕ÅΓâú  Deploying ActivityManager...
+   Γ£à ActivityManager: 0x52C26081bb28351Dae6A4D678B4b144bc5A0B956
+2∩╕ÅΓâú  Deploying RewardDistributor...
+   Γ£à RewardDistributor: 0xC0d5E5a0644CFFA5fE44fF1Cb542026e29E00c61
+3∩╕ÅΓâú  Deploying MicroActions...
+   Γ£à MicroActions: 0xDdD816E5e469279dcB385F039a470077b5F58930
+4∩╕ÅΓâú  Deploying Leaderboard...
+   Γ£à Leaderboard: 0xb2137812BC7b1439C238693df4e2F7AB07691014
+5∩╕ÅΓâú  Deploying ReferralSystem...
+   Γ£à ReferralSystem: 0x7f4E1Cbe199B1ed7C85c382632Ee3B6fa7412838
+
+============================================================
+≡ƒÄë ALL 5 CONTRACTS DEPLOYED SUCCESSFULLY!
+============================================================
+
+Add these to your .env:
+
+NEXT_PUBLIC_CONTRACT_ACTIVITY_MANAGER=0x52C26081bb28351Dae6A4D678B4b144bc5A0B956
+NEXT_PUBLIC_CONTRACT_REWARD_DISTRIBUTOR=0xC0d5E5a0644CFFA5fE44fF1Cb542026e29E00c61
+NEXT_PUBLIC_CONTRACT_MICRO_ACTIONS=0xDdD816E5e469279dcB385F039a470077b5F58930
+NEXT_PUBLIC_CONTRACT_LEADERBOARD=0xb2137812BC7b1439C238693df4e2F7AB07691014
+NEXT_PUBLIC_CONTRACT_REFERRAL_SYSTEM=0x7f4E1Cbe199B1ed7C85c382632Ee3B6fa7412838
+  
+
+≡ƒöì Verifying contracts on Blockscout...
+
+   Verifying ActivityManager...
+npx : [33m[WARNING] 
+Network and 
+explorer-specific api 
+keys are deprecated in 
+favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+At line:1 char:1
++ npx hardhat run 
+scripts/deploy.js 
+--network celo 2>&1 | 
+Out-File -Fil ...
++ ~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  ([33m[WARNING] ...f   
+ ig value.[39m:Strin    
+g) [], RemoteExcepti    
+on
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
+   ΓÜá∩╕Å ActivityManager verification failed: A network request failed. This is an error from the block explorer, not Hardhat. Error: Unexpected end of JSON input
+   Verifying RewardDistributor...
+[33m[WARNING] Network 
+and explorer-specific 
+api keys are deprecated 
+in favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+   ΓÜá∩╕Å RewardDistributor verification failed: A network request failed. This is an error from the block explorer, not Hardhat. Error: Unexpected end of JSON input
+   Verifying MicroActions...
+[33m[WARNING] Network 
+and explorer-specific 
+api keys are deprecated 
+in favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+   ΓÜá∩╕Å MicroActions verification failed: A network request failed. This is an error from the block explorer, not Hardhat. Error: Unexpected end of JSON input
+   Verifying Leaderboard...
+[33m[WARNING] Network 
+and explorer-specific 
+api keys are deprecated 
+in favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+   ΓÜá∩╕Å Leaderboard verification failed: A network request failed. This is an error from the block explorer, not Hardhat. Error: Unexpected end of JSON input
+   Verifying ReferralSystem...
+[33m[WARNING] Network 
+and explorer-specific 
+api keys are deprecated 
+in favour of the new 
+Etherscan v2 api. 
+Support for v1 is 
+expected to end by May 
+31st, 2025. To migrate, 
+please specify a single 
+Etherscan.io api key the 
+apiKey config value.[39m
+   ΓÜá∩╕Å ReferralSystem verification failed: A network request failed. This is an error from the block explorer, not Hardhat. Error: Unexpected end of JSON input
