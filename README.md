@@ -53,3 +53,4 @@ Ensure `.env.local` is fully populated. It MUST include your Blockscout API cred
 
 ## 📜 License
 This project is covered under the MIT open-source license.
+
