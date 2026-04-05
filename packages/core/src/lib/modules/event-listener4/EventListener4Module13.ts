@@ -1,0 +1,17 @@
+import { IEventListener4Module13 } from "../../../types/modules/event-listener4/IEventListener4Module13";
+
+export class EventListener4Module13 implements IEventListener4Module13 {
+  public id = Math.random().toString(36).substring(2, 9);
+  public isActive = false;
+  public createdAt = Date.now();
+  public metadata: Record<string, any> = {};
+  
+  public init() {
+    this.isActive = true;
+    this.metadata['initializedAt'] = Date.now();
+  }
+  
+  public destroy() {
+    this.isActive = false;
+  }
+}
