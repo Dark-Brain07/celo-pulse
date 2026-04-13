@@ -26,16 +26,16 @@ const br = n => {
 
 const mg = n => { 
   try { 
-    execSync('git checkout master', { cwd: R, stdio: 'pipe' }); 
+    execSync('git checkout main', { cwd: R, stdio: 'pipe' }); 
     execSync('git merge ' + n + ' --no-edit', { cwd: R, stdio: 'pipe' }); 
     execSync('git branch -d ' + n, { cwd: R, stdio: 'pipe' }); 
   } catch { 
-    try { execSync('git checkout master', { cwd: R, stdio: 'pipe' }); } catch {}
+    try { execSync('git checkout main', { cwd: R, stdio: 'pipe' }); } catch {}
   } 
 };
 
 let num = 0;
-try { execSync('git checkout master', { cwd: R, stdio: 'pipe' }); } catch {}
+try { execSync('git checkout main', { cwd: R, stdio: 'pipe' }); } catch {}
 
 const features = [
   'Analytics2','API-Client2','Data-Parsers2','GraphQL-Client2',
