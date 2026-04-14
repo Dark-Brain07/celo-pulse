@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 import { useWallet } from "@/context/WalletContext";
 import { CONTRACTS } from "@/lib/contracts";
+import { isMiniPayWallet, MINIPAY_FEE_CURRENCY_USDM } from "@/lib/miniPay";
 
 interface ActionState {
   loading: string | null;
@@ -12,6 +13,18 @@ interface ActionState {
   streak: number;
   tipAmount: string;
   tipAddress: string;
+}
+
+/**
+ * Returns transaction overrides for MiniPay fee currency support.
+ * When inside MiniPay, gas fees are paid in USDm instead of CELO.
+ */
+function getMiniPayOverrides(): Record<string, any> {
+  if (!isMiniPayWallet()) return {};
+  return {
+    // MiniPay reads feeCurrency from the transaction and pays gas in USDm
+    customData: { feeCurrency: MINIPAY_FEE_CURRENCY_USDM },
+  };
 }
 
 export default function UserActions() {
@@ -76,7 +89,7 @@ export default function UserActions() {
         CONTRACTS.ACTIVITY_MANAGER.abi,
         signer
       );
-      const tx = await contract.dailyCheckIn();
+      const tx = await contract.dailyCheckIn(getMiniPayOverrides());
       showToast("⏳ Check-in transaction sent...", "info");
       await tx.wait();
       showToast("✅ Daily check-in successful! Streak updated.", "success");
@@ -97,7 +110,7 @@ export default function UserActions() {
         CONTRACTS.REWARD_DISTRIBUTOR.abi,
         signer
       );
-      const tx = await contract.claimReward();
+      const tx = await contract.claimReward(getMiniPayOverrides());
       showToast("⏳ Claiming reward...", "info");
       await tx.wait();
       showToast("🎉 Reward claimed successfully!", "success");
@@ -117,7 +130,7 @@ export default function UserActions() {
         CONTRACTS.MICRO_ACTIONS.abi,
         signer
       );
-      const tx = await contract.playAction();
+      const tx = await contract.playAction(getMiniPayOverrides());
       showToast("⏳ Playing action...", "info");
       await tx.wait();
       showToast("🎮 Action completed! +5 points", "success");
@@ -140,6 +153,7 @@ export default function UserActions() {
       );
       const tx = await contract.sendTip(state.tipAddress, {
         value: ethers.parseEther(state.tipAmount),
+        ...getMiniPayOverrides(),
       });
       showToast("⏳ Sending tip...", "info");
       await tx.wait();
@@ -160,7 +174,7 @@ export default function UserActions() {
         CONTRACTS.MICRO_ACTIONS.abi,
         signer
       );
-      const tx = await contract.quickReact(reactionType);
+      const tx = await contract.quickReact(reactionType, getMiniPayOverrides());
       await tx.wait();
       showToast("⚡ Reaction recorded!", "success");
       refreshState();

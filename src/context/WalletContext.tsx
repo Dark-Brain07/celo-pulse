@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from "react";
 import { ethers } from "ethers";
 import { CELO_CHAIN } from "@/lib/contracts";
+import { isMiniPayWallet } from "@/lib/miniPay";
 
 interface WalletContextType {
   address: string | null;
@@ -12,6 +13,7 @@ interface WalletContextType {
   isConnected: boolean;
   chainId: number | null;
   balance: string;
+  isMiniPay: boolean;
   connect: () => Promise<void>;
   disconnect: () => void;
 }
@@ -24,6 +26,7 @@ const WalletContext = createContext<WalletContextType>({
   isConnected: false,
   chainId: null,
   balance: "0",
+  isMiniPay: false,
   connect: async () => {},
   disconnect: () => {},
 });
@@ -35,6 +38,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [isConnecting, setIsConnecting] = useState(false);
   const [chainId, setChainId] = useState<number | null>(null);
   const [balance, setBalance] = useState("0");
+  const [isMiniPay, setIsMiniPay] = useState(false);
 
   const switchToCelo = async (browserProvider: ethers.BrowserProvider) => {
     try {
@@ -68,7 +72,11 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     try {
       const browserProvider = new ethers.BrowserProvider((window as any).ethereum);
       await browserProvider.send("eth_requestAccounts", []);
-      await switchToCelo(browserProvider);
+
+      // MiniPay is already on Celo — skip chain switching to avoid errors in WebView
+      if (!isMiniPayWallet()) {
+        await switchToCelo(browserProvider);
+      }
 
       const network = await browserProvider.getNetwork();
       const walletSigner = await browserProvider.getSigner();
@@ -94,6 +102,19 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setChainId(null);
     setBalance("0");
   }, []);
+
+  // Auto-connect if inside MiniPay
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const miniPay = isMiniPayWallet();
+    setIsMiniPay(miniPay);
+
+    if (miniPay) {
+      // MiniPay injects window.ethereum automatically — auto-connect
+      connect();
+    }
+  }, [connect]);
 
   useEffect(() => {
     if (typeof window === "undefined" || !(window as any).ethereum) return;
@@ -126,6 +147,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         isConnected: !!address,
         chainId,
         balance,
+        isMiniPay,
         connect,
         disconnect,
       }}

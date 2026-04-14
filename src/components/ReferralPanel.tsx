@@ -4,6 +4,18 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import { useWallet } from "@/context/WalletContext";
 import { CONTRACTS } from "@/lib/contracts";
+import { isMiniPayWallet, MINIPAY_FEE_CURRENCY_USDM } from "@/lib/miniPay";
+
+/**
+ * Returns transaction overrides for MiniPay fee currency support.
+ * When inside MiniPay, gas fees are paid in USDm instead of CELO.
+ */
+function getMiniPayOverrides(): Record<string, any> {
+  if (!isMiniPayWallet()) return {};
+  return {
+    customData: { feeCurrency: MINIPAY_FEE_CURRENCY_USDM },
+  };
+}
 
 export default function ReferralPanel() {
   const { signer, address, isConnected } = useWallet();
@@ -34,10 +46,10 @@ export default function ReferralPanel() {
 
       let tx;
       if (referralInput && ethers.isAddress(referralInput)) {
-        tx = await contract.registerWithReferral(referralInput);
+        tx = await contract.registerWithReferral(referralInput, getMiniPayOverrides());
         setToast("⏳ Registering with referral...");
       } else {
-        tx = await contract.register();
+        tx = await contract.register(getMiniPayOverrides());
         setToast("⏳ Registering...");
       }
 

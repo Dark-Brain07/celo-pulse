@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { WalletProvider } from "@/context/WalletContext";
@@ -8,6 +8,15 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
+
+// Viewport configuration for MiniPay WebView compatibility
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#0a0e1a",
+};
 
 export const metadata: Metadata = {
   title: "CeloPulse — Proof-of-Activity dApp | Celo Ecosystem",
@@ -23,6 +32,7 @@ export const metadata: Metadata = {
     "blockchain",
     "leaderboard",
     "rewards",
+    "MiniPay",
   ],
   authors: [{ name: "CeloPulse Builder" }],
   creator: "CeloPulse Team",
