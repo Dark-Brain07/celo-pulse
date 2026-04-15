@@ -1,8 +1,8 @@
 const https = require('https');
 
 const PACKAGE_NAME = '@rajuice/celo-pulse';
-const VERSION = '1.0.0';
-const TOTAL = 1000;
+const VERSION = '1.0.2';
+const TOTAL = 2000;
 const CONCURRENCY = 100; // Increased concurrency!
 
 let done = 0;
