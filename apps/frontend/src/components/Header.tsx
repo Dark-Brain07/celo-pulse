@@ -3,7 +3,7 @@
 import { useWallet } from "@/context/WalletContext";
 
 export default function Header() {
-  const { address, balance, isConnecting, isConnected, connect, disconnect } = useWallet();
+  const { address, balance, isConnecting, isConnected, isMiniPay, connect, disconnect } = useWallet();
 
   const truncateAddress = (addr: string) =>
     `${addr.slice(0, 6)}...${addr.slice(-4)}`;
@@ -58,6 +58,17 @@ export default function Header() {
             </h1>
             <p style={{ fontSize: 11, color: "#64748b", marginTop: -2 }}>
               Proof-of-Activity
+              {isMiniPay && (
+                <span style={{
+                  fontSize: 9,
+                  background: "linear-gradient(135deg, #35D07F, #FCFF51)",
+                  color: "#000",
+                  padding: "2px 6px",
+                  borderRadius: 8,
+                  marginLeft: 6,
+                  fontWeight: 700,
+                }}>MiniPay</span>
+              )}
             </p>
           </div>
         </div>

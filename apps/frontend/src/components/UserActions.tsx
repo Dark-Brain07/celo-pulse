@@ -15,7 +15,15 @@ interface ActionState {
 }
 
 export default function UserActions() {
-  const { signer, address, isConnected } = useWallet();
+  const { signer, address, isConnected, isMiniPay, feeCurrency } = useWallet();
+
+  // Build transaction overrides for MiniPay fee abstraction
+  const getTxOverrides = () => {
+    if (isMiniPay && feeCurrency) {
+      return { feeCurrency } as any;
+    }
+    return {};
+  };
   const [state, setState] = useState<ActionState>({
     loading: null,
     canCheckIn: true,
@@ -76,7 +84,7 @@ export default function UserActions() {
         CONTRACTS.ACTIVITY_MANAGER.abi,
         signer
       );
-      const tx = await contract.dailyCheckIn();
+      const tx = await contract.dailyCheckIn(getTxOverrides());
       showToast("⏳ Check-in transaction sent...", "info");
       await tx.wait();
       showToast("✅ Daily check-in successful! Streak updated.", "success");
@@ -97,7 +105,7 @@ export default function UserActions() {
         CONTRACTS.REWARD_DISTRIBUTOR.abi,
         signer
       );
-      const tx = await contract.claimReward();
+      const tx = await contract.claimReward(getTxOverrides());
       showToast("⏳ Claiming reward...", "info");
       await tx.wait();
       showToast("🎉 Reward claimed successfully!", "success");
@@ -117,7 +125,7 @@ export default function UserActions() {
         CONTRACTS.MICRO_ACTIONS.abi,
         signer
       );
-      const tx = await contract.playAction();
+      const tx = await contract.playAction(getTxOverrides());
       showToast("⏳ Playing action...", "info");
       await tx.wait();
       showToast("🎮 Action completed! +5 points", "success");
@@ -140,7 +148,8 @@ export default function UserActions() {
       );
       const tx = await contract.sendTip(state.tipAddress, {
         value: ethers.parseEther(state.tipAmount),
-      });
+        ...(isMiniPay && feeCurrency ? { feeCurrency } : {}),
+      } as any);
       showToast("⏳ Sending tip...", "info");
       await tx.wait();
       showToast("💸 Tip sent successfully!", "success");
@@ -160,7 +169,7 @@ export default function UserActions() {
         CONTRACTS.MICRO_ACTIONS.abi,
         signer
       );
-      const tx = await contract.quickReact(reactionType);
+      const tx = await contract.quickReact(reactionType, getTxOverrides());
       await tx.wait();
       showToast("⚡ Reaction recorded!", "success");
       refreshState();
@@ -204,9 +213,25 @@ export default function UserActions() {
   return (
     <section id="actions" style={{ marginBottom: 32 }}>
       <div style={{ marginBottom: 24 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9" }}>User Actions</h2>
+        <h2 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9" }}>
+          User Actions
+          {isMiniPay && (
+            <span style={{
+              fontSize: 11,
+              background: "linear-gradient(135deg, #35D07F, #FCFF51)",
+              color: "#000",
+              padding: "3px 10px",
+              borderRadius: 20,
+              marginLeft: 10,
+              fontWeight: 600,
+              verticalAlign: "middle",
+            }}>📱 MiniPay</span>
+          )}
+        </h2>
         <p style={{ fontSize: 14, color: "#64748b", marginTop: 4 }}>
-          Perform actions to earn points and climb the leaderboard
+          {isMiniPay
+            ? "MiniPay detected — gas fees paid in cUSD automatically"
+            : "Perform actions to earn points and climb the leaderboard"}
         </p>
       </div>
 
