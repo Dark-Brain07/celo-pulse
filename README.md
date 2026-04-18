@@ -130,7 +130,7 @@ celo-pulse/
 
 ---
 
-## 🧪 Environmental Considerations
+## 🧪 Environmental Considerations 
 Ensure `.env.local` is fully populated. It MUST include your Blockscout API credentials specifically configured for the `Celo Mainnet (42220)`. Wait for 3-5 seconds on first load for the real-time API charts to inject data.
 
 ---
