@@ -49,3 +49,21 @@ next-env.d.ts
 # package locks inside nested packages (keep root only)
 apps/**/package-lock.json
 packages/**/package-lock.json
+
+# script generated files and artifacts
+generate_*.js
+npm_boost_pulse.js
+_npm_dl_*/
+_npm_tmp*/
+
+# test integration artifacts (auto-generated)
+**/test_integration_sync/
+**/test/
+
+# build and activity logs
+.build-log
+.activity_log
+test_commit_ignore.txt
+deploy_log.txt
+verify_log.txt
+

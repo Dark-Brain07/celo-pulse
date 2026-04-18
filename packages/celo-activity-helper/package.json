@@ -1,0 +1,20 @@
+{
+  "name": "@rajuice/celo-activity-helper",
+  "version": "1.0.0",
+  "description": "Activity helper SDK for CeloPulse — check-in, tip, play, leaderboard on Celo",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["celo", "activity", "sdk", "web3", "leaderboard"],
+  "author": "CeloPulse Team",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.9.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

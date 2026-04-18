@@ -1,12 +1,16 @@
 {
   "name": "@rajuice/celo-pulse",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "dependencies": {
     "next": "15.1.11",
     "react": "^18.2.0",
