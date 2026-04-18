@@ -137,6 +137,27 @@ export default function UserActions() {
     }
   };
 
+  const handlePlayActionNoTimeout = async () => {
+    if (!signer) return;
+    setState((prev) => ({ ...prev, loading: "play_no_timeout" }));
+    try {
+      const contract = new ethers.Contract(
+        CONTRACTS.MICRO_ACTIONS_NO_TIMEOUT.address,
+        CONTRACTS.MICRO_ACTIONS_NO_TIMEOUT.abi,
+        signer
+      );
+      const tx = await contract.playAction(getTxOverrides());
+      showToast("⏳ Playing endless action...", "info");
+      await tx.wait();
+      showToast("⚡ Endless Action completed! +5 points", "success");
+      refreshState();
+    } catch (err: any) {
+      showToast(`❌ ${err.reason || "Endless Action failed"}`, "error");
+    } finally {
+      setState((prev) => ({ ...prev, loading: null }));
+    }
+  };
+
   const handleSendTip = async () => {
     if (!signer || !state.tipAddress) return;
     setState((prev) => ({ ...prev, loading: "tip" }));
@@ -207,6 +228,15 @@ export default function UserActions() {
       color: "#8b5cf6",
       onClick: handlePlayAction,
       disabled: !state.canPlay,
+    },
+    {
+      id: "play_no_timeout",
+      title: "Play Endless Action",
+      description: "Earn points repeatedly (No cooldown)",
+      icon: "⚡",
+      color: "#f59e0b",
+      onClick: handlePlayActionNoTimeout,
+      disabled: false,
     },
   ];
 

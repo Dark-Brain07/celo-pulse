@@ -40,6 +40,19 @@ export const CONTRACTS = {
       "event ActionPerformed(address indexed user, string actionType, uint256 timestamp)",
     ],
   },
+  MICRO_ACTIONS_NO_TIMEOUT: {
+    address: "0x9fe7f2Ef67b2F1eB0BD599588E93bB81A7e88556",
+    abi: [
+      "function sendTip(address recipient) external payable",
+      "function playAction() external",
+      "function quickReact(uint8 reactionType) external",
+      "function getUserStats(address user) view returns (uint256 tipsSent, uint256 tipsReceived, uint256 tipAmount, uint256 actionsPlayed, uint256 lastAction)",
+      "function canPlayAction(address user) view returns (bool)",
+      "function getGlobalStats() view returns (uint256 tips, uint256 volume, uint256 actions)",
+      "event TipSent(address indexed from, address indexed to, uint256 amount, uint256 timestamp)",
+      "event ActionPerformed(address indexed user, string actionType, uint256 timestamp)",
+    ],
+  },
   LEADERBOARD: {
     address: process.env.NEXT_PUBLIC_CONTRACT_LEADERBOARD || "0x0000000000000000000000000000000000000000",
     abi: [
