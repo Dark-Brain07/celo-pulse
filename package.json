@@ -1,6 +1,6 @@
 {
   "name": "@rajuice/celo-pulse",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
