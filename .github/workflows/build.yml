@@ -1,0 +1,35 @@
+name: Frontend Build & Lint
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build Next.js Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+        env:
+          NEXT_PUBLIC_CHAIN_ID: '42220'
+          NEXT_PUBLIC_RPC_URL: 'https://forno.celo.org'
+          NEXT_PUBLIC_CONTRACT_ACTIVITY_MANAGER: '0x52C26081bb28351Dae6A4D678B4b144bc5A0B956'
+          NEXT_PUBLIC_CONTRACT_REWARD_DISTRIBUTOR: '0xC0d5E5a0644CFFA5fE44fF1Cb542026e29E00c61'
+          NEXT_PUBLIC_CONTRACT_MICRO_ACTIONS: '0xDdD816E5e469279dcB385F039a470077b5F58930'
+          NEXT_PUBLIC_CONTRACT_LEADERBOARD: '0xb2137812BC7b1439C238693df4e2F7AB07691014'
+          NEXT_PUBLIC_CONTRACT_REFERRAL_SYSTEM: '0x7f4E1Cbe199B1ed7C85c382632Ee3B6fa7412838'

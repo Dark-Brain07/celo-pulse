@@ -1,0 +1,8 @@
+import { IAPIGatewayService4 } from "../types/IAPIGatewayService4";
+
+export class APIGatewayService4 implements IAPIGatewayService4 {
+  public id = Math.random().toString(36);
+  public status = 'active';
+  public timestamp = Date.now();
+}
+// Ts: 1776040331766_0.3878901038734641
