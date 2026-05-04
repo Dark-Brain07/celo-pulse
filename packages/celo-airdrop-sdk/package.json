@@ -1,0 +1,20 @@
+{
+  "name": "celo-airdrop-sdk",
+  "version": "1.0.0",
+  "description": "SDK for CeloPulse reward claiming and eligibility checking on Celo",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["celo", "airdrop", "sdk", "web3"],
+  "author": "CeloPulse Team",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.9.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

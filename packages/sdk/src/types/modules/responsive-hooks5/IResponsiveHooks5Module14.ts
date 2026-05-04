@@ -1,0 +1,6 @@
+export interface IResponsiveHooks5Module14 {
+  id: string;
+  isActive: boolean;
+  metadata: Record<string, any>;
+  createdAt: number;
+}
