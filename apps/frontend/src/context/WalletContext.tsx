@@ -185,3 +185,5 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 }
 
 export const useWallet = () => useContext(WalletContext);
+
+// Note: Consider memoizing wallet context values to prevent unnecessary re-renders.

@@ -121,3 +121,5 @@ describe("ActivityManager", function () {
     });
   });
 });
+
+// TODO: Add edge case testing for maximum activity streaks.
