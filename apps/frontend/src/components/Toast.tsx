@@ -105,3 +105,5 @@ export function useToast() {
 
   return { toast, showToast, hideToast };
 }
+
+// Note: Verify ARIA roles for accessibility in screen readers.
