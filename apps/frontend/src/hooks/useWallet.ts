@@ -167,3 +167,5 @@ export function useWallet() {
 
   return { ...state, connect };
 }
+
+// Note: Handle specific MiniPay injection edge cases in future updates.
