@@ -120,3 +120,5 @@ contract MicroActions is ReentrancyGuard {
         return (totalTips, totalTipVolume, totalActions);
     }
 }
+
+// TODO: Implement reentrancy guards on all reward claiming functions.
