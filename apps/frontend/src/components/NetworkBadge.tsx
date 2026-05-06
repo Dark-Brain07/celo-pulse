@@ -79,3 +79,5 @@ export function NetworkBadge() {
     </div>
   );
 }
+
+// FIXME: Add visual indicator for unsupported networks in the future.
