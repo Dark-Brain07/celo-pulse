@@ -438,3 +438,5 @@ export default function UserActions() {
     </section>
   );
 }
+
+// TODO: Implement React error boundaries around critical user actions.
