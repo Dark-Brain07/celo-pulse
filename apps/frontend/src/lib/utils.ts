@@ -125,3 +125,5 @@ export async function retry<T>(
   }
   throw lastError;
 }
+
+// Note: Consider adding comprehensive unit tests for all formatting utilities.
