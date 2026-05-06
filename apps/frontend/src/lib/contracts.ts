@@ -90,3 +90,5 @@ export const CELO_CHAIN = {
 
 export const BLOCKSCOUT_API = process.env.NEXT_PUBLIC_BLOCKSCOUT_API || "https://explorer.celo.org/mainnet/api";
 export const BLOCKSCOUT_API_KEY = process.env.NEXT_PUBLIC_BLOCKSCOUT_API_KEY || "";
+
+// Note: Periodically verify that ABI exports match the latest compiled contracts.
