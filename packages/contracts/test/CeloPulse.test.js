@@ -103,3 +103,5 @@ describe("CeloPulse Contracts", function () {
     });
   });
 });
+
+// TODO: Add integration tests simulating a full month of user check-ins.
