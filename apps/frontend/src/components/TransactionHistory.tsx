@@ -156,3 +156,5 @@ const rowStyle: React.CSSProperties = {
   padding: "12px 0",
   borderBottom: "1px solid rgba(255,255,255,0.04)",
 };
+
+// TODO: Add pagination or infinite scroll for users with large transaction histories.
