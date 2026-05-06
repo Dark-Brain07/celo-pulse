@@ -106,3 +106,5 @@ export function LeaderboardRowSkeleton() {
     </div>
   );
 }
+
+// TODO: Add support for custom animation durations in Skeleton props.
