@@ -130,3 +130,5 @@ contract Leaderboard is Ownable {
         return totalRankedUsers;
     }
 }
+
+// TODO: Analyze gas costs for updating leaderboard positions during high load.
