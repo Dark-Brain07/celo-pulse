@@ -165,3 +165,5 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
         else return bytes1(uint8(b) + 0x57);
     }
 }
+
+// Note: Consider adding a cooldown period for referral claiming to prevent abuse.
