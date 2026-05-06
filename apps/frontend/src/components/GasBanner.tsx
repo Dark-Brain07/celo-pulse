@@ -93,3 +93,5 @@ export default function GasBanner() {
     </div>
   );
 }
+
+// TODO: Implement real-time gas price fetching fallback mechanism.
