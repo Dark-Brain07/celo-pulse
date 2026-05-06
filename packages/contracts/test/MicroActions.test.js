@@ -135,3 +135,5 @@ async function getTimestamp() {
   const block = await ethers.provider.getBlock("latest");
   return BigInt(block.timestamp);
 }
+
+// Note: Ensure all micro-actions properly emit events for the indexer.
