@@ -195,3 +195,5 @@ NEXT_PUBLIC_RPC_URL=https://alfajores-forno.celo-testnet.org
 - [Celo Sepolia Faucet](https://faucet.celo.org/celo-sepolia)
 - [CeloScan Explorer](https://celoscan.io)
 - [ngrok Download](https://ngrok.com/download)
+
+<!-- Ensure MiniPay test wallets have sufficient testnet CELO before starting. -->
