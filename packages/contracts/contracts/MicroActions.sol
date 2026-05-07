@@ -56,7 +56,7 @@ contract MicroActions is ReentrancyGuard {
      * @notice Play a micro-action — lightweight tx for activity generation
      * @dev 30-second cooldown enables multiple plays per session (target: 5-10 per session)
      */
-    function playAction() external {
+    function playAction() external nonReentrant {
         require(
             block.timestamp >= userStats[msg.sender].lastActionTime + ACTION_COOLDOWN,
             "CeloPulse: Action cooldown active"
@@ -81,7 +81,7 @@ contract MicroActions is ReentrancyGuard {
     /**
      * @notice Quick react action — even lighter, generates activity
      */
-    function quickReact(uint8 reactionType) external {
+    function quickReact(uint8 reactionType) external nonReentrant {
         require(reactionType > 0 && reactionType <= 5, "CeloPulse: Invalid reaction");
         require(
             block.timestamp >= userStats[msg.sender].lastActionTime + ACTION_COOLDOWN,
@@ -121,4 +121,3 @@ contract MicroActions is ReentrancyGuard {
     }
 }
 
-// TODO: Implement reentrancy guards on all reward claiming functions.
