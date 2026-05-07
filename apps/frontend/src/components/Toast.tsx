@@ -9,7 +9,10 @@ interface ToastProps {
   onClose: () => void;
 }
 
-const TOAST_COLORS = {
+/**
+ * Color configuration and iconography for different toast notification types.
+ */
+const TOAST_COLORS: Record<NonNullable<ToastProps["type"]>, { bg: string; border: string; icon: string }> = {
   success: { bg: "rgba(53,208,127,0.15)", border: "rgba(53,208,127,0.3)", icon: "✅" },
   error: { bg: "rgba(255,60,60,0.15)", border: "rgba(255,60,60,0.3)", icon: "❌" },
   info: { bg: "rgba(99,179,237,0.15)", border: "rgba(99,179,237,0.3)", icon: "ℹ️" },
@@ -106,4 +109,3 @@ export function useToast() {
   return { toast, showToast, hideToast };
 }
 
-// Note: Verify ARIA roles for accessibility in screen readers.
