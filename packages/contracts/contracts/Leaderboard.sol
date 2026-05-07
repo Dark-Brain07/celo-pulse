@@ -42,7 +42,7 @@ contract Leaderboard is Ownable {
      * @param points Points to add
      * @param reason Reason string for the event
      */
-    function addPoints(address user, uint256 points, string calldata reason) external {
+    function addPoints(address user, uint256 points, string calldata reason) external onlyOwner {
         if (!userScores[user].isActive) {
             userScores[user].isActive = true;
             userIndex[user] = rankedUsers.length;
@@ -131,4 +131,3 @@ contract Leaderboard is Ownable {
     }
 }
 
-// TODO: Analyze gas costs for updating leaderboard positions during high load.
