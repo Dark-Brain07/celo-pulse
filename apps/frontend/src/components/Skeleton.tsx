@@ -7,6 +7,7 @@ interface SkeletonProps {
   height?: string | number;
   borderRadius?: string | number;
   style?: React.CSSProperties;
+  animationDuration?: string;
 }
 
 /**
@@ -17,6 +18,7 @@ export function Skeleton({
   width = "100%",
   height = 20,
   borderRadius = 8,
+  animationDuration = "1.5s",
   style,
 }: SkeletonProps) {
   return (
@@ -28,7 +30,7 @@ export function Skeleton({
         background:
           "linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%)",
         backgroundSize: "200% 100%",
-        animation: "skeletonShimmer 1.5s ease-in-out infinite",
+        animation: `skeletonShimmer ${animationDuration} ease-in-out infinite`,
         ...style,
       }}
     />
@@ -107,4 +109,3 @@ export function LeaderboardRowSkeleton() {
   );
 }
 
-// TODO: Add support for custom animation durations in Skeleton props.
