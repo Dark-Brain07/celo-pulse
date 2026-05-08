@@ -1,54 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { ethers } from "ethers";
-import { useWallet } from "@/context/WalletContext";
-import { CONTRACTS } from "@/lib/contracts";
+import { useState, useMemo } from "react";
+import { useReferral } from "@/hooks/useReferral";
 
 export default function ReferralPanel() {
-  const { signer, address, isConnected } = useWallet();
-  const [referralInput, setReferralInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
+  const {
+    address,
+    isConnected,
+    referralInput,
+    setReferralInput,
+    loading,
+    toast,
+    handleRegister
+  } = useReferral();
   const [copied, setCopied] = useState(false);
 
-  const referralLink = address
-    ? `${typeof window !== "undefined" ? window.location.origin : ""}?ref=${address}`
-    : "";
+  const referralLink = useMemo(() => {
+    return address
+      ? `${typeof window !== "undefined" ? window.location.origin : ""}?ref=${address}`
+      : "";
+  }, [address]);
 
   const copyLink = () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleRegister = async () => {
-    if (!signer) return;
-    setLoading(true);
-    try {
-      const contract = new ethers.Contract(
-        CONTRACTS.REFERRAL_SYSTEM.address,
-        CONTRACTS.REFERRAL_SYSTEM.abi,
-        signer
-      );
-
-      let tx;
-      if (referralInput && ethers.isAddress(referralInput)) {
-        tx = await contract.registerWithReferral(referralInput);
-        setToast("⏳ Registering with referral...");
-      } else {
-        tx = await contract.register();
-        setToast("⏳ Registering...");
-      }
-
-      await tx.wait();
-      setToast("✅ Registered successfully! Start earning points.");
-    } catch (err: any) {
-      setToast(`❌ ${err.reason || "Registration failed"}`);
-    } finally {
-      setLoading(false);
-      setTimeout(() => setToast(null), 4000);
-    }
   };
 
   if (!isConnected) return null;
@@ -126,7 +102,7 @@ export default function ReferralPanel() {
           {/* Share buttons */}
           <div style={{ marginTop: 16, display: "flex", gap: 10 }}>
             <a
-              href={`https://twitter.com/intent/tweet?text=I'm%20earning%20rewards%20on%20CeloPulse!%20Join%20me%20and%20get%20bonus%20CELO%20👉&url=${encodeURIComponent(referralLink)}`}
+              href={`https://twitter.com/intent/tweet?text=I'm%20earning%20rewards%20on%20CeloNova!%20Join%20me%20and%20get%20bonus%20CELO%20👉&url=${encodeURIComponent(referralLink)}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -146,7 +122,7 @@ export default function ReferralPanel() {
               🐦 Tweet
             </a>
             <a
-              href={`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=Join%20CeloPulse%20and%20earn%20rewards!`}
+              href={`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=Join%20CeloNova%20and%20earn%20rewards!`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
