@@ -21,9 +21,11 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
     mapping(address => ReferralInfo) public referrals;
     mapping(address => address[]) public referredUsers;
     mapping(address => bool) public isRegistered;
+    mapping(address => uint256) public lastReferralTime;
 
     uint256 public totalReferrals;
     uint256 public totalRegistered;
+    uint256 public constant REFERRAL_COOLDOWN = 1 minutes;
     uint256 public referrerReward;
     uint256 public refereeReward;
     uint256 public rewardPool;
@@ -59,6 +61,7 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
         require(!isRegistered[msg.sender], "CeloPulse: Already registered");
         require(referrer != msg.sender, "CeloPulse: Cannot refer yourself");
         require(referrer != address(0), "CeloPulse: Invalid referrer");
+        require(block.timestamp >= lastReferralTime[referrer] + REFERRAL_COOLDOWN, "CeloPulse: Referrer cooldown active");
 
         isRegistered[msg.sender] = true;
         totalRegistered++;
@@ -76,6 +79,7 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
             referrals[referrer].referralCount++;
             referredUsers[referrer].push(msg.sender);
             totalReferrals++;
+            lastReferralTime[referrer] = block.timestamp;
 
             // Pay rewards if pool has funds
             if (rewardPool >= referrerReward + refereeReward) {
@@ -165,3 +169,4 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
         else return bytes1(uint8(b) + 0x57);
     }
 }
+

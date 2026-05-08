@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, useMemo, ReactNode } from "react";
 import { ethers } from "ethers";
 import { CELO_CHAIN } from "@/lib/contracts";
 
@@ -163,22 +163,25 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     };
   }, [connect, disconnect]);
 
+  const contextValue = useMemo(
+    () => ({
+      address,
+      signer,
+      provider,
+      isConnecting,
+      isConnected: !!address,
+      isMiniPay,
+      chainId,
+      balance,
+      feeCurrency,
+      connect,
+      disconnect,
+    }),
+    [address, signer, provider, isConnecting, isMiniPay, chainId, balance, feeCurrency, connect, disconnect]
+  );
+
   return (
-    <WalletContext.Provider
-      value={{
-        address,
-        signer,
-        provider,
-        isConnecting,
-        isConnected: !!address,
-        isMiniPay,
-        chainId,
-        balance,
-        feeCurrency,
-        connect,
-        disconnect,
-      }}
-    >
+    <WalletContext.Provider value={contextValue}>
       {children}
     </WalletContext.Provider>
   );

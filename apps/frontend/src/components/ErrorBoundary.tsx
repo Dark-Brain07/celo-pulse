@@ -30,7 +30,7 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("[CeloPulse ErrorBoundary]", error, errorInfo);
+    console.error("[CeloNova ErrorBoundary]", error, errorInfo);
   }
 
   render() {
@@ -39,41 +39,50 @@ export class ErrorBoundary extends React.Component<
         this.props.fallback || (
           <div
             style={{
-              background: "rgba(255,60,60,0.08)",
+              background: "rgba(255,60,60,0.05)",
               border: "1px solid rgba(255,60,60,0.2)",
               borderRadius: 16,
-              padding: "24px 32px",
+              padding: "32px",
               textAlign: "center",
               color: "#ff6b6b",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: 200,
             }}
           >
-            <div style={{ fontSize: "2rem", marginBottom: 8 }}>⚠️</div>
-            <h3 style={{ margin: "0 0 8px", fontWeight: 700 }}>
-              Something went wrong
+            <div style={{ fontSize: "2.5rem", marginBottom: 12 }}>🚨</div>
+            <h3 style={{ margin: "0 0 8px", fontWeight: 700, fontSize: "1.2rem" }}>
+              Application Error
             </h3>
             <p
               style={{
-                margin: 0,
-                fontSize: "0.9rem",
-                color: "rgba(255,255,255,0.5)",
+                margin: "0 0 24px",
+                fontSize: "0.95rem",
+                color: "rgba(255,255,255,0.6)",
+                maxWidth: 400,
               }}
             >
-              {this.state.error?.message || "An unexpected error occurred."}
+              {this.state.error?.message || "An unexpected error occurred while rendering this component."}
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: null })}
               style={{
-                marginTop: 16,
-                padding: "10px 24px",
+                padding: "12px 28px",
                 borderRadius: 8,
-                border: "1px solid rgba(255,60,60,0.3)",
-                background: "transparent",
-                color: "#ff6b6b",
+                border: "none",
+                background: "#ff6b6b",
+                color: "#ffffff",
                 cursor: "pointer",
                 fontWeight: 600,
+                fontSize: "0.9rem",
+                transition: "opacity 0.2s",
               }}
+              onMouseOver={(e) => (e.currentTarget.style.opacity = "0.9")}
+              onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              Try Again
+              Reload Interface
             </button>
           </div>
         )

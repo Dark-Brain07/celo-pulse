@@ -47,3 +47,5 @@ npx hardhat test
 # Deploy to Alfajores
 npx hardhat run scripts/deploy.js --network alfajores
 ```
+
+<!-- TODO: Add detailed deployment instructions for Alfajores testnet. -->

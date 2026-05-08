@@ -1,10 +1,35 @@
 "use client";
 
+import React from "react";
 import { useWallet } from "@/context/WalletContext";
 import { CELO_FAUCET_URL } from "@/lib/contracts";
 
 export default function GasBanner() {
   const { isConnected, balance } = useWallet();
+  const [gasPrice, setGasPrice] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    const fetchGas = async () => {
+      try {
+        const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || "https://forno.celo.org";
+        const res = await fetch(rpcUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", method: "eth_gasPrice", params: [], id: 1 })
+        });
+        const data = await res.json();
+        if (data.result && isMounted) {
+          const gwei = parseInt(data.result, 16) / 1e9;
+          setGasPrice(`${gwei.toFixed(2)} Gwei`);
+        }
+      } catch {
+        if (isMounted) setGasPrice("~0.10 Gwei (Fallback)");
+      }
+    };
+    if (isConnected) fetchGas();
+    return () => { isMounted = false; };
+  }, [isConnected]);
 
   // Only show if connected and balance is very low
   if (!isConnected) return null;
@@ -48,6 +73,7 @@ export default function GasBanner() {
             {balanceNum === 0
               ? "Your balance is 0 CELO."
               : `Current balance: ${balanceNum.toFixed(4)} CELO.`}
+            {gasPrice && ` Est. Gas: ${gasPrice}`}
           </p>
         </div>
       </div>
@@ -93,3 +119,4 @@ export default function GasBanner() {
     </div>
   );
 }
+

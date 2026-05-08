@@ -1,54 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { ethers } from "ethers";
-import { useWallet } from "@/context/WalletContext";
-import { CONTRACTS } from "@/lib/contracts";
+import { useState, useMemo } from "react";
+import { useReferral } from "@/hooks/useReferral";
 
 export default function ReferralPanel() {
-  const { signer, address, isConnected } = useWallet();
-  const [referralInput, setReferralInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
+  const {
+    address,
+    isConnected,
+    referralInput,
+    setReferralInput,
+    loading,
+    toast,
+    handleRegister
+  } = useReferral();
   const [copied, setCopied] = useState(false);
 
-  const referralLink = address
-    ? `${typeof window !== "undefined" ? window.location.origin : ""}?ref=${address}`
-    : "";
+  const referralLink = useMemo(() => {
+    return address
+      ? `${typeof window !== "undefined" ? window.location.origin : ""}?ref=${address}`
+      : "";
+  }, [address]);
 
   const copyLink = () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleRegister = async () => {
-    if (!signer) return;
-    setLoading(true);
-    try {
-      const contract = new ethers.Contract(
-        CONTRACTS.REFERRAL_SYSTEM.address,
-        CONTRACTS.REFERRAL_SYSTEM.abi,
-        signer
-      );
-
-      let tx;
-      if (referralInput && ethers.isAddress(referralInput)) {
-        tx = await contract.registerWithReferral(referralInput);
-        setToast("⏳ Registering with referral...");
-      } else {
-        tx = await contract.register();
-        setToast("⏳ Registering...");
-      }
-
-      await tx.wait();
-      setToast("✅ Registered successfully! Start earning points.");
-    } catch (err: any) {
-      setToast(`❌ ${err.reason || "Registration failed"}`);
-    } finally {
-      setLoading(false);
-      setTimeout(() => setToast(null), 4000);
-    }
   };
 
   if (!isConnected) return null;
@@ -89,11 +65,13 @@ export default function ReferralPanel() {
                 fontFamily: "monospace",
                 outline: "none",
               }}
+              aria-label="Your referral link"
             />
             <button
               className="btn-primary"
               onClick={copyLink}
               style={{ whiteSpace: "nowrap" }}
+              aria-label="Copy referral link to clipboard"
             >
               {copied ? "✅ Copied!" : "📋 Copy"}
             </button>
@@ -126,7 +104,7 @@ export default function ReferralPanel() {
           {/* Share buttons */}
           <div style={{ marginTop: 16, display: "flex", gap: 10 }}>
             <a
-              href={`https://twitter.com/intent/tweet?text=I'm%20earning%20rewards%20on%20CeloPulse!%20Join%20me%20and%20get%20bonus%20CELO%20👉&url=${encodeURIComponent(referralLink)}`}
+              href={`https://twitter.com/intent/tweet?text=I'm%20earning%20rewards%20on%20CeloNova!%20Join%20me%20and%20get%20bonus%20CELO%20👉&url=${encodeURIComponent(referralLink)}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -142,11 +120,12 @@ export default function ReferralPanel() {
                 alignItems: "center",
                 gap: 6,
               }}
+              aria-label="Share referral link on Twitter"
             >
               🐦 Tweet
             </a>
             <a
-              href={`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=Join%20CeloPulse%20and%20earn%20rewards!`}
+              href={`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=Join%20CeloNova%20and%20earn%20rewards!`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -162,6 +141,7 @@ export default function ReferralPanel() {
                 alignItems: "center",
                 gap: 6,
               }}
+              aria-label="Share referral link on Telegram"
             >
               ✈️ Telegram
             </a>
@@ -196,6 +176,7 @@ export default function ReferralPanel() {
                 fontSize: 14,
                 outline: "none",
               }}
+              aria-label="Referrer wallet address input"
             />
           </div>
 
@@ -203,9 +184,19 @@ export default function ReferralPanel() {
             className="btn-success"
             onClick={handleRegister}
             disabled={loading}
-            style={{ width: "100%", padding: "14px 24px" }}
+            style={{ width: "100%", padding: "14px 24px", display: "flex", justifyContent: "center", alignItems: "center", gap: 8 }}
+            aria-label="Register wallet to start earning"
+            aria-busy={loading}
           >
-            {loading ? "⏳ Registering..." : "🚀 Register Now"}
+            {loading ? (
+              <>
+                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Registering...
+              </>
+            ) : "🚀 Register Now"}
           </button>
 
           {/* Benefits */}

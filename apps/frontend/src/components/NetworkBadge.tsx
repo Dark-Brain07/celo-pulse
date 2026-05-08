@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
+import { useWallet } from "@/context/WalletContext";
 
 /**
  * Network status badge component.
  * Displays the current blockchain connection state visually.
  */
 export function NetworkBadge() {
-  const [status, setStatus] = React.useState<"connected" | "disconnected" | "checking">("checking");
+  const { chainId, isConnected } = useWallet();
+  const [status, setStatus] = React.useState<"connected" | "disconnected" | "checking" | "unsupported">("checking");
   const [blockNumber, setBlockNumber] = React.useState<number | null>(null);
 
   React.useEffect(() => {
@@ -39,10 +41,19 @@ export function NetworkBadge() {
     return () => clearInterval(interval);
   }, []);
 
+  React.useEffect(() => {
+    if (isConnected && chainId !== null && chainId !== 42220 && chainId !== 44787) {
+      setStatus("unsupported");
+    } else if (status === "unsupported" && (!isConnected || chainId === 42220 || chainId === 44787)) {
+      setStatus("checking");
+    }
+  }, [isConnected, chainId, status]);
+
   const colors = {
     connected: { dot: "#35D07F", text: "rgba(53,208,127,0.8)" },
     disconnected: { dot: "#ff6b6b", text: "rgba(255,107,107,0.8)" },
     checking: { dot: "#FCFF51", text: "rgba(252,255,81,0.8)" },
+    unsupported: { dot: "#ff3b30", text: "rgba(255,59,48,0.9)" },
   };
 
   return (
@@ -70,7 +81,9 @@ export function NetworkBadge() {
         }}
       />
       <span style={{ color: colors[status].text }}>
-        {status === "connected" && blockNumber
+        {status === "unsupported"
+          ? "Unsupported Network"
+          : status === "connected" && blockNumber
           ? `Celo #${blockNumber.toLocaleString()}`
           : status === "checking"
           ? "Connecting..."

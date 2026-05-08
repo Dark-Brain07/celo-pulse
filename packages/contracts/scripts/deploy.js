@@ -100,3 +100,5 @@ main()
     console.error("❌ Deployment failed:", error);
     process.exit(1);
   });
+
+// Note: Ensure all deployed contract addresses are automatically saved to frontend constants.

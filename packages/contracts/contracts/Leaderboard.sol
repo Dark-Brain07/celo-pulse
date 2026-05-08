@@ -31,6 +31,7 @@ contract Leaderboard is Ownable {
 
     // Events for Blockscout indexing
     event ScoreUpdated(address indexed user, uint256 newScore, uint256 timestamp);
+    event PointsUpdated(address indexed user, uint256 pointsAdded, string reason);
     event RankChanged(address indexed user, uint256 oldRank, uint256 newRank);
     event NewRankedUser(address indexed user, uint256 initialScore);
 
@@ -42,7 +43,7 @@ contract Leaderboard is Ownable {
      * @param points Points to add
      * @param reason Reason string for the event
      */
-    function addPoints(address user, uint256 points, string calldata reason) external {
+    function addPoints(address user, uint256 points, string calldata reason) external onlyOwner {
         if (!userScores[user].isActive) {
             userScores[user].isActive = true;
             userIndex[user] = rankedUsers.length;
@@ -54,6 +55,7 @@ contract Leaderboard is Ownable {
         userScores[user].score += points;
         userScores[user].lastUpdated = block.timestamp;
 
+        emit PointsUpdated(user, points, reason);
         emit ScoreUpdated(user, userScores[user].score, block.timestamp);
     }
 
@@ -130,3 +132,4 @@ contract Leaderboard is Ownable {
         return totalRankedUsers;
     }
 }
+

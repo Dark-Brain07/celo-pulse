@@ -32,3 +32,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// Note: Whitelist external image domains here as needed.

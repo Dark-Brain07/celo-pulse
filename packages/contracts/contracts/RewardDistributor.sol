@@ -23,8 +23,8 @@ contract RewardDistributor is Ownable, ReentrancyGuard {
     uint256 public totalDistributed;
     uint256 public totalClaims;
     uint256 public rewardPerAction;
-    uint256 public minClaimThreshold;
-    uint256 public claimCooldown;
+    uint128 public minClaimThreshold;
+    uint128 public claimCooldown;
 
     // Events for Blockscout indexing
     event RewardClaimed(address indexed user, uint256 amount, uint256 timestamp);
@@ -54,7 +54,7 @@ contract RewardDistributor is Ownable, ReentrancyGuard {
     /**
      * @notice Accrue reward for a user (called by other contracts after actions)
      */
-    function accrueReward(address user) external {
+    function accrueReward(address user) external onlyOwner {
         userRewards[user].pendingReward += rewardPerAction;
         emit RewardAccrued(user, rewardPerAction);
     }
@@ -115,8 +115,8 @@ contract RewardDistributor is Ownable, ReentrancyGuard {
 
     function setRewardConfig(
         uint256 _rewardPerAction,
-        uint256 _minThreshold,
-        uint256 _cooldown
+        uint128 _minThreshold,
+        uint128 _cooldown
     ) external onlyOwner {
         rewardPerAction = _rewardPerAction;
         minClaimThreshold = _minThreshold;
