@@ -31,6 +31,7 @@ contract Leaderboard is Ownable {
 
     // Events for Blockscout indexing
     event ScoreUpdated(address indexed user, uint256 newScore, uint256 timestamp);
+    event PointsUpdated(address indexed user, uint256 pointsAdded, string reason);
     event RankChanged(address indexed user, uint256 oldRank, uint256 newRank);
     event NewRankedUser(address indexed user, uint256 initialScore);
 
@@ -54,6 +55,7 @@ contract Leaderboard is Ownable {
         userScores[user].score += points;
         userScores[user].lastUpdated = block.timestamp;
 
+        emit PointsUpdated(user, points, reason);
         emit ScoreUpdated(user, userScores[user].score, block.timestamp);
     }
 
