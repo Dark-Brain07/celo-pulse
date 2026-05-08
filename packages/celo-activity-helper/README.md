@@ -33,7 +33,12 @@ await gamification.playAction(); // Adheres to rigid 30s cooldown
 // 3. Register Referrals
 const tracker = new ReferralSDK(signer);
 await tracker.registerWithReferral('0xSponsorAddress...');
-```
+
+// 4. Access Leaderboard Rankings
+import { LeaderboardSDK } from 'celo-activity-helper';
+const leaderboard = new LeaderboardSDK(provider); // Read-only allows provider
+const topUsers = await leaderboard.getTopPlayers(0, 10);
+console.log(`Current #1 Player: ${topUsers[0].address} with ${topUsers[0].score} points`);
 
 ## 🧠 Why use this SDK?
 
