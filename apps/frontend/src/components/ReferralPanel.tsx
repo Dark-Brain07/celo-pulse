@@ -65,11 +65,13 @@ export default function ReferralPanel() {
                 fontFamily: "monospace",
                 outline: "none",
               }}
+              aria-label="Your referral link"
             />
             <button
               className="btn-primary"
               onClick={copyLink}
               style={{ whiteSpace: "nowrap" }}
+              aria-label="Copy referral link to clipboard"
             >
               {copied ? "✅ Copied!" : "📋 Copy"}
             </button>
@@ -118,6 +120,7 @@ export default function ReferralPanel() {
                 alignItems: "center",
                 gap: 6,
               }}
+              aria-label="Share referral link on Twitter"
             >
               🐦 Tweet
             </a>
@@ -138,6 +141,7 @@ export default function ReferralPanel() {
                 alignItems: "center",
                 gap: 6,
               }}
+              aria-label="Share referral link on Telegram"
             >
               ✈️ Telegram
             </a>
@@ -172,6 +176,7 @@ export default function ReferralPanel() {
                 fontSize: 14,
                 outline: "none",
               }}
+              aria-label="Referrer wallet address input"
             />
           </div>
 
@@ -180,6 +185,8 @@ export default function ReferralPanel() {
             onClick={handleRegister}
             disabled={loading}
             style={{ width: "100%", padding: "14px 24px", display: "flex", justifyContent: "center", alignItems: "center", gap: 8 }}
+            aria-label="Register wallet to start earning"
+            aria-busy={loading}
           >
             {loading ? (
               <>
