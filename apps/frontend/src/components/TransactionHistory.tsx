@@ -1,23 +1,17 @@
 "use client";
 
-import React from "react";
-
-interface TransactionRecord {
-  hash: string;
-  method: string;
-  contract: string;
-  timestamp: number;
-  status: "confirmed" | "pending" | "failed";
-  gasUsed?: string;
-}
+import React, { useState } from "react";
+import { ITransaction, IHistoryProps } from "@/lib/types";
 
 /**
  * Transaction History panel that shows recent user interactions.
  * Fetches data from Blockscout API and displays in a scrollable list.
  */
-export function TransactionHistory({ walletAddress }: { walletAddress: string | null }) {
-  const [transactions, setTransactions] = React.useState<TransactionRecord[]>([]);
-  const [loading, setLoading] = React.useState(false);
+export function TransactionHistory({ walletAddress }: IHistoryProps) {
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   React.useEffect(() => {
     if (!walletAddress) return;
@@ -28,12 +22,12 @@ export function TransactionHistory({ walletAddress }: { walletAddress: string | 
         const apiUrl = process.env.NEXT_PUBLIC_BLOCKSCOUT_API || "https://explorer.celo.org/mainnet/api";
         const apiKey = process.env.NEXT_PUBLIC_BLOCKSCOUT_API_KEY || "";
         const response = await fetch(
-          `${apiUrl}?module=account&action=txlist&address=${walletAddress}&sort=desc&page=1&offset=20&apikey=${apiKey}`
+          `${apiUrl}?module=account&action=txlist&address=${walletAddress}&sort=desc&page=${page}&offset=15&apikey=${apiKey}`
         );
         const data = await response.json();
 
         if (data.result && Array.isArray(data.result)) {
-          const mapped: TransactionRecord[] = data.result.slice(0, 15).map(
+          const mapped: ITransaction[] = data.result.map(
             (tx: Record<string, string>) => ({
               hash: tx.hash,
               method: decodeMethod(tx.input),
@@ -43,7 +37,12 @@ export function TransactionHistory({ walletAddress }: { walletAddress: string | 
               gasUsed: tx.gasUsed,
             })
           );
-          setTransactions(mapped);
+          if (page === 1) {
+            setTransactions(mapped);
+          } else {
+            setTransactions((prev) => [...prev, ...mapped]);
+          }
+          setHasMore(mapped.length === 15);
         }
       } catch (err) {
         console.error("[TransactionHistory] Failed to fetch:", err);
@@ -53,7 +52,13 @@ export function TransactionHistory({ walletAddress }: { walletAddress: string | 
     };
 
     fetchTransactions();
-  }, [walletAddress]);
+  }, [walletAddress, page]);
+
+  const loadMore = () => {
+    if (!loading && hasMore) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
   if (!walletAddress) {
     return (
@@ -71,7 +76,7 @@ export function TransactionHistory({ walletAddress }: { walletAddress: string | 
       {loading ? (
         <p style={emptyStyle}>Loading transactions...</p>
       ) : transactions.length === 0 ? (
-        <p style={emptyStyle}>No transactions found. Start interacting with CeloPulse!</p>
+        <p style={emptyStyle}>No transactions found. Start interacting with CeloNova!</p>
       ) : (
         <div style={{ maxHeight: 400, overflowY: "auto" }}>
           {transactions.map((tx) => (
@@ -107,6 +112,24 @@ export function TransactionHistory({ walletAddress }: { walletAddress: string | 
               </a>
             </div>
           ))}
+          {hasMore && (
+            <button
+              onClick={loadMore}
+              disabled={loading}
+              style={{
+                width: "100%",
+                padding: 10,
+                marginTop: 16,
+                background: "rgba(255,255,255,0.05)",
+                border: "none",
+                borderRadius: 8,
+                color: "#fff",
+                cursor: loading ? "not-allowed" : "pointer",
+              }}
+            >
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          )}
         </div>
       )}
     </div>
@@ -156,5 +179,3 @@ const rowStyle: React.CSSProperties = {
   padding: "12px 0",
   borderBottom: "1px solid rgba(255,255,255,0.04)",
 };
-
-// TODO: Add pagination or infinite scroll for users with large transaction histories.
