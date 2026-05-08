@@ -1,13 +1,12 @@
 export interface ITransaction {
-  id: string;
-  type: "referral" | "claim" | "play" | "react";
-  amount?: string;
-  timestamp: number;
   hash: string;
-  status: "success" | "pending" | "failed";
+  method: string;
+  contract: string;
+  timestamp: number;
+  status: "confirmed" | "pending" | "failed";
+  gasUsed?: string;
 }
 
 export interface IHistoryProps {
-  transactions: ITransaction[];
-  loading?: boolean;
+  walletAddress: string | null;
 }
