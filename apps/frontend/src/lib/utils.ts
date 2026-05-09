@@ -144,3 +144,36 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     return false;
   }
 }
+
+/**
+ * Format a Unix timestamp (seconds) into a readable date and time string.
+ * @param timestamp Unix timestamp in seconds
+ * @returns Formatted date string (e.g. "Oct 12, 2024, 10:30 AM")
+ */
+export function formatTimestamp(timestamp: number): string {
+  if (!timestamp) return "Unknown";
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+/**
+ * Truncate a transaction hash for display.
+ * @param hash Full hex transaction hash
+ * @param startChars Number of characters to show at start (default: 8)
+ * @param endChars Number of characters to show at end (default: 6)
+ * @returns Truncated hash string
+ */
+export function truncateHash(
+  hash: string,
+  startChars = 8,
+  endChars = 6
+): string {
+  if (!hash || hash.length < startChars + endChars) return hash;
+  return `${hash.slice(0, startChars)}...${hash.slice(-endChars)}`;
+}
