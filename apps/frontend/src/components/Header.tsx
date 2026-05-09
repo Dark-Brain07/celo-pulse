@@ -74,7 +74,7 @@ export default function Header() {
         </div>
 
         {/* Navigation */}
-        <nav style={{ display: "flex", gap: 32 }}>
+        <nav style={{ display: "flex", gap: 32 }} role="navigation" aria-label="Main navigation">
           {["Dashboard", "Actions", "Leaderboard", "Analytics"].map((item) => (
             <a
               key={item}
@@ -89,6 +89,9 @@ export default function Header() {
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#f1f5f9")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
+              onFocus={(e) => (e.currentTarget.style.color = "#f1f5f9")}
+              onBlur={(e) => (e.currentTarget.style.color = "#94a3b8")}
+              tabIndex={0}
             >
               {item}
             </a>
