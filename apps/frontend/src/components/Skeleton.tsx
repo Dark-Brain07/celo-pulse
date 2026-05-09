@@ -23,6 +23,9 @@ export function Skeleton({
 }: SkeletonProps) {
   return (
     <div
+      role="status"
+      aria-busy="true"
+      aria-label="Loading content"
       style={{
         width,
         height,
@@ -43,6 +46,9 @@ export function Skeleton({
 export function CardSkeleton({ rows = 3 }: { rows?: number }) {
   return (
     <div
+      role="status"
+      aria-busy="true"
+      aria-label="Loading card content"
       style={{
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(255,255,255,0.06)",
