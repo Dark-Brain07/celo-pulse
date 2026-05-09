@@ -26,6 +26,7 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
     uint256 public totalReferrals;
     uint256 public totalRegistered;
     uint256 public constant REFERRAL_COOLDOWN = 1 minutes;
+    uint256 public constant MAX_REFERRALS_PER_USER = 100;
     uint256 public referrerReward;
     uint256 public refereeReward;
     uint256 public rewardPool;
@@ -76,6 +77,8 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
 
         // Track referrer's referrals
         if (isRegistered[referrer]) {
+            require(referrals[referrer].referralCount < MAX_REFERRALS_PER_USER, "CeloPulse: Referrer reached max limit");
+            
             referrals[referrer].referralCount++;
             referredUsers[referrer].push(msg.sender);
             totalReferrals++;
