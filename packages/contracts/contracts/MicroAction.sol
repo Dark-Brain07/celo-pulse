@@ -7,11 +7,18 @@ pragma solidity ^0.8.19;
  */
 contract MicroAction {
     uint256 public pingCount;
+    uint256 public constant COOLDOWN = 10 seconds;
+    mapping(address => uint256) public lastPing;
 
     // Emits a tiny log. Costs ~22k gas total. Easiest way to show network activity.
-    event Ping(address indexed user);
+    event Ping(address indexed user, uint256 currentCount);
 
     function ping() external {
-        emit Ping(msg.sender);
+        require(block.timestamp >= lastPing[msg.sender] + COOLDOWN, "MicroAction: Cooldown active");
+        
+        pingCount += 1;
+        lastPing[msg.sender] = block.timestamp;
+        
+        emit Ping(msg.sender, pingCount);
     }
 }
