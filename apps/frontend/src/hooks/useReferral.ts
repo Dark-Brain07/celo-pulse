@@ -9,8 +9,28 @@ export function useReferral() {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleRegister = async () => {
     if (!signer) return;
+    setError(null);
+    
+    // Input Validation
+    if (referralInput) {
+      if (!ethers.isAddress(referralInput)) {
+        setError("Invalid referral address format");
+        setToast("❌ Invalid referral address format");
+        setTimeout(() => setToast(null), 4000);
+        return;
+      }
+      if (referralInput.toLowerCase() === address?.toLowerCase()) {
+        setError("Cannot refer yourself");
+        setToast("❌ Cannot refer yourself");
+        setTimeout(() => setToast(null), 4000);
+        return;
+      }
+    }
+
     setLoading(true);
     try {
       const contract = new ethers.Contract(
@@ -20,7 +40,7 @@ export function useReferral() {
       );
 
       let tx;
-      if (referralInput && ethers.isAddress(referralInput)) {
+      if (referralInput) {
         tx = await contract.registerWithReferral(referralInput);
         setToast("⏳ Registering with referral...");
       } else {
@@ -31,7 +51,9 @@ export function useReferral() {
       await tx.wait();
       setToast("✅ Registered successfully! Start earning points.");
     } catch (err: any) {
-      setToast(`❌ ${err.reason || "Registration failed"}`);
+      const errMsg = err.reason || "Registration failed";
+      setError(errMsg);
+      setToast(`❌ ${errMsg}`);
     } finally {
       setLoading(false);
       setTimeout(() => setToast(null), 4000);
@@ -44,6 +66,7 @@ export function useReferral() {
     referralInput,
     setReferralInput,
     loading,
+    error,
     toast,
     handleRegister
   };
