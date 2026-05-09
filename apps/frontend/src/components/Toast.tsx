@@ -82,7 +82,8 @@ export function Toast({ message, type = "info", visible, onClose }: ToastProps) 
 }
 
 /**
- * Hook for managing toast state.
+ * Hook for managing toast state with queue support.
+ * Allows stacking multiple notifications that auto-dismiss sequentially.
  */
 export function useToast() {
   const [toast, setToast] = React.useState<{
@@ -95,16 +96,34 @@ export function useToast() {
     visible: false,
   });
 
+  const queueRef = React.useRef<Array<{ message: string; type: ToastProps["type"] }>>([]);
+  const isShowingRef = React.useRef(false);
+
+  const processQueue = React.useCallback(() => {
+    if (queueRef.current.length === 0) {
+      isShowingRef.current = false;
+      return;
+    }
+    isShowingRef.current = true;
+    const next = queueRef.current.shift()!;
+    setToast({ message: next.message, type: next.type, visible: true });
+  }, []);
+
   const showToast = React.useCallback(
     (message: string, type: ToastProps["type"] = "info") => {
-      setToast({ message, type, visible: true });
+      queueRef.current.push({ message, type });
+      if (!isShowingRef.current) {
+        processQueue();
+      }
     },
-    []
+    [processQueue]
   );
 
   const hideToast = React.useCallback(() => {
     setToast((prev) => ({ ...prev, visible: false }));
-  }, []);
+    // Process next item in queue after a short delay
+    setTimeout(processQueue, 300);
+  }, [processQueue]);
 
   return { toast, showToast, hideToast };
 }
