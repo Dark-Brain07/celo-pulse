@@ -89,6 +89,18 @@ export function NetworkBadge() {
           ? "Connecting..."
           : "Disconnected"}
       </span>
+      {status === "connected" && (
+        <span
+          style={{
+            fontSize: 10,
+            color: "rgba(255,255,255,0.25)",
+            marginLeft: 4,
+          }}
+          title={`Chain ID: ${chainId || 42220} | RPC: forno.celo.org`}
+        >
+          ⓘ
+        </span>
+      )}
     </div>
   );
 }
