@@ -135,9 +135,21 @@ export default function Footer() {
         }}
       >
         <p style={{ fontSize: 12, color: "#475569" }}>
-          © 2026 CeloPulse. Built on Celo for the Talent Protocol ecosystem.
+          © {new Date().getFullYear()} CeloPulse. Built on Celo for the Talent Protocol ecosystem.
         </p>
-        <div style={{ display: "flex", gap: 16 }}>
+        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+          <span
+            style={{
+              fontSize: 10,
+              padding: "2px 8px",
+              borderRadius: 6,
+              background: "rgba(99, 102, 241, 0.1)",
+              color: "#6366f1",
+              fontWeight: 600,
+            }}
+          >
+            v1.2.0
+          </span>
           <span style={{ fontSize: 11, color: "#475569" }}>Powered by Celo</span>
           <span style={{ fontSize: 11, color: "#475569" }}>•</span>
           <span style={{ fontSize: 11, color: "#475569" }}>Indexed by Blockscout</span>
