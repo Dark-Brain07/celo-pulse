@@ -2,6 +2,14 @@
  * CeloPulse Constants
  * Centralized configuration for contract addresses, network params, and app settings.
  */
+// ─── App Configuration ───
+
+export const APP_CONFIG = {
+  APP_VERSION: "1.2.0",
+  APP_NAME: "CeloPulse",
+  ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT || "development",
+  SUPPORTED_NETWORKS: [42220, 44787] // Mainnet and Alfajores
+} as const;
 
 // ─── Network Configuration ───
 
