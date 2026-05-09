@@ -18,6 +18,7 @@ interface WalletData {
 export function WalletStats({ address }: WalletStatsProps) {
   const [data, setData] = React.useState<WalletData | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const [refreshIn, setRefreshIn] = React.useState(30);
 
   React.useEffect(() => {
     if (!address) return;
@@ -65,12 +66,22 @@ export function WalletStats({ address }: WalletStatsProps) {
         console.error("[WalletStats] Failed:", err);
       } finally {
         setLoading(false);
+        setRefreshIn(30);
       }
     };
 
     fetchStats();
     const interval = setInterval(fetchStats, 30000);
     return () => clearInterval(interval);
+  }, [address]);
+
+  // Countdown timer for refresh indicator
+  React.useEffect(() => {
+    if (!address) return;
+    const tick = setInterval(() => {
+      setRefreshIn((prev) => (prev <= 1 ? 30 : prev - 1));
+    }, 1000);
+    return () => clearInterval(tick);
   }, [address]);
 
   if (!address) return null;
@@ -84,9 +95,14 @@ export function WalletStats({ address }: WalletStatsProps) {
         padding: 24,
       }}
     >
-      <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 20, color: "#fff" }}>
-        💳 Wallet Analytics
-      </h3>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+        <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#fff" }}>
+          💳 Wallet Analytics
+        </h3>
+        <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+          ↻ {refreshIn}s
+        </span>
+      </div>
 
       {loading && !data ? (
         <p style={{ color: "rgba(255,255,255,0.4)", textAlign: "center" }}>Loading...</p>
