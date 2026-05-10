@@ -125,6 +125,16 @@ contract RewardDistributor is Ownable, ReentrancyGuard, Pausable {
         emit RewardConfigUpdated(_rewardPerAction, _minThreshold, _cooldown);
     }
 
+    function setMinimumClaim(uint128 _minThreshold) external onlyOwner {
+        minClaimThreshold = _minThreshold;
+        emit RewardConfigUpdated(rewardPerAction, _minThreshold, claimCooldown);
+    }
+
+    function setClaimCooldown(uint128 _cooldown) external onlyOwner {
+        claimCooldown = _cooldown;
+        emit RewardConfigUpdated(rewardPerAction, minClaimThreshold, _cooldown);
+    }
+
     function pause() external onlyOwner {
         _pause();
     }
