@@ -56,15 +56,22 @@ function RankBadge({ rank }: { rank: number }) {
 export default function Leaderboard() {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const entriesPerPage = 5;
 
   useEffect(() => {
-    // Simulate loading
+    setIsLoading(true);
+    // Simulate loading with pagination
     const timer = setTimeout(() => {
-      setEntries(demoLeaderboard);
+      const startIndex = (page - 1) * entriesPerPage;
+      const paginatedData = demoLeaderboard.slice(startIndex, startIndex + entriesPerPage);
+      setEntries(paginatedData);
       setIsLoading(false);
     }, 800);
     return () => clearTimeout(timer);
-  }, []);
+  }, [page]);
+
+  const totalPages = Math.ceil(demoLeaderboard.length / entriesPerPage);
 
   return (
     <section id="leaderboard" style={{ marginBottom: 32 }}>
@@ -181,6 +188,53 @@ export default function Leaderboard() {
               </span>
             </div>
           ))}
+      </div>
+
+      {/* Pagination controls */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 16,
+          marginTop: 20,
+        }}
+      >
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1 || isLoading}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 8,
+            background: "rgba(255,255,255,0.05)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            color: page === 1 ? "rgba(255,255,255,0.2)" : "#fff",
+            cursor: page === 1 ? "not-allowed" : "pointer",
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
+          Previous
+        </button>
+        <span style={{ fontSize: 13, color: "#64748b" }}>
+          Page <span style={{ color: "#f1f5f9", fontWeight: 700 }}>{page}</span> of {totalPages}
+        </span>
+        <button
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          disabled={page === totalPages || isLoading}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 8,
+            background: "rgba(255,255,255,0.05)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            color: page === totalPages ? "rgba(255,255,255,0.2)" : "#fff",
+            cursor: page === totalPages ? "not-allowed" : "pointer",
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
+          Next
+        </button>
       </div>
     </section>
   );
