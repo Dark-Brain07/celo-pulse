@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ITransaction, IHistoryProps } from "@/lib/types";
+import { formatTimestamp, truncateHash } from "@/lib/utils";
 
 /**
  * Transaction History panel that shows recent user interactions.
@@ -32,7 +33,7 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
               hash: tx.hash,
               method: decodeMethod(tx.input),
               contract: tx.to || "Contract Creation",
-              timestamp: parseInt(tx.timeStamp) * 1000,
+              timestamp: parseInt(tx.timeStamp), // Store as seconds for formatTimestamp
               status: tx.txreceipt_status === "1" ? "confirmed" : "failed",
               gasUsed: tx.gasUsed,
             })
@@ -94,7 +95,7 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
                 <div>
                   <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>{tx.method}</div>
                   <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)" }}>
-                    {new Date(tx.timestamp).toLocaleString()}
+                    {formatTimestamp(tx.timestamp)}
                   </div>
                 </div>
               </div>
@@ -108,7 +109,7 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
                   textDecoration: "none",
                 }}
               >
-                {tx.hash.slice(0, 8)}...{tx.hash.slice(-6)}
+                {truncateHash(tx.hash)}
               </a>
             </div>
           ))}
