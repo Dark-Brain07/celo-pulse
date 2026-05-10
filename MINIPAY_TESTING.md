@@ -29,18 +29,18 @@ Developer mode is **required** to test custom URLs (like your local app via ngro
 3. Tap the **Version number** repeatedly (7+ times) until you see a confirmation message
 4. Go back to **Settings** → you'll now see **Developer Settings**
 5. Enable **Developer Mode**
-6. Toggle **Use Testnet** to connect to **Celo Sepolia** testnet (for testing with test tokens)
+6. Toggle **Use Testnet** to connect to **Celo Alfajores** testnet (for testing with test tokens)
 
 ---
 
 ## 3. Get Testnet Tokens
 
-You need test CELO and test USDm (cUSD) on the Celo Sepolia testnet:
+You need test CELO and test USDm (cUSD) on the Celo Alfajores testnet:
 
 ### Celo Faucet
-- Visit: [https://faucet.celo.org/celo-sepolia](https://faucet.celo.org/celo-sepolia)
+- Visit: [https://faucet.celo.org/alfajores](https://faucet.celo.org/alfajores)
 - Paste your MiniPay wallet address
-- Request test CELO
+- Request test CELO and cUSD
 
 ### Your MiniPay Address
 To find your address in MiniPay:
