@@ -3,13 +3,14 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 
 /**
  * @title RewardDistributor
  * @notice Manages reward pool and distribution for CeloPulse users.
  *         Users earn rewards through activity, claimable after meeting thresholds.
  */
-contract RewardDistributor is Ownable, ReentrancyGuard {
+contract RewardDistributor is Ownable, ReentrancyGuard, Pausable {
     struct UserRewards {
         uint256 totalClaimed;
         uint256 pendingReward;
@@ -54,7 +55,7 @@ contract RewardDistributor is Ownable, ReentrancyGuard {
     /**
      * @notice Accrue reward for a user (called by other contracts after actions)
      */
-    function accrueReward(address user) external onlyOwner {
+    function accrueReward(address user) external onlyOwner whenNotPaused {
         userRewards[user].pendingReward += rewardPerAction;
         emit RewardAccrued(user, rewardPerAction);
     }
@@ -62,7 +63,7 @@ contract RewardDistributor is Ownable, ReentrancyGuard {
     /**
      * @notice Claim accumulated rewards — generates 1 tx
      */
-    function claimReward() external nonReentrant {
+    function claimReward() external nonReentrant whenNotPaused {
         UserRewards storage rewards = userRewards[msg.sender];
 
         require(rewards.pendingReward >= minClaimThreshold, "CeloPulse: Below claim threshold");
@@ -122,5 +123,13 @@ contract RewardDistributor is Ownable, ReentrancyGuard {
         minClaimThreshold = _minThreshold;
         claimCooldown = _cooldown;
         emit RewardConfigUpdated(_rewardPerAction, _minThreshold, _cooldown);
+    }
+
+    function pause() external onlyOwner {
+        _pause();
+    }
+
+    function unpause() external onlyOwner {
+        _unpause();
     }
 }
