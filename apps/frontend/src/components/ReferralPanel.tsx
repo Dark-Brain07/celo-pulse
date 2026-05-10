@@ -70,7 +70,13 @@ export default function ReferralPanel() {
             <button
               className="btn-primary"
               onClick={copyLink}
-              style={{ whiteSpace: "nowrap" }}
+              style={{ 
+                whiteSpace: "nowrap",
+                transform: copied ? "scale(0.95)" : "scale(1)",
+                transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                background: copied ? "#10b981" : undefined,
+                borderColor: copied ? "#10b981" : undefined
+              }}
               aria-label="Copy referral link to clipboard"
             >
               {copied ? "✅ Copied!" : "📋 Copy"}
