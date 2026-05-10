@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useReferral } from "@/hooks/useReferral";
+import { LoadingButton } from "./LoadingButton";
 
 export default function ReferralPanel() {
   const {
@@ -186,24 +187,17 @@ export default function ReferralPanel() {
             />
           </div>
 
-          <button
-            className="btn-success"
+          <LoadingButton
+            variant="success"
             onClick={handleRegister}
-            disabled={loading}
-            style={{ width: "100%", padding: "14px 24px", display: "flex", justifyContent: "center", alignItems: "center", gap: 8 }}
+            loading={loading}
+            loadingText="Registering..."
+            fullWidth
+            style={{ padding: "14px 24px" }}
             aria-label="Register wallet to start earning"
-            aria-busy={loading}
           >
-            {loading ? (
-              <>
-                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Registering...
-              </>
-            ) : "🚀 Register Now"}
-          </button>
+            🚀 Register Now
+          </LoadingButton>
 
           {/* Benefits */}
           <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 10 }}>
