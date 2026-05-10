@@ -70,6 +70,14 @@ export function isValidAddress(address: string): boolean {
 }
 
 /**
+ * Strict validation for Celo addresses including null check.
+ */
+export function isValidCeloAddress(address: string | null | undefined): address is string {
+  if (!address) return false;
+  return isValidAddress(address);
+}
+
+/**
  * Calculate the estimated gas cost in CELO.
  * @param gasUsed Gas units consumed
  * @param gasPriceGwei Gas price in Gwei
