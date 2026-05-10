@@ -79,20 +79,23 @@ contract MicroActions is ReentrancyGuard {
     }
 
     /**
-     * @notice Quick react action — even lighter, generates activity
+     * @notice Batch execute multiple reactions for extreme activity generation
+     * @param count Number of reactions to perform (max 5 to avoid gas limits)
      */
-    function quickReact(uint8 reactionType) external nonReentrant {
-        require(reactionType > 0 && reactionType <= 5, "CeloPulse: Invalid reaction");
+    function batchExecuteActions(uint8 count) external nonReentrant {
+        require(count > 0 && count <= 5, "CeloPulse: Batch size 1-5");
         require(
             block.timestamp >= userStats[msg.sender].lastActionTime + ACTION_COOLDOWN,
             "CeloPulse: Cooldown active"
         );
 
-        userStats[msg.sender].actionsPlayed++;
+        for(uint8 i = 0; i < count; i++) {
+            userStats[msg.sender].actionsPlayed++;
+            totalActions++;
+            emit ActionPerformed(msg.sender, "BATCH_REACT", block.timestamp);
+        }
+        
         userStats[msg.sender].lastActionTime = block.timestamp;
-        totalActions++;
-
-        emit ActionPerformed(msg.sender, "REACT", block.timestamp);
     }
 
     // ─── View Functions ───
