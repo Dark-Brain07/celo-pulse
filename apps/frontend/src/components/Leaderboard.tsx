@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useWallet } from "@/context/WalletContext";
 
 interface LeaderboardEntry {
   rank: number;
@@ -54,6 +55,7 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 export default function Leaderboard() {
+  const { address: userAddress } = useWallet();
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -134,12 +136,22 @@ export default function Leaderboard() {
                 transition: "all 0.2s",
                 alignItems: "center",
                 cursor: "pointer",
+                background: userAddress && entry.address.toLowerCase() === userAddress.toLowerCase() 
+                  ? "rgba(99, 102, 241, 0.1)" 
+                  : "transparent",
+                borderLeft: userAddress && entry.address.toLowerCase() === userAddress.toLowerCase()
+                  ? "4px solid #6366f1"
+                  : "4px solid transparent",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(99, 102, 241, 0.04)";
+                e.currentTarget.style.background = userAddress && entry.address.toLowerCase() === userAddress.toLowerCase()
+                  ? "rgba(99, 102, 241, 0.15)"
+                  : "rgba(99, 102, 241, 0.04)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.background = userAddress && entry.address.toLowerCase() === userAddress.toLowerCase()
+                  ? "rgba(99, 102, 241, 0.1)"
+                  : "transparent";
               }}
             >
               <RankBadge rank={entry.rank} />
