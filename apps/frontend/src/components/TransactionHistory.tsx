@@ -77,7 +77,28 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
       {loading ? (
         <p style={emptyStyle}>Loading transactions...</p>
       ) : transactions.length === 0 ? (
-        <p style={emptyStyle}>No transactions found. Start interacting with CeloNova!</p>
+        <div style={emptyContainerStyle}>
+          <svg
+            width="64"
+            height="64"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ color: "rgba(255,255,255,0.1)", marginBottom: 16 }}
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+          </svg>
+          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.9rem" }}>
+            No transactions found.
+          </p>
+          <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.8rem", marginTop: 4 }}>
+            Start interacting with CeloNova to see history.
+          </p>
+        </div>
       ) : (
         <div style={{ maxHeight: 400, overflowY: "auto" }}>
           {transactions.map((tx) => (
@@ -171,6 +192,15 @@ const emptyStyle: React.CSSProperties = {
   fontSize: "0.9rem",
   textAlign: "center",
   padding: "2rem 0",
+};
+
+const emptyContainerStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "3rem 1rem",
+  textAlign: "center",
 };
 
 const rowStyle: React.CSSProperties = {
