@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write \"apps/frontend/src/**/*.{ts,tsx,js,jsx,css}\""
+    "format": "prettier --write \"apps/frontend/src/**/*.{ts,tsx,js,jsx,css}\"",
+    "test:contracts": "npm run test -w packages/contracts"
   },
   "workspaces": [
     "apps/*",
