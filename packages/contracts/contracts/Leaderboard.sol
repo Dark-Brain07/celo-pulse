@@ -44,19 +44,26 @@ contract Leaderboard is Ownable {
      * @param reason Reason string for the event
      */
     function addPoints(address user, uint256 points, string calldata reason) external onlyOwner {
-        if (!userScores[user].isActive) {
-            userScores[user].isActive = true;
-            userIndex[user] = rankedUsers.length;
-            rankedUsers.push(user);
-            totalRankedUsers++;
-            emit NewRankedUser(user, points);
-        }
-
-        userScores[user].score += points;
-        userScores[user].lastUpdated = block.timestamp;
-
+        _addPointsInternal(user, points);
         emit PointsUpdated(user, points, reason);
-        emit ScoreUpdated(user, userScores[user].score, block.timestamp);
+    }
+
+    /**
+     * @notice Batch add points to multiple users
+     * @param users Array of user addresses
+     * @param points Array of points to add
+     * @param reason Reason for the batch update
+     */
+    function batchAddPoints(
+        address[] calldata users,
+        uint256[] calldata points,
+        string calldata reason
+    ) external onlyOwner {
+        require(users.length == points.length, "Leaderboard: Length mismatch");
+        for (uint256 i = 0; i < users.length; i++) {
+            _addPointsInternal(users[i], points[i]);
+            emit PointsUpdated(users[i], points[i], reason);
+        }
     }
 
     /**
