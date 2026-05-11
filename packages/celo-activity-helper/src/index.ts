@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 const ACTIVITY_MANAGER_ABI = [
   "function dailyCheckIn() external",
   "function getUserActivity(address user) view returns (uint256 lastCheckIn, uint256 currentStreak, uint256 longestStreak, uint256 checkIns, uint256 actions)",
+  "function getUserStats(address user) view returns (uint256 interactions, uint256 lastActive, uint8 tier)",
   "function canCheckIn(address user) view returns (bool)",
   "function totalCheckIns() view returns (uint256)",
   "function totalUniqueUsers() view returns (uint256)",
@@ -147,6 +148,25 @@ export class CeloActivityHelper {
       totalActions,
       canCheckIn: canCheck,
     };
+  }
+
+  /**
+   * Get the current activity tier for a user
+   * @param userAddress Address to check
+   * @returns Tier number (0: Bronze, 1: Silver, 2: Gold, 3: Platinum)
+   */
+  async getUserTier(userAddress: string): Promise<number> {
+    const stats = await this.activityContract.getUserStats(userAddress);
+    return Number(stats.tier);
+  }
+
+  /**
+   * Get the string representation of the user's tier
+   */
+  async getTierName(userAddress: string): Promise<string> {
+    const tier = await this.getUserTier(userAddress);
+    const tiers = ["Bronze", "Silver", "Gold", "Platinum"];
+    return tiers[tier] || "Unknown";
   }
 
   // ─── Micro Actions ───
