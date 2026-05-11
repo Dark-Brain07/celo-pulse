@@ -23,6 +23,7 @@ interface WalletContextType {
   feeCurrency: string | undefined;
   connect: () => Promise<void>;
   disconnect: () => void;
+  switchNetwork: (chainIdHex: string) => Promise<void>;
 }
 
 const WalletContext = createContext<WalletContextType>({
@@ -37,6 +38,7 @@ const WalletContext = createContext<WalletContextType>({
   feeCurrency: undefined,
   connect: async () => {},
   disconnect: () => {},
+  switchNetwork: async () => {},
 });
 
 /**
@@ -125,6 +127,36 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       setIsConnecting(false);
     }
   }, []);
+  
+  const switchNetwork = useCallback(async (targetChainIdHex: string) => {
+    if (typeof window === "undefined" || !(window as any).ethereum) return;
+    if (detectMiniPay()) return; // MiniPay is locked to Celo
+
+    try {
+      await (window as any).ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: targetChainIdHex }],
+      });
+    } catch (err: any) {
+      console.error("Network switch failed:", err);
+      // Handle the case where the chain hasn't been added yet
+      if (err.code === 4902) {
+        // We could add more chains here, but for now we focus on Celo
+        if (targetChainIdHex === CELO_CHAIN.chainIdHex) {
+          await (window as any).ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: CELO_CHAIN.chainIdHex,
+              chainName: CELO_CHAIN.name,
+              rpcUrls: [CELO_CHAIN.rpcUrl],
+              blockExplorerUrls: [CELO_CHAIN.blockExplorer],
+              nativeCurrency: CELO_CHAIN.nativeCurrency,
+            }],
+          });
+        }
+      }
+    }
+  }, []);
 
   const disconnect = useCallback(() => {
     setAddress(null);
@@ -176,8 +208,9 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       feeCurrency,
       connect,
       disconnect,
+      switchNetwork,
     }),
-    [address, signer, provider, isConnecting, isMiniPay, chainId, balance, feeCurrency, connect, disconnect]
+    [address, signer, provider, isConnecting, isMiniPay, chainId, balance, feeCurrency, connect, disconnect, switchNetwork]
   );
 
   return (
