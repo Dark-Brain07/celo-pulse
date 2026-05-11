@@ -5,6 +5,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 
+interface IERC20 {
+    function transfer(address to, uint256 amount) external returns (bool);
+    function balanceOf(address account) external view returns (uint256);
+}
+
 /**
  * @title RewardDistributor
  * @notice Manages reward pool and distribution for CeloPulse users.
@@ -141,5 +146,14 @@ contract RewardDistributor is Ownable, ReentrancyGuard, Pausable {
 
     function unpause() external onlyOwner {
         _unpause();
+    }
+
+    /**
+     * @notice Recover accidentally sent ERC20 tokens
+     * @param token Address of the ERC20 token
+     * @param amount Amount to recover
+     */
+    function recoverERC20(address token, uint256 amount) external onlyOwner {
+        IERC20(token).transfer(owner(), amount);
     }
 }
