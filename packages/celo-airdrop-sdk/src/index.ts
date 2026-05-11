@@ -61,12 +61,21 @@ export class CeloAirdropSDK {
     );
   }
 
+  private handleError(methodName: string, error: any): never {
+    const message = error?.message || "Unknown error";
+    console.error(`[CeloAirdropSDK:${methodName}] ${message}`, error);
+    throw new Error(`CeloPulse SDK Error (${methodName}): ${message}`);
+  }
+
   /**
    * Claim accumulated rewards — generates 1 onchain transaction
    */
   async claimReward(): Promise<ethers.TransactionResponse> {
-    const tx = await this.rewardContract.claimReward();
-    return tx;
+    try {
+      return await this.rewardContract.claimReward();
+    } catch (err) {
+      this.handleError("claimReward", err);
+    }
   }
 
   /**
@@ -98,12 +107,16 @@ export class CeloAirdropSDK {
    * Get global pool stats
    */
   async getPoolStats(): Promise<PoolStats> {
-    const [rewardPool, totalDistributed, totalClaims] = await Promise.all([
-      this.rewardContract.rewardPool(),
-      this.rewardContract.totalDistributed(),
-      this.rewardContract.totalClaims(),
-    ]);
-    return { rewardPool, totalDistributed, totalClaims };
+    try {
+      const [rewardPool, totalDistributed, totalClaims] = await Promise.all([
+        this.rewardContract.rewardPool(),
+        this.rewardContract.totalDistributed(),
+        this.rewardContract.totalClaims(),
+      ]);
+      return { rewardPool, totalDistributed, totalClaims };
+    } catch (err) {
+      this.handleError("getPoolStats", err);
+    }
   }
 }
 
