@@ -165,7 +165,11 @@ export function useWallet() {
     }
   }, []);
 
-  return { ...state, connect };
+  const isNetworkSupported = useCallback(() => {
+    return state.chainId === 42220 || state.chainId === 44787;
+  }, [state.chainId]);
+
+  return { ...state, connect, isNetworkSupported };
 }
 
 // Note: Handle specific MiniPay injection edge cases in future updates.
