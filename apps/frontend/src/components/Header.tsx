@@ -1,9 +1,12 @@
 "use client";
 
 import { useWallet } from "@/context/WalletContext";
+import { CELO_CHAIN } from "@/lib/contracts";
 
 export default function Header() {
-  const { address, balance, isConnecting, isConnected, isMiniPay, connect, disconnect } = useWallet();
+  const { address, balance, isConnecting, isConnected, isMiniPay, chainId, connect, disconnect, switchNetwork } = useWallet();
+  
+  const isWrongNetwork = isConnected && chainId !== CELO_CHAIN.chainId;
 
   const truncateAddress = (addr: string) =>
     `${addr.slice(0, 6)}...${addr.slice(-4)}`;
@@ -144,6 +147,28 @@ export default function Header() {
               ) : (
                 <>🔗 Connect Wallet</>
               )}
+            </button>
+          )}
+
+          {isWrongNetwork && !isMiniPay && (
+            <button
+              onClick={() => switchNetwork(CELO_CHAIN.chainIdHex)}
+              style={{
+                padding: "8px 16px",
+                background: "rgba(245, 158, 11, 0.1)",
+                border: "1px solid rgba(245, 158, 11, 0.2)",
+                borderRadius: 10,
+                fontSize: 12,
+                color: "#f59e0b",
+                fontWeight: 700,
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              ⚠️ Switch to Alfajores
             </button>
           )}
         </div>
