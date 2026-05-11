@@ -13,6 +13,7 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [filter, setFilter] = useState<string>("All");
 
   React.useEffect(() => {
     if (!walletAddress) return;
@@ -72,7 +73,27 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
 
   return (
     <div style={containerStyle}>
-      <h3 style={titleStyle}>📜 Transaction History</h3>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h3 style={{ ...titleStyle, marginBottom: 0 }}>📜 Transaction History</h3>
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          style={{
+            background: "rgba(255,255,255,0.05)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: 8,
+            color: "#fff",
+            fontSize: "0.75rem",
+            padding: "4px 8px",
+            outline: "none",
+            cursor: "pointer"
+          }}
+        >
+          {["All", "Transfer", "Daily Check-In", "Play Action", "Send Tip", "Register"].map(f => (
+            <option key={f} value={f} style={{ background: "#0f172a" }}>{f}</option>
+          ))}
+        </select>
+      </div>
 
       {loading ? (
         <p style={emptyStyle}>Loading transactions...</p>
@@ -101,7 +122,9 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
         </div>
       ) : (
         <div style={{ maxHeight: 400, overflowY: "auto" }}>
-          {transactions.map((tx) => (
+          {transactions
+            .filter(tx => filter === "All" || tx.method === filter)
+            .map((tx) => (
             <div key={tx.hash} style={rowStyle}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span
