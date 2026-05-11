@@ -14,6 +14,60 @@ interface ActivitySuggestion {
   cooldownEnd?: number;
 }
 
+function ActivityStep({ suggestion }: { suggestion: ActivitySuggestion }) {
+  const { title, description, icon, urgency, available } = suggestion;
+  
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        padding: "12px 14px",
+        borderRadius: 10,
+        background: urgency === "now"
+          ? "rgba(99, 102, 241, 0.06)"
+          : "rgba(17, 24, 39, 0.4)",
+        border: `1px solid ${
+          urgency === "now"
+            ? "rgba(99, 102, 241, 0.15)"
+            : "rgba(99, 102, 241, 0.06)"
+        }`,
+        opacity: available ? 1 : 0.5,
+        transition: "all 0.2s ease",
+      }}
+    >
+      <span style={{ fontSize: 20 }}>{icon}</span>
+      <div style={{ flex: 1 }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: "#f1f5f9" }}>{title}</p>
+        <p style={{ fontSize: 11, color: "#64748b" }}>{description}</p>
+      </div>
+      <span
+        style={{
+          padding: "3px 8px",
+          borderRadius: 6,
+          fontSize: 11,
+          fontWeight: 700,
+          background:
+            urgency === "now"
+              ? "rgba(16, 185, 129, 0.15)"
+              : urgency === "soon"
+              ? "rgba(245, 158, 11, 0.15)"
+              : "rgba(100, 116, 139, 0.15)",
+          color:
+            urgency === "now"
+              ? "#10b981"
+              : urgency === "soon"
+              ? "#f59e0b"
+              : "#64748b",
+        }}
+      >
+        {urgency === "now" ? "DO NOW" : urgency === "soon" ? "SOON" : "LATER"}
+      </span>
+    </div>
+  );
+}
+
 export default function ActivityGuide() {
   const { isConnected, address } = useWallet();
   const [suggestions, setSuggestions] = useState<ActivitySuggestion[]>([]);
@@ -198,53 +252,7 @@ export default function ActivityGuide() {
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
               {suggestions.map((s) => (
-                <div
-                  key={s.id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    padding: "12px 14px",
-                    borderRadius: 10,
-                    background: s.urgency === "now"
-                      ? "rgba(99, 102, 241, 0.06)"
-                      : "rgba(17, 24, 39, 0.4)",
-                    border: `1px solid ${
-                      s.urgency === "now"
-                        ? "rgba(99, 102, 241, 0.15)"
-                        : "rgba(99, 102, 241, 0.06)"
-                    }`,
-                    opacity: s.available ? 1 : 0.5,
-                  }}
-                >
-                  <span style={{ fontSize: 20 }}>{s.icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: 13, fontWeight: 600, color: "#f1f5f9" }}>{s.title}</p>
-                    <p style={{ fontSize: 11, color: "#64748b" }}>{s.description}</p>
-                  </div>
-                  <span
-                    style={{
-                      padding: "3px 8px",
-                      borderRadius: 6,
-                      fontSize: 11,
-                      fontWeight: 700,
-                      background:
-                        s.urgency === "now"
-                          ? "rgba(16, 185, 129, 0.15)"
-                          : s.urgency === "soon"
-                          ? "rgba(245, 158, 11, 0.15)"
-                          : "rgba(100, 116, 139, 0.15)",
-                      color:
-                        s.urgency === "now"
-                          ? "#10b981"
-                          : s.urgency === "soon"
-                          ? "#f59e0b"
-                          : "#64748b",
-                    }}
-                  >
-                    {s.urgency === "now" ? "DO NOW" : s.urgency === "soon" ? "SOON" : "LATER"}
-                  </span>
-                </div>
+                <ActivityStep key={s.id} suggestion={s} />
               ))}
             </div>
           </div>
