@@ -14,6 +14,7 @@ interface Badge {
 
 export default function StreakBadges() {
   const { isConnected } = useWallet();
+  const [hoveredBadge, setHoveredBadge] = useState<string | null>(null);
 
   // Demo badges — in production, computed from contract data
   const badges: Badge[] = [
@@ -131,7 +132,22 @@ export default function StreakBadges() {
         {badges.map((badge) => (
           <div
             key={badge.id}
+            onMouseEnter={(e) => {
+              setHoveredBadge(badge.id);
+              e.currentTarget.style.borderColor = badge.earned
+                ? "rgba(16, 185, 129, 0.4)"
+                : "rgba(99, 102, 241, 0.2)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              setHoveredBadge(null);
+              e.currentTarget.style.borderColor = badge.earned
+                ? "rgba(16, 185, 129, 0.2)"
+                : "rgba(99, 102, 241, 0.08)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
             style={{
+              position: "relative",
               padding: 18,
               borderRadius: 14,
               background: badge.earned
@@ -144,19 +160,28 @@ export default function StreakBadges() {
               cursor: "pointer",
               opacity: badge.progress > 0 ? 1 : 0.6,
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = badge.earned
-                ? "rgba(16, 185, 129, 0.4)"
-                : "rgba(99, 102, 241, 0.2)";
-              e.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = badge.earned
-                ? "rgba(16, 185, 129, 0.2)"
-                : "rgba(99, 102, 241, 0.08)";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
           >
+            {hoveredBadge === badge.id && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: -40,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "#0f172a",
+                  border: "1px solid rgba(99, 102, 241, 0.3)",
+                  padding: "6px 12px",
+                  borderRadius: 8,
+                  fontSize: 11,
+                  color: "#f1f5f9",
+                  whiteSpace: "nowrap",
+                  zIndex: 10,
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                }}
+              >
+                Target: {badge.requirement}
+              </div>
+            )}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
               <span style={{ fontSize: 28, filter: badge.earned ? "none" : "grayscale(0.5)" }}>
                 {badge.icon}
