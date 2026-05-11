@@ -4,6 +4,10 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
+interface IActivityManager {
+    function userInteractions(address user) external view returns (uint256);
+}
+
 /**
  * @title ReferralSystem
  * @notice Tracks referrals and rewards both inviter and invitee.
@@ -30,6 +34,8 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
     uint256 public referrerReward;
     uint256 public refereeReward;
     uint256 public rewardPool;
+    uint256 public minReferrerInteractions; // Required activity to earn rewards
+    IActivityManager public activityManager;
 
     // Events for Blockscout indexing
     event UserRegistered(address indexed user, address indexed referrer, uint256 timestamp);
@@ -39,6 +45,7 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
     constructor() Ownable(msg.sender) {
         referrerReward = 0.0005 ether; // Reward for inviter
         refereeReward = 0.0002 ether;  // Welcome reward for new user
+        minReferrerInteractions = 5;   // Default threshold
     }
 
     /**
@@ -84,8 +91,13 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
             totalReferrals++;
             lastReferralTime[referrer] = block.timestamp;
 
-            // Pay rewards if pool has funds
-            if (rewardPool >= referrerReward + refereeReward) {
+            // Pay rewards if pool has funds AND referrer meets activity threshold
+            bool meetsThreshold = true;
+            if (address(activityManager) != address(0)) {
+                meetsThreshold = activityManager.userInteractions(referrer) >= minReferrerInteractions;
+            }
+
+            if (meetsThreshold && rewardPool >= referrerReward + refereeReward) {
                 rewardPool -= referrerReward + refereeReward;
 
                 referrals[referrer].totalEarned += referrerReward;
@@ -149,6 +161,14 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
     function setRewards(uint256 _referrerReward, uint256 _refereeReward) external onlyOwner {
         referrerReward = _referrerReward;
         refereeReward = _refereeReward;
+    }
+
+    function setActivityManager(address _activityManager) external onlyOwner {
+        activityManager = IActivityManager(_activityManager);
+    }
+
+    function setMinReferrerInteractions(uint256 _threshold) external onlyOwner {
+        minReferrerInteractions = _threshold;
     }
 
     // ─── Helper ───
