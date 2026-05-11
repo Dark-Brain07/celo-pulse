@@ -1,7 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  Cell
+} from 'recharts';
 import { BLOCKSCOUT_API } from "@/lib/contracts";
+
+const weeklyData = [
+  { day: 'Mon', value: 420 },
+  { day: 'Tue', value: 580 },
+  { day: 'Wed', value: 390 },
+  { day: 'Thu', value: 610 },
+  { day: 'Fri', value: 450 },
+  { day: 'Sat', value: 210 },
+  { day: 'Sun', value: 180 },
+];
 
 interface BlockscoutData {
   totalTransactions: number;
@@ -201,6 +221,53 @@ export default function AnalyticsPanel() {
                 <span style={{ color: "#64748b", fontSize: 12 }}>{tx.timestamp}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Activity Trend Chart */}
+        <div className="glass-card" style={{ gridColumn: "1 / -1" }}>
+          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20, color: "#f1f5f9" }}>
+            📊 Weekly Activity Trend
+          </h3>
+          <div style={{ width: '100%', height: 200 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={weeklyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
+                <XAxis 
+                  dataKey="day" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fill: '#64748b', fontSize: 12 }}
+                />
+                <YAxis 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{ fill: '#64748b', fontSize: 12 }}
+                />
+                <Tooltip 
+                  cursor={{ fill: 'rgba(99, 102, 241, 0.05)' }}
+                  contentStyle={{ 
+                    background: '#0f172a', 
+                    border: '1px solid rgba(99, 102, 241, 0.2)',
+                    borderRadius: '8px',
+                    fontSize: '12px'
+                  }}
+                  itemStyle={{ color: '#6366f1' }}
+                />
+                <Bar 
+                  dataKey="value" 
+                  radius={[4, 4, 0, 0]}
+                  animationDuration={1500}
+                >
+                  {weeklyData.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={index === 3 ? '#6366f1' : 'rgba(99, 102, 241, 0.3)'} 
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
