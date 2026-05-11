@@ -19,6 +19,22 @@ The **CeloNova Dashboard** is a fast, responsive, and data-rich Web3 application
 1. **Connect Wallet:** Seamlessly integrate with any Celo-compatible wallet including **MiniPay** via Ethers/Wagmi.
 2. **Perform Micro-Actions:** Trigger gamified, low-stakes interactions (Daily Check-ins, Streaks, Gaming) that write to Celo Smart Contracts.
 3. **Earn Rewards:** Achieve high ranks on the global leaderboard, earn badges, and win automatic CELO airdrops through the Reward Pool.
+4. **Ascend Tiers:** Level up from Bronze to Platinum based on total on-chain interaction volume, unlocking higher reward multipliers and exclusive badges.
+
+---
+
+## 🎖️ Tiered Activity Architecture
+
+CeloNova implements a robust on-chain tiering system within `ActivityManager.sol` to track and reward long-term user engagement:
+
+| Tier | Requirement | Benefits |
+|------|-------------|----------|
+| **Bronze** | 0+ Interactions | Base participation, standard rewards |
+| **Silver** | 10+ Interactions | 1.2x Point multiplier, Silver badge |
+| **Gold** | 50+ Interactions | 1.5x Point multiplier, Gold badge |
+| **Platinum** | 100+ Interactions | 2.0x Point multiplier, Platinum badge, Priority claims |
+
+The tiering logic is fully decentralized and can be verified via the `getUserStats` method on the ActivityManager contract. Referrers must meet a minimum activity threshold (Silver) to be eligible for dual-reward payouts, ensuring the growth remains organic and sybil-resistant.
 
 ---
 
