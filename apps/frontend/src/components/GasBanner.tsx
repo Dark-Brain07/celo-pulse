@@ -8,11 +8,23 @@ import { CELO_FAUCET_URL } from "@/lib/contracts";
 export default function GasBanner() {
   const { isConnected, balance } = useWallet();
   const { gasPrice } = useGasPrice();
+  const [overrideShow, setOverrideShow] = React.useState(false);
 
-  // Only show if connected and balance is very low
+  // Only show if connected and balance is very low (unless override toggled)
   if (!isConnected) return null;
   const balanceNum = parseFloat(balance);
-  if (balanceNum >= 0.01) return null;
+  if (balanceNum >= 0.01 && !overrideShow) {
+    return (
+      <div style={{ textAlign: "right", margin: "0 0 10px" }}>
+        <button 
+          onClick={() => setOverrideShow(true)}
+          style={{ fontSize: 11, background: "none", border: "none", color: "#64748b", cursor: "pointer", textDecoration: "underline" }}
+        >
+          [Dev] Force Low Gas Banner
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -76,6 +88,21 @@ export default function GasBanner() {
         >
           🚰 Get Test CELO
         </a>
+        <button
+          onClick={() => setOverrideShow(false)}
+          style={{
+            padding: "10px 20px",
+            borderRadius: 10,
+            border: "1px solid rgba(245, 158, 11, 0.3)",
+            background: "transparent",
+            color: "#f59e0b",
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: "pointer",
+          }}
+        >
+          Dismiss Dev Force
+        </button>
         <a
           href="https://app.ubeswap.org/#/swap"
           target="_blank"
