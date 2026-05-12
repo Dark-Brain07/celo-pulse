@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-05-13
+
+### Added
+- **Frontend**: Implemented premium "Success Pulse" notification animations for tactile user feedback.
+- **Frontend**: Enhanced `NotFound` error page with interactive Celo-themed hover states and dashboard navigation.
+- **Frontend**: Integrated "Quick Tip" amount presets (0.1, 0.5, 1.0 CELO) to streamline micro-transactions.
+- **Frontend**: Implemented visual rank change indicators (up/down arrows) in `Leaderboard` to track session trends.
+- **Frontend**: Expanded social reach by integrating WhatsApp and Warpcast intent-sharing for referral codes.
+- **Frontend**: Extended `Skeleton` loading states with configurable animation speeds matching network latency.
+- **SDK**: Implemented `getInteractionHistory` in `celo-activity-helper` with native block-range event filtering.
+- **SDK**: Added `isClaimable` convenience method to `celo-airdrop-sdk` for unified eligibility checks.
+- **Contracts**: Refactored `ActivityManager` unit tests to align with current `recordActivity` implementation.
+- **Contracts**: Implemented high-volume stress testing suite for `ActivityManager` interaction counters.
+
 ## [1.4.0] - 2026-05-12
 
 ### Added
