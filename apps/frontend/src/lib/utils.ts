@@ -1,7 +1,31 @@
+import { getAddress } from "ethers";
+
 /**
  * CeloPulse Utility Functions
  * Shared helpers for formatting, validation, and blockchain utilities.
  */
+
+/**
+ * Truncate an Ethereum address for display with checksum verification.
+ * @param address Full hex address
+ * @param startChars Number of characters to show at start (default: 6)
+ * @param endChars Number of characters to show at end (default: 4)
+ * @returns Truncated checksummed address string
+ */
+export function formatAddress(
+  address: string,
+  startChars = 6,
+  endChars = 4
+): string {
+  if (!address) return "";
+  try {
+    const checksummed = getAddress(address);
+    if (checksummed.length < startChars + endChars) return checksummed;
+    return `${checksummed.slice(0, startChars)}...${checksummed.slice(-endChars)}`;
+  } catch {
+    return truncateAddress(address, startChars, endChars);
+  }
+}
 
 /**
  * Truncate an Ethereum address for display.
