@@ -7,7 +7,13 @@ The foundation of the CeloPulse ecosystem relies on 5 highly optimized, gas-effi
 The system is decoupled into isolated logic contracts to maintain security and allow for modular upgrades.
 
 ### 1. ActivityManager.sol
-Handles the 24-hour cycle validation. Requires users to trigger `dailyCheckIn()` exactly once per cycle to advance their streak or reset it back to zero.
+Handles core activity tracking and the **Tiered Engagement System**. Users are automatically categorized into milestones based on total interactions:
+- **Bronze**: Initial level (0+ interactions)
+- **Silver**: 10+ interactions
+- **Gold**: 50+ interactions
+- **Platinum**: 100+ interactions
+
+Updates are emitted via `TierUpdated` events for real-time frontend indexing.
 
 ### 2. MicroActions.sol
 A high-frequency interaction contract. It allows users to execute lightweight transactions rapidly (respecting a 30-second cooldown) to heavily increase onchain transaction counts.
