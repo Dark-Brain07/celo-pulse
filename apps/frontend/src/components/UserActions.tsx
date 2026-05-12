@@ -367,6 +367,27 @@ export default function UserActions() {
             <p style={{ fontSize: 14, fontWeight: 600, marginBottom: 16, color: "#94a3b8" }}>
               💸 Send Tip
             </p>
+            <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
+              {[0.1, 0.5, 1.0].map((amt) => (
+                <button
+                  key={amt}
+                  onClick={() => setState((prev) => ({ ...prev, tipAmount: amt.toString() }))}
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: 8,
+                    background: state.tipAmount === amt.toString() ? "rgba(16, 185, 129, 0.2)" : "rgba(255,255,255,0.04)",
+                    border: `1px solid ${state.tipAmount === amt.toString() ? "#10b981" : "rgba(255,255,255,0.1)"}`,
+                    color: state.tipAmount === amt.toString() ? "#10b981" : "#94a3b8",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {amt} CELO
+                </button>
+              ))}
+            </div>
             <div style={{ display: "flex", gap: 12 }}>
               <input
                 type="text"
