@@ -104,6 +104,15 @@ export class CeloAirdropSDK {
   }
 
   /**
+   * Check if user has claimable rewards and is eligible
+   * @param userAddress Address to check
+   */
+  async isClaimable(userAddress: string): Promise<boolean> {
+    const info = await this.getRewardInfo(userAddress);
+    return info.pending > 0n && info.canClaim;
+  }
+
+  /**
    * Get global pool stats
    */
   async getPoolStats(): Promise<PoolStats> {
