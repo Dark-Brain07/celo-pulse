@@ -20,17 +20,18 @@ export function truncateAddress(
 }
 
 /**
- * Format a Wei value to human-readable CELO.
+ * Format a Wei value to human-readable token amount.
  * @param wei Value in Wei (as bigint or string)
  * @param decimals Number of decimal places to show
- * @returns Formatted CELO string
+ * @param tokenSymbol Custom symbol to append (default: 'CELO')
+ * @returns Formatted token string with symbol
  */
-export function formatCelo(wei: bigint | string, decimals = 4): string {
+export function formatCelo(wei: bigint | string, decimals = 4, tokenSymbol = "CELO"): string {
   const value = typeof wei === "string" ? BigInt(wei) : wei;
   const wholePart = value / BigInt(10 ** 18);
   const fracPart = value % BigInt(10 ** 18);
   const fracStr = fracPart.toString().padStart(18, "0").slice(0, decimals);
-  return `${wholePart}.${fracStr}`;
+  return `${wholePart}.${fracStr} ${tokenSymbol}`.trim();
 }
 
 /**
