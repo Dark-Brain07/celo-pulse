@@ -109,17 +109,16 @@ export default function ReferralPanel() {
           </div>
 
           {/* Share buttons */}
-          <div style={{ marginTop: 16, display: "flex", gap: 10 }}>
             <a
-              href={`https://twitter.com/intent/tweet?text=I'm%20earning%20rewards%20on%20CeloNova!%20Join%20me%20and%20get%20bonus%20CELO%20👉&url=${encodeURIComponent(referralLink)}`}
+              href={`https://wa.me/?text=${encodeURIComponent(`I'm earning rewards on CeloPulse! Join me and get bonus CELO 👉 ${referralLink}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 padding: "8px 16px",
                 borderRadius: 8,
-                background: "rgba(29, 155, 240, 0.1)",
-                border: "1px solid rgba(29, 155, 240, 0.2)",
-                color: "#1d9bf0",
+                background: "rgba(37, 211, 102, 0.1)",
+                border: "1px solid rgba(37, 211, 102, 0.2)",
+                color: "#25d366",
                 fontSize: 13,
                 fontWeight: 600,
                 textDecoration: "none",
@@ -127,20 +126,20 @@ export default function ReferralPanel() {
                 alignItems: "center",
                 gap: 6,
               }}
-              aria-label="Share referral link on Twitter"
+              aria-label="Share referral link on WhatsApp"
             >
-              🐦 Tweet
+              🟢 WhatsApp
             </a>
             <a
-              href={`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=Join%20CeloNova%20and%20earn%20rewards!`}
+              href={`https://warpcast.com/~/compose?text=${encodeURIComponent(`I'm earning rewards on CeloPulse! Join me and get bonus CELO 👉`)}&embeds[]=${encodeURIComponent(referralLink)}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 padding: "8px 16px",
                 borderRadius: 8,
-                background: "rgba(0, 136, 204, 0.1)",
-                border: "1px solid rgba(0, 136, 204, 0.2)",
-                color: "#0088cc",
+                background: "rgba(71, 31, 145, 0.1)",
+                border: "1px solid rgba(71, 31, 145, 0.2)",
+                color: "#7c65c1",
                 fontSize: 13,
                 fontWeight: 600,
                 textDecoration: "none",
@@ -148,9 +147,9 @@ export default function ReferralPanel() {
                 alignItems: "center",
                 gap: 6,
               }}
-              aria-label="Share referral link on Telegram"
+              aria-label="Share referral link on Warpcast"
             >
-              ✈️ Telegram
+              🟣 Warpcast
             </a>
           </div>
         </div>
