@@ -109,4 +109,17 @@ export const THEME = {
     xl: 20,
     full: 9999,
   },
+  animations: {
+    durations: {
+      fast: "0.15s",
+      normal: "0.3s",
+      slow: "0.5s",
+      verySlow: "1s",
+    },
+    easing: {
+      base: "cubic-bezier(0.4, 0, 0.2, 1)",
+      bounce: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      snappy: "cubic-bezier(0.19, 1, 0.22, 1)",
+    },
+  },
 } as const;
