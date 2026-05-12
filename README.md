@@ -187,5 +187,25 @@ Our testing suites verify all reentrancy locks, administrative access controls, 
 
 ---
 
+---
+
+## 🗺️ Roadmap: The Future of CeloPulse
+
+Our journey continues with upcoming features focused on governance, social graph integration, and cross-chain expansion:
+
+### Phase 1: Tier 2 Governance (Q2 2026)
+- **DAO Voting**: Users in Platinum tier unlock voting rights on reward pool allocation ratios.
+- **Snapshot Integration**: Off-chain voting for high-frequency consensus on feature prioritization.
+
+### Phase 2: Social Graph & Proof-of-Personhood (Q3 2026)
+- **Talent Protocol Integration**: Direct sync with Talent Builder scores to boost leaderboard multipliers.
+- **Warpcast Frames**: Perform daily check-ins directly within the Farcaster feed using native frames.
+
+### Phase 3: Cross-Chain Pulse (Q4 2026)
+- **L2 Expansion**: Deploying Pulse engines on Arbitrum and Optimism with unified cross-chain leaderboards.
+- **Celo L2 Transition**: Native optimization for the upcoming Celo L2 architecture.
+
+---
+
 ## 📜 License 
 This project is covered under the MIT open-source license.
