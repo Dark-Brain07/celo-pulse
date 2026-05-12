@@ -41,8 +41,22 @@ const StatCard = memo(function StatCard({ title, value, change, icon, gradient, 
     return () => clearInterval(timer);
   }, [numericValue]);
 
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="stat-card" role="status" aria-label={`${title}: ${value}`}>
+    <div 
+      className="stat-card" 
+      role="status" 
+      aria-label={`${title}: ${value}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        transform: isHovered ? "translateY(-4px)" : "none",
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        boxShadow: isHovered ? "0 10px 25px -5px rgba(99, 102, 241, 0.15)" : "none",
+        borderColor: isHovered ? "rgba(99, 102, 241, 0.25)" : "rgba(255,255,255,0.06)"
+      }}
+    >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
         <div>
           <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 8, fontWeight: 500 }}>
