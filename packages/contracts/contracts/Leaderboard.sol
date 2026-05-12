@@ -32,6 +32,7 @@ contract Leaderboard is Ownable {
     // Events for Blockscout indexing
     event ScoreUpdated(address indexed user, uint256 newScore, uint256 timestamp);
     event PointsUpdated(address indexed user, uint256 pointsAdded, string reason);
+    event PointsDeducted(address indexed user, uint256 pointsSubtracted, string reason);
     event RankChanged(address indexed user, uint256 oldRank, uint256 newRank);
     event NewRankedUser(address indexed user, uint256 initialScore);
 
@@ -49,6 +50,14 @@ contract Leaderboard is Ownable {
     }
 
     /**
+     * @notice Deduct points from a user's score (for sybil/bot penalty)
+     */
+    function deductPoints(address user, uint256 points, string calldata reason) external onlyOwner {
+        _deductPointsInternal(user, points);
+        emit PointsDeducted(user, points, reason);
+    }
+
+    /**
      * @notice Batch add points to multiple users
      * @param users Array of user addresses
      * @param points Array of points to add
@@ -63,6 +72,21 @@ contract Leaderboard is Ownable {
         for (uint256 i = 0; i < users.length; i++) {
             _addPointsInternal(users[i], points[i]);
             emit PointsUpdated(users[i], points[i], reason);
+        }
+    }
+
+    /**
+     * @notice Batch deduct points from multiple users
+     */
+    function batchDeductPoints(
+        address[] calldata users,
+        uint256[] calldata points,
+        string calldata reason
+    ) external onlyOwner {
+        require(users.length == points.length, "Leaderboard: Length mismatch");
+        for (uint256 i = 0; i < users.length; i++) {
+            _deductPointsInternal(users[i], points[i]);
+            emit PointsDeducted(users[i], points[i], reason);
         }
     }
 
@@ -99,6 +123,19 @@ contract Leaderboard is Ownable {
         }
 
         userScores[user].score += points;
+        userScores[user].lastUpdated = block.timestamp;
+
+        emit ScoreUpdated(user, userScores[user].score, block.timestamp);
+    }
+
+    function _deductPointsInternal(address user, uint256 points) internal {
+        require(userScores[user].isActive, "Leaderboard: User not active");
+        
+        if (userScores[user].score > points) {
+            userScores[user].score -= points;
+        } else {
+            userScores[user].score = 0;
+        }
         userScores[user].lastUpdated = block.timestamp;
 
         emit ScoreUpdated(user, userScores[user].score, block.timestamp);
