@@ -81,6 +81,25 @@ describe("ActivityManager", function () {
       await expect(activityManager.connect(user1).pause())
         .to.be.revertedWithCustomError(activityManager, "OwnableUnauthorizedAccount");
     });
+  describe("Stress Testing", function () {
+    it("should handle large volumes of sequential interactions", async function () {
+      const largeCount = 150;
+      for (let i = 0; i < largeCount; i++) {
+        await activityManager.connect(user1).recordActivity();
+      }
+      const stats = await activityManager.getUserStats(user1.address);
+      expect(stats.interactions).to.equal(BigInt(largeCount));
+      expect(stats.tier).to.equal(3); // Platinum
+    });
+
+    it("should handle multi-user concurrent-like interactions", async function () {
+      const users = await ethers.getSigners();
+      // Test with first 10 signers
+      for (let i = 0; i < 10; i++) {
+        await activityManager.connect(users[i]).recordActivity();
+      }
+      expect(await activityManager.totalInteractions()).to.equal(10n);
+    });
   });
 });
 
