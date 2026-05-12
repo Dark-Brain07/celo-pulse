@@ -146,6 +146,20 @@ celo-nova/
 
 ---
 
+## 🛠️ Administrative & Operator Playbook
+
+The CeloPulse contracts include advanced operational controllers designed for ecosystem safety and governance:
+
+### 1. Circuit Breakers & Emergencies
+- **ActivityManager / RewardDistributor Pausability**: The system owner can pause check-ins or reward disbursements under `Pausable` inheritance using standard `pause()` and `unpause()` write-calls.
+- **ERC20 Token Recovery**: Stuck ERC20 tokens accidentally sent to the RewardDistributor can be retrieved using `recoverERC20(address token, uint256 amount)` by the contract owner.
+
+### 2. Gamification & Leaderboard Integrity
+- **Anti-Sybil Deductions**: Points can be deducted from users violating standard usage policies. Use `deductPoints(address user, uint256 points, string reason)` or its batch variant `batchDeductPoints(...)`.
+- **Developer Cooldown Bypass**: For high-volume testing, developers can bypass the 30-second cooldown in `MicroActions` using `setCooldownBypass(address user, bool bypassed)`.
+
+---
+
 ## 🧪 Environmental Considerations 
 Ensure `.env.local` is fully populated. It MUST include your Blockscout API credentials specifically configured for the `Celo Mainnet (42220)`. Wait for 3-5 seconds on first load for the real-time API charts to inject data.
 
