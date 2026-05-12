@@ -1,6 +1,13 @@
 "use client";
 
+import { useWallet } from "@/context/WalletContext";
+import { CONTRACTS } from "@/lib/contracts";
+
 export default function Footer() {
+  const { chainId } = useWallet();
+  const explorerUrl = chainId === 44787 
+    ? "https://explorer.celo.org/alfajores" 
+    : "https://explorer.celo.org";
   return (
     <footer
       style={{
@@ -72,9 +79,9 @@ export default function Footer() {
           </h4>
           {[
             { label: "Celo Docs", url: "https://docs.celo.org" },
-            { label: "Blockscout", url: "https://explorer.celo.org" },
+            { label: "Blockscout Explorer", url: explorerUrl },
             { label: "GitHub", url: "https://github.com/Dark-Brain07/celo-pulse" },
-            { label: "SDK Docs", url: "https://github.com/Dark-Brain07/celo-activity-helper" },
+            { label: "ActivityManager Contract", url: `${explorerUrl}/address/${CONTRACTS.ACTIVITY_MANAGER.address}` },
           ].map((item) => (
             <a
               key={item.label}
