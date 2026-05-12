@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { useWallet } from "@/context/WalletContext";
+import { CUSD_FEE_CURRENCY } from "@/hooks/useWallet";
 
 interface WalletStatsProps {
   address: string | null;
@@ -16,7 +18,8 @@ interface WalletData {
  * Wallet analytics card showing balance, tx count, and contract interaction stats.
  */
 export function WalletStats({ address }: WalletStatsProps) {
-  const [data, setData] = React.useState<WalletData | null>(null);
+  const { chainId } = useWallet();
+  const [data, setData] = React.useState<(WalletData & { cusdBalance: string }) | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [refreshIn, setRefreshIn] = React.useState(30);
 
@@ -61,6 +64,36 @@ export function WalletStats({ address }: WalletStatsProps) {
           balance: balanceCelo.toFixed(4),
           txCount,
           contractInteractions: Math.max(0, txCount - 1), // Approximate
+          cusdBalance: "0.0000",
+        });
+
+        // Fetch cUSD balance
+        const cusdToken = chainId === 44787 ? CUSD_FEE_CURRENCY.alfajores : CUSD_FEE_CURRENCY.mainnet;
+        const cleanAddress = address.toLowerCase().replace("0x", "");
+        const calldata = "0x70a08231000000000000000000000000" + cleanAddress;
+
+        const cusdResponse = await fetch(rpcUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            method: "eth_call",
+            params: [
+              { to: cusdToken, data: calldata },
+              "latest"
+            ],
+            id: 3,
+          }),
+        });
+        const cusdData = await cusdResponse.json();
+        const cusdWei = BigInt(cusdData.result || "0");
+        const cusdBalance = Number(cusdWei) / 1e18;
+
+        setData({
+          balance: balanceCelo.toFixed(4),
+          txCount,
+          contractInteractions: Math.max(0, txCount - 1), // Approximate
+          cusdBalance: cusdBalance.toFixed(4),
         });
       } catch (err) {
         console.error("[WalletStats] Failed:", err);
@@ -107,11 +140,16 @@ export function WalletStats({ address }: WalletStatsProps) {
       {loading && !data ? (
         <p style={{ color: "rgba(255,255,255,0.4)", textAlign: "center" }}>Loading...</p>
       ) : data ? (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
           <StatCard
             label="CELO Balance"
             value={`${data.balance} CELO`}
             color="#FCFF51"
+          />
+          <StatCard
+            label="cUSD Balance"
+            value={`${data.cusdBalance} cUSD`}
+            color="#38BDF8"
           />
           <StatCard
             label="Transactions"
