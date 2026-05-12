@@ -169,6 +169,22 @@ export class CeloActivityHelper {
     return tiers[tier] || "Unknown";
   }
 
+  /**
+   * Get historical interaction events for a user
+   * @param userAddress Address to filter by
+   * @param fromBlock Optional starting block
+   */
+  async getInteractionHistory(userAddress: string, fromBlock = 0): Promise<any[]> {
+    const filter = this.activityContract.filters.ActivityRecorded(userAddress);
+    const events = await this.activityContract.queryFilter(filter, fromBlock);
+    return events.map((event: any) => ({
+      count: event.args[1],
+      timestamp: event.args[2],
+      blockNumber: event.blockNumber,
+      transactionHash: event.transactionHash,
+    }));
+  }
+
   // ─── Micro Actions ───
 
   /**
