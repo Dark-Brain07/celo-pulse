@@ -2,13 +2,14 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title MicroActions
  * @notice Lightweight micro-transaction contract for CeloPulse.
  *         Designed to generate maximum onchain activity through small, frequent transactions.
  */
-contract MicroActions is ReentrancyGuard {
+contract MicroActions is ReentrancyGuard, Ownable {
     struct ActionStats {
         uint256 tipsSent;
         uint256 tipsReceived;
@@ -18,11 +19,16 @@ contract MicroActions is ReentrancyGuard {
     }
 
     mapping(address => ActionStats) public userStats;
+    mapping(address => bool) public cooldownBypassed;
 
     uint256 public totalTips;
     uint256 public totalTipVolume;
     uint256 public totalActions;
     uint256 public constant ACTION_COOLDOWN = 30 seconds; // Very short — encourages frequent play
+
+    event CooldownBypassUpdated(address indexed user, bool bypassed);
+
+    constructor() Ownable(msg.sender) {}
 
     // Events for Blockscout indexing
     event TipSent(address indexed from, address indexed to, uint256 amount, uint256 timestamp);
@@ -57,10 +63,12 @@ contract MicroActions is ReentrancyGuard {
      * @dev 30-second cooldown enables multiple plays per session (target: 5-10 per session)
      */
     function playAction() external nonReentrant {
-        require(
-            block.timestamp >= userStats[msg.sender].lastActionTime + ACTION_COOLDOWN,
-            "CeloPulse: Action cooldown active"
-        );
+        if (!cooldownBypassed[msg.sender]) {
+            require(
+                block.timestamp >= userStats[msg.sender].lastActionTime + ACTION_COOLDOWN,
+                "CeloPulse: Action cooldown active"
+            );
+        }
 
         userStats[msg.sender].actionsPlayed++;
         userStats[msg.sender].lastActionTime = block.timestamp;
@@ -84,10 +92,12 @@ contract MicroActions is ReentrancyGuard {
      */
     function batchExecuteActions(uint8 count) external nonReentrant {
         require(count > 0 && count <= 5, "CeloPulse: Batch size 1-5");
-        require(
-            block.timestamp >= userStats[msg.sender].lastActionTime + ACTION_COOLDOWN,
-            "CeloPulse: Cooldown active"
-        );
+        if (!cooldownBypassed[msg.sender]) {
+            require(
+                block.timestamp >= userStats[msg.sender].lastActionTime + ACTION_COOLDOWN,
+                "CeloPulse: Cooldown active"
+            );
+        }
 
         for(uint8 i = 0; i < count; i++) {
             userStats[msg.sender].actionsPlayed++;
@@ -112,7 +122,22 @@ contract MicroActions is ReentrancyGuard {
     }
 
     function canPlayAction(address user) external view returns (bool) {
+        if (cooldownBypassed[user]) return true;
         return block.timestamp >= userStats[user].lastActionTime + ACTION_COOLDOWN;
+    }
+
+    function getRemainingCooldown(address user) external view returns (uint256) {
+        if (cooldownBypassed[user]) return 0;
+        uint256 nextAllowed = userStats[user].lastActionTime + ACTION_COOLDOWN;
+        if (block.timestamp >= nextAllowed) return 0;
+        return nextAllowed - block.timestamp;
+    }
+
+    // ─── Admin Functions ───
+
+    function setCooldownBypass(address user, bool bypassed) external onlyOwner {
+        cooldownBypassed[user] = bypassed;
+        emit CooldownBypassUpdated(user, bypassed);
     }
 
     function getGlobalStats() external view returns (
