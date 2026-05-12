@@ -10,20 +10,21 @@ interface LeaderboardEntry {
   checkIns: number;
   actions: number;
   streak: number;
+  change?: "up" | "down" | "none";
 }
 
 // Demo leaderboard data — in production, fetched from Leaderboard contract
 const demoLeaderboard: LeaderboardEntry[] = [
-  { rank: 1, address: "0x1234...abcd", score: 4850, checkIns: 45, actions: 312, streak: 14 },
-  { rank: 2, address: "0x5678...efgh", score: 3920, checkIns: 38, actions: 256, streak: 11 },
-  { rank: 3, address: "0x9abc...ijkl", score: 3410, checkIns: 32, actions: 198, streak: 9 },
-  { rank: 4, address: "0xdef0...mnop", score: 2890, checkIns: 28, actions: 167, streak: 7 },
-  { rank: 5, address: "0x1357...qrst", score: 2340, checkIns: 22, actions: 145, streak: 5 },
-  { rank: 6, address: "0x2468...uvwx", score: 1980, checkIns: 19, actions: 121, streak: 4 },
-  { rank: 7, address: "0x3690...yzab", score: 1560, checkIns: 15, actions: 98, streak: 3 },
-  { rank: 8, address: "0x4812...cdef", score: 1230, checkIns: 12, actions: 76, streak: 2 },
-  { rank: 9, address: "0x5934...ghij", score: 890, checkIns: 9, actions: 54, streak: 2 },
-  { rank: 10, address: "0x6045...klmn", score: 650, checkIns: 6, actions: 38, streak: 1 },
+  { rank: 1, address: "0x1234...abcd", score: 4850, checkIns: 45, actions: 312, streak: 14, change: "none" },
+  { rank: 2, address: "0x5678...efgh", score: 3920, checkIns: 38, actions: 256, streak: 11, change: "up" },
+  { rank: 3, address: "0x9abc...ijkl", score: 3410, checkIns: 32, actions: 198, streak: 9, change: "none" },
+  { rank: 4, address: "0xdef0...mnop", score: 2890, checkIns: 28, actions: 167, streak: 7, change: "down" },
+  { rank: 5, address: "0x1357...qrst", score: 2340, checkIns: 22, actions: 145, streak: 5, change: "up" },
+  { rank: 6, address: "0x2468...uvwx", score: 1980, checkIns: 19, actions: 121, streak: 4, change: "none" },
+  { rank: 7, address: "0x3690...yzab", score: 1560, checkIns: 15, actions: 98, streak: 3, change: "none" },
+  { rank: 8, address: "0x4812...cdef", score: 1230, checkIns: 12, actions: 76, streak: 2, change: "down" },
+  { rank: 9, address: "0x5934...ghij", score: 890, checkIns: 9, actions: 54, streak: 2, change: "up" },
+  { rank: 10, address: "0x6045...klmn", score: 650, checkIns: 6, actions: 38, streak: 1, change: "none" },
 ];
 
 function RankBadge({ rank }: { rank: number }) {
@@ -154,7 +155,15 @@ export default function Leaderboard() {
                   : "transparent";
               }}
             >
-              <RankBadge rank={entry.rank} />
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <RankBadge rank={entry.rank} />
+                {entry.change === "up" && (
+                  <span style={{ color: "#10b981", fontSize: 10 }}>▲</span>
+                )}
+                {entry.change === "down" && (
+                  <span style={{ color: "#ef4444", fontSize: 10 }}>▼</span>
+                )}
+              </div>
               <div>
                 <span
                   style={{
