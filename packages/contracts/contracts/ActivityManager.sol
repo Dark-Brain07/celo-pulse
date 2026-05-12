@@ -2,13 +2,14 @@
 pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 
 /**
  * @title ActivityManager
  * @dev Stores activity data on-chain with access control.
  *      Records per-user interaction counts and timestamps.
  */
-contract ActivityManager is Ownable {
+contract ActivityManager is Ownable, Pausable {
     mapping(address => uint256) public userInteractions;
     mapping(address => uint256) public lastInteractionTime;
     mapping(address => uint8) public userTier; // 0: Bronze, 1: Silver, 2: Gold, 3: Platinum
@@ -19,7 +20,7 @@ contract ActivityManager is Ownable {
 
     constructor() Ownable(msg.sender) {}
 
-    function recordActivity() external {
+    function recordActivity() external whenNotPaused {
         userInteractions[msg.sender] += 1;
         lastInteractionTime[msg.sender] = block.timestamp;
         totalInteractions += 1;
@@ -53,5 +54,15 @@ contract ActivityManager is Ownable {
         uint8 tier
     ) {
         return (userInteractions[user], lastInteractionTime[user], userTier[user]);
+    }
+
+    // ─── Emergency Admin Controls ───
+
+    function pause() external onlyOwner {
+        _pause();
+    }
+
+    function unpause() external onlyOwner {
+        _unpause();
     }
 }
