@@ -56,6 +56,14 @@ export default function NotFound() {
 
       <Link
         href="/"
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 8px 32px rgba(53,208,127,0.4)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 4px 24px rgba(53,208,127,0.3)";
+        }}
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -67,7 +75,7 @@ export default function NotFound() {
           fontWeight: 700,
           fontSize: "1rem",
           textDecoration: "none",
-          transition: "transform 0.2s, box-shadow 0.2s",
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
           boxShadow: "0 4px 24px rgba(53,208,127,0.3)",
         }}
       >
