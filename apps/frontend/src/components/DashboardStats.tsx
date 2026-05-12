@@ -28,6 +28,22 @@ export default function DashboardStats() {
       suffix: "Gwei",
     },
     {
+      title: "Active Streak",
+      value: 12,
+      change: "+3 days",
+      icon: "⚡",
+      gradient: "linear-gradient(135deg, #ec4899, #f43f5e)",
+      suffix: " days",
+    },
+    {
+      title: "Activity Level",
+      value: 4,
+      change: "Gold Tier",
+      icon: "🏆",
+      gradient: "linear-gradient(135deg, #eab308, #f97316)",
+      suffix: " / 10",
+    },
+    {
       title: "Activity Rate",
       value: 87,
       change: "+5.3%",
