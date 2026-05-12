@@ -8,6 +8,7 @@ interface SkeletonProps {
   borderRadius?: string | number;
   style?: React.CSSProperties;
   animationDuration?: string;
+  speed?: "fast" | "normal" | "slow";
 }
 
 /**
@@ -18,9 +19,11 @@ export function Skeleton({
   width = "100%",
   height = 20,
   borderRadius = 8,
-  animationDuration = "1.5s",
+  animationDuration,
+  speed = "normal",
   style,
 }: SkeletonProps) {
+  const duration = animationDuration || (speed === "fast" ? "0.8s" : speed === "slow" ? "2.5s" : "1.5s");
   return (
     <div
       role="status"
@@ -33,7 +36,7 @@ export function Skeleton({
         background:
           "linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%)",
         backgroundSize: "200% 100%",
-        animation: `skeletonShimmer ${animationDuration} ease-in-out infinite`,
+        animation: `skeletonShimmer ${duration} ease-in-out infinite`,
         ...style,
       }}
     />
