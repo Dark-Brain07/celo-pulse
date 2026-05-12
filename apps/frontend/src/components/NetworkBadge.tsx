@@ -11,11 +11,13 @@ export function NetworkBadge() {
   const { chainId, isConnected } = useWallet();
   const [status, setStatus] = React.useState<"connected" | "disconnected" | "checking" | "unsupported">("checking");
   const [blockNumber, setBlockNumber] = React.useState<number | null>(null);
+  const [latency, setLatency] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     const checkNetwork = async () => {
       try {
         const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || "https://forno.celo.org";
+        const startTime = Date.now();
         const response = await fetch(rpcUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -27,8 +29,10 @@ export function NetworkBadge() {
           }),
         });
         const data = await response.json();
+        const duration = Date.now() - startTime;
         if (data.result) {
           setBlockNumber(parseInt(data.result, 16));
+          setLatency(duration);
           setStatus("connected");
         }
       } catch {
@@ -84,7 +88,7 @@ export function NetworkBadge() {
         {status === "unsupported"
           ? "Unsupported Network"
           : status === "connected" && blockNumber
-          ? `Celo #${blockNumber.toLocaleString()}`
+          ? `Celo #${blockNumber.toLocaleString()}${latency ? ` (${latency}ms)` : ""}`
           : status === "checking"
           ? "Connecting..."
           : "Disconnected"}
