@@ -165,5 +165,27 @@ Ensure `.env.local` is fully populated. It MUST include your Blockscout API cred
 
 ---
 
+## 🔬 Local Sandbox & Hardhat Testing
+
+You can compile, test, and deploy the contract suite locally using Hardhat:
+
+```bash
+# 1. Navigate to contracts package
+cd packages/contracts
+
+# 2. Compile contracts
+npx hardhat compile
+
+# 3. Run localized unit tests
+npx hardhat test
+
+# 4. Deploy to local node or Alfajores testnet
+npx hardhat run scripts/deploy.js --network alfajores
+```
+
+Our testing suites verify all reentrancy locks, administrative access controls, and referral reward pools under synthetic Celo forks.
+
+---
+
 ## 📜 License 
 This project is covered under the MIT open-source license.
