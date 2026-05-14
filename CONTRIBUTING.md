@@ -1,27 +1,45 @@
 # Contributing to CeloPulse
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+Welcome to the CeloPulse development team! To maintain a professional and clean repository, please follow these guidelines.
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
+## Branching Strategy
 
-## We Develop with Github
-We use github to host code, to track issues and feature requests, as well as accept pull requests.
+We follow a simplified GitFlow model:
 
-## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
-Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests:
+- **main**: Production-ready code. Only merged via PR from `develop` or hotfix branches.
+- **develop**: Integration branch for features.
+- **feature/***: New features (e.g., `feature/gas-savings-ui`).
+- **fix/***: Bug fixes (e.g., `fix/streak-logic`).
+- **docs/***: Documentation updates.
 
-1. Fork the repo and create your branch from `main`.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
-5. Make sure your code lints.
-6. Issue that pull request!
+## Commit Message Format
 
-## Any contributions you make will be under the MIT Software License
-In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
+We use [Conventional Commits](https://www.conventionalcommits.org/):
 
-<!-- Note: Ensure all PRs pass the automated Vercel preview checks before merging. -->
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation only changes
+- `style`: Changes that do not affect the meaning of the code
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `perf`: A code change that improves performance
+- `test`: Adding missing tests or correcting existing tests
+- `chore`: Changes to the build process or auxiliary tools
+
+## Pull Request Process
+
+1. Create a new branch from `develop`.
+2. Implement your changes and add necessary tests.
+3. Ensure all tests pass (`npm test` in relevant packages).
+4. Update the `CHANGELOG.md` with your changes.
+5. Open a PR against `develop`.
+6. At least one peer review is required before merging.
+
+## Coding Standards
+
+- **TypeScript**: Use strict typing where possible.
+- **CSS**: Use vanilla CSS or Tailwind utility classes as defined in the project.
+- **Solidity**: Follow the [Solidity Style Guide](https://docs.soliditylang.org/en/v0.8.20/style-guide.html). Ensure all contracts are compiled with ^0.8.20.
+
+---
+
+Thank you for contributing to the Celo ecosystem!
