@@ -50,14 +50,16 @@ next-env.d.ts
 apps/**/package-lock.json
 packages/**/package-lock.json
 
-# script generated files and artifacts
+# script generated files and dev artifacts (never commit these)
 generate_*.js
-npm_boost_pulse.js
+npm_boost_*.js
 _npm_dl_*/
 _npm_tmp*/
+_npm_tmp_*/
 
 # test integration artifacts (auto-generated)
 **/test_integration_sync/
+
 # build and activity logs
 .build-log
 .activity_log
