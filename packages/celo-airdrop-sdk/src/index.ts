@@ -127,6 +127,20 @@ export class CeloAirdropSDK {
       this.handleError("getPoolStats", err);
     }
   }
+
+  /**
+   * Get metadata for the deployed contracts
+   */
+  async getContractMetadata() {
+    return {
+      version: "1.5.0",
+      contracts: {
+        rewardDistributor: await this.rewardContract.getAddress(),
+        activityManager: await this.activityContract.getAddress(),
+      },
+      network: (await this.rewardContract.runner?.provider?.getNetwork())?.name || "unknown",
+    };
+  }
 }
 
 export default CeloAirdropSDK;
