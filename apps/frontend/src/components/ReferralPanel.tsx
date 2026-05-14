@@ -109,6 +109,7 @@ export default function ReferralPanel() {
           </div>
 
           {/* Share buttons */}
+          <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
             <a
               href={`https://wa.me/?text=${encodeURIComponent(`I'm earning rewards on CeloPulse! Join me and get bonus CELO 👉 ${referralLink}`)}`}
               target="_blank"
