@@ -58,8 +58,6 @@ _npm_tmp*/
 
 # test integration artifacts (auto-generated)
 **/test_integration_sync/
-**/test/
-
 # build and activity logs
 .build-log
 .activity_log
