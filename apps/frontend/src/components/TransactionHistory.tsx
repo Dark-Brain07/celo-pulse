@@ -127,17 +127,36 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
             .map((tx) => (
             <div key={tx.hash} style={rowStyle}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span
+                <div
+                  title={tx.status === "confirmed" ? "Transaction successful" : "Transaction failed"}
                   style={{
-                    width: 8,
-                    height: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 24,
+                    height: 24,
                     borderRadius: "50%",
-                    background: tx.status === "confirmed" ? "#35D07F" : "#ff6b6b",
+                    background: tx.status === "confirmed" ? "rgba(53, 208, 127, 0.15)" : "rgba(255, 107, 107, 0.15)",
+                    color: tx.status === "confirmed" ? "#35D07F" : "#ff6b6b",
                     flexShrink: 0,
+                    fontSize: 12,
                   }}
-                />
+                >
+                  {tx.status === "confirmed" ? "✓" : "!"}
+                </div>
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>{tx.method}</div>
+                  <div style={{ fontWeight: 600, fontSize: "0.9rem", display: "flex", alignItems: "center", gap: 6 }}>
+                    {tx.method}
+                    <span style={{
+                      fontSize: 10,
+                      color: "rgba(255,255,255,0.2)",
+                      padding: "1px 4px",
+                      borderRadius: 4,
+                      border: "1px solid rgba(255,255,255,0.1)"
+                    }}>
+                      {tx.gasUsed} gas
+                    </span>
+                  </div>
                   <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)" }}>
                     {formatTimestamp(tx.timestamp)}
                   </div>
