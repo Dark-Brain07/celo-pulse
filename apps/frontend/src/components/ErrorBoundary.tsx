@@ -30,7 +30,7 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("[CeloNova ErrorBoundary]", error, errorInfo);
+    console.error("[CeloPulse ErrorBoundary]", error, errorInfo);
   }
 
   render() {

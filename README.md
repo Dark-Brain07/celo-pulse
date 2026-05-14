@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="public/logo.png" alt="CeloNova Logo" width="150"/>
-  <h1>CeloNova — Proof-of-Activity dApp</h1>
+  <img src="public/logo.png" alt="CeloPulse Logo" width="150"/>
+  <h1>CeloPulse — Proof-of-Activity dApp</h1>
   <p>The definitive Proof-of-Activity (PoA) dashboard for the Celo Ecosystem — <strong>MiniPay Ready</strong></p>
 
-  [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-green.svg)](https://celo-nova-omega.vercel.app/)
+  [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-green.svg)](https://celo-pulse-omega.vercel.app/)
   [![Network](https://img.shields.io/badge/Network-Celo_Mainnet-yellow.svg)](https://celoscan.io/)
   [![Next.js](https://img.shields.io/badge/Next.js-15.1-blue.svg)](https://nextjs.org/)
   [![MiniPay](https://img.shields.io/badge/MiniPay-Compatible-brightgreen.svg)](https://docs.celo.org/developer/build-on-minipay/overview)
@@ -13,7 +13,7 @@
 
 ## 📌 Problem & Solution
 
-The **CeloNova Dashboard** is a fast, responsive, and data-rich Web3 application built specifically for the Celo Ecosystem. It incentivizes and visualizes high-frequency onchain interactions.
+The **CeloPulse Dashboard** is a fast, responsive, and data-rich Web3 application built specifically for the Celo Ecosystem. It incentivizes and visualizes high-frequency onchain interactions.
 
 ### The Mechanism
 1. **Connect Wallet:** Seamlessly integrate with any Celo-compatible wallet including **MiniPay** via Ethers/Wagmi.
@@ -25,7 +25,7 @@ The **CeloNova Dashboard** is a fast, responsive, and data-rich Web3 application
 
 ## 🎖️ Tiered Activity Architecture
 
-CeloNova implements a robust on-chain tiering system within `ActivityManager.sol` to track and reward long-term user engagement:
+CeloPulse implements a robust on-chain tiering system within `ActivityManager.sol` to track and reward long-term user engagement:
 
 | Tier | Requirement | Benefits |
 |------|-------------|----------|
@@ -40,7 +40,7 @@ The tiering logic is fully decentralized and can be verified via the `getUserSta
 
 ## 📱 MiniPay Integration
 
-CeloNova is **fully optimized for MiniPay**, Opera's self-custodial stablecoin wallet on Celo:
+CeloPulse is **fully optimized for MiniPay**, Opera's self-custodial stablecoin wallet on Celo:
 
 - **Auto-detection:** Detects `window.ethereum.isMiniPay` to auto-connect without wallet popups
 - **Fee Abstraction:** All transactions use **USDm** (cUSD) as gas fee currency via Celo's fee abstraction (`feeCurrency: 0x4F604735c1cF31399C6E711D5962b2B3E0225AD3`)
@@ -111,7 +111,7 @@ Navigate to `http://localhost:3000` to view your dashboard.
 ## 📁 Project Structure
 
 ```
-celo-nova/
+celo-pulse/
 ├── apps/
 │   └── frontend/           # Next.js frontend app
 │       └── src/

@@ -117,7 +117,7 @@ export function TransactionHistory({ walletAddress }: IHistoryProps) {
             No transactions found.
           </p>
           <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.8rem", marginTop: 4 }}>
-            Start interacting with CeloNova to see history.
+            Start interacting with CeloPulse to see history.
           </p>
         </div>
       ) : (

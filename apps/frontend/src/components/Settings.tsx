@@ -19,7 +19,7 @@ export function Settings() {
     {
       title: "🆘 Support & Resources",
       items: [
-        { name: "CeloNova Documentation", icon: "📖", link: "#" },
+        { name: "CeloPulse Documentation", icon: "📖", link: "#" },
         { name: "Join Discord Community", icon: "💬", link: "https://discord.com/invite/celo" },
         { name: "Report a Bug", icon: "🐞", link: "https://github.com/Dark-Brain07/celo-pulse/issues" },
       ]
@@ -93,7 +93,7 @@ export function Settings() {
         textAlign: "center"
       }}>
         <p style={{ fontSize: 12, color: "#64748b" }}>
-          CeloNova Dashboard v1.5.0 • Built on Celo Mainnet
+          CeloPulse Dashboard v1.5.0 • Built on Celo Mainnet
         </p>
       </div>
     </div>
