@@ -21,6 +21,7 @@ contract Leaderboard is Ownable {
     mapping(address => uint256) private userIndex; // index in rankedUsers
 
     uint256 public totalRankedUsers;
+    uint256 public totalPointsAccumulated;
 
     // Score weights
     uint256 public constant CHECK_IN_POINTS = 10;
@@ -124,6 +125,7 @@ contract Leaderboard is Ownable {
 
         userScores[user].score += points;
         userScores[user].lastUpdated = block.timestamp;
+        totalPointsAccumulated += points;
 
         emit ScoreUpdated(user, userScores[user].score, block.timestamp);
     }
@@ -133,7 +135,9 @@ contract Leaderboard is Ownable {
         
         if (userScores[user].score > points) {
             userScores[user].score -= points;
+            totalPointsAccumulated -= points;
         } else {
+            totalPointsAccumulated -= userScores[user].score;
             userScores[user].score = 0;
         }
         userScores[user].lastUpdated = block.timestamp;
@@ -174,6 +178,10 @@ contract Leaderboard is Ownable {
 
     function getTotalRankedUsers() external view returns (uint256) {
         return totalRankedUsers;
+    }
+
+    function getLeaderboardStats() external view returns (uint256 totalPoints, uint256 userCount) {
+        return (totalPointsAccumulated, totalRankedUsers);
     }
 }
 
