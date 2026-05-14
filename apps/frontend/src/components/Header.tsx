@@ -136,18 +136,22 @@ export default function Header() {
               </button>
             </>
           ) : (
-            <button
-              className="btn-primary"
-              onClick={connect}
-              disabled={isConnecting}
-              style={{ display: "flex", alignItems: "center", gap: 8 }}
-            >
-              {isConnecting ? (
-                <span className="animate-pulse-glow">Connecting...</span>
-              ) : (
-                <>🔗 Connect Wallet</>
-              )}
-            </button>
+            /* Per MiniPay docs: hide connect button when inside MiniPay */
+            !isMiniPay && (
+              <button
+                id="connect-wallet-btn"
+                className="btn-primary"
+                onClick={connect}
+                disabled={isConnecting}
+                style={{ display: "flex", alignItems: "center", gap: 8 }}
+              >
+                {isConnecting ? (
+                  <span className="animate-pulse-glow">Connecting...</span>
+                ) : (
+                  <>🔗 Connect Wallet</>
+                )}
+              </button>
+            )
           )}
 
           {isWrongNetwork && !isMiniPay && (
