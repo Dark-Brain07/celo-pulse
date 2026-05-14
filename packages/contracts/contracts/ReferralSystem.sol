@@ -171,6 +171,13 @@ contract ReferralSystem is Ownable, ReentrancyGuard {
         minReferrerInteractions = _threshold;
     }
 
+    function emergencyWithdraw() external onlyOwner {
+        uint256 balance = address(this).balance;
+        rewardPool = 0;
+        (bool success, ) = payable(owner()).call{value: balance}("");
+        require(success, "Withdrawal failed");
+    }
+
     // ─── Helper ───
 
     function toAsciiString(address x) internal pure returns (string memory) {
