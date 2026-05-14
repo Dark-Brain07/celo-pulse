@@ -14,6 +14,7 @@ contract ActivityManager is Ownable, Pausable {
     mapping(address => uint256) public lastInteractionTime;
     mapping(address => uint8) public userTier; // 0: Bronze, 1: Silver, 2: Gold, 3: Platinum
     uint256 public totalInteractions;
+    address public gasPriceOracle;
     
     event ActivityRecorded(address indexed user, uint256 count, uint256 timestamp);
     event TierUpdated(address indexed user, uint8 newTier, uint256 timestamp);
@@ -64,5 +65,10 @@ contract ActivityManager is Ownable, Pausable {
 
     function unpause() external onlyOwner {
         _unpause();
+    }
+
+    function setGasPriceOracle(address _oracle) external onlyOwner {
+        require(_oracle != address(0), "Invalid oracle address");
+        gasPriceOracle = _oracle;
     }
 }
