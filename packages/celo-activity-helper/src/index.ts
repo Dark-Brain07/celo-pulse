@@ -320,6 +320,26 @@ export class CeloActivityHelper {
       totalReferrals: results[3] || BigInt(0),
     };
   }
+
+  /**
+   * Calculate estimated gas savings by using Celo vs Ethereum
+   * @param transactionCount Number of transactions to calculate for
+   */
+  calculateGasSavings(transactionCount: number) {
+    const ethAvgCost = 2.50; // Average Ethereum transaction cost in USD
+    const celoAvgCost = 0.001; // Average Celo transaction cost in USD
+
+    const ethTotal = transactionCount * ethAvgCost;
+    const celoTotal = transactionCount * celoAvgCost;
+    const totalSaved = ethTotal - celoTotal;
+
+    return {
+      ethCostUSD: ethTotal,
+      celoCostUSD: celoTotal,
+      savingsUSD: totalSaved,
+      multiplier: ethAvgCost / celoAvgCost,
+    };
+  }
 }
 
 export default CeloActivityHelper;
