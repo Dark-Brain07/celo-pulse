@@ -317,7 +317,29 @@ export default function UserActions() {
                   </p>
                 </div>
                 {action.badge && (
-                  <span className="streak-badge streak-fire">{action.badge}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8 }}>
+                    <span className="streak-badge streak-fire">{action.badge}</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const text = encodeURIComponent(`🔥 I'm on a ${state.streak}-day streak on CeloPulse! Join me and earn CELO rewards. #Celo #MiniPay`);
+                        const url = encodeURIComponent(window.location.origin);
+                        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank");
+                      }}
+                      style={{
+                        background: "rgba(29, 155, 240, 0.1)",
+                        border: "1px solid rgba(29, 155, 240, 0.2)",
+                        color: "#1d9bf0",
+                        padding: "2px 8px",
+                        borderRadius: 6,
+                        fontSize: 10,
+                        fontWeight: 600,
+                        cursor: "pointer",
+                      }}
+                    >
+                      🐦 Share
+                    </button>
+                  </div>
                 )}
               </button>
             ))}
