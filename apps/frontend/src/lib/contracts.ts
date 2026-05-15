@@ -4,6 +4,7 @@ export const CONTRACTS = {
     address: "0xaA5114a2498a57B546f819c2a727a8834F64762F",
     abi: [
       "function tap() external",
+      "function beat() external",
     ],
   },
   ACTIVITY_MANAGER: {
