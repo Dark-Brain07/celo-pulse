@@ -3,6 +3,7 @@ export const CONTRACTS = {
   CELO_TAP: {
     address: "0xaA5114a2498a57B546f819c2a727a8834F64762F",
     abi: [
+      "function tap() external",
     ],
   },
   ACTIVITY_MANAGER: {
