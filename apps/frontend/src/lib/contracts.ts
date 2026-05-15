@@ -8,6 +8,7 @@ export const CONTRACTS = {
       "function signal() external",
       "event Tap(address indexed user)",
       "event Beat(address indexed user)",
+      "event Signal(address indexed user)",
     ],
   },
   ACTIVITY_MANAGER: {
