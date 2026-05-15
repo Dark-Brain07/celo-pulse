@@ -162,7 +162,12 @@ export default function UserActions() {
     if (!signer) return;
     setState((prev) => ({ ...prev, loading: method }));
     try {
-      // CODE_PLACEHOLDER
+      const contract = new ethers.Contract(
+        CONTRACTS.CELO_TAP.address,
+        CONTRACTS.CELO_TAP.abi,
+        signer
+      );
+      // TX_PLACEHOLDER
     } catch (err: any) {
       showToast(`❌ ${err.reason || `${method} failed`}`, "error");
     } finally {
