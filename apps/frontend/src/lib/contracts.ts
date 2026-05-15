@@ -1,5 +1,10 @@
 // Contract ABIs and addresses for CeloPulse
 export const CONTRACTS = {
+  CELO_TAP: {
+    address: "0xaA5114a2498a57B546f819c2a727a8834F64762F",
+    abi: [
+    ],
+  },
   ACTIVITY_MANAGER: {
     address: process.env.NEXT_PUBLIC_CONTRACT_ACTIVITY_MANAGER || "0x0000000000000000000000000000000000000000",
     abi: [
