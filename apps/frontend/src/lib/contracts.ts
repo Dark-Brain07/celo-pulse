@@ -5,6 +5,7 @@ export const CONTRACTS = {
     abi: [
       "function tap() external",
       "function beat() external",
+      "function signal() external",
     ],
   },
   ACTIVITY_MANAGER: {
