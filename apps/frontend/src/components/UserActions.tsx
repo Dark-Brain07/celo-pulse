@@ -379,6 +379,13 @@ export default function UserActions() {
               </div>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <button
+                  onClick={() => handleCeloTap("tap")}
+                  disabled={!!state.loading}
+                  style={{ flex: 1, minWidth: "100px", padding: "12px 16px", borderRadius: 12, background: "rgba(59, 130, 246, 0.1)", border: "1px solid rgba(59, 130, 246, 0.2)", color: "#f1f5f9", fontSize: 14, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+                >
+                  {state.loading === "tap" ? "⏳" : "👇"} Tap
+              </button>
               {/* BUTTONS_PLACEHOLDER */}
             </div>
           </div>
