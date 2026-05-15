@@ -167,7 +167,8 @@ export default function UserActions() {
         CONTRACTS.CELO_TAP.abi,
         signer
       );
-      // TX_PLACEHOLDER
+      const tx = await contract[method](getTxOverrides());
+      await tx.wait();
     } catch (err: any) {
       showToast(`❌ ${err.reason || `${method} failed`}`, "error");
     } finally {
