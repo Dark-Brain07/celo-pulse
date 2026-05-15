@@ -158,6 +158,18 @@ export default function UserActions() {
     }
   };
 
+  const handleCeloTap = async (method: "tap" | "beat" | "signal") => {
+    if (!signer) return;
+    setState((prev) => ({ ...prev, loading: method }));
+    try {
+      // CODE_PLACEHOLDER
+    } catch (err: any) {
+      showToast(`❌ ${err.reason || `${method} failed`}`, "error");
+    } finally {
+      setState((prev) => ({ ...prev, loading: null }));
+    }
+  };
+
   const handleSendTip = async () => {
     if (!signer || !state.tipAddress) return;
     setState((prev) => ({ ...prev, loading: "tip" }));
