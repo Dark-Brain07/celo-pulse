@@ -366,6 +366,23 @@ export default function UserActions() {
             ))}
           </div>
 
+          {/* Celo Tap Minimal Actions */}
+          <div className="glass-card">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <div>
+                <p style={{ fontSize: 16, fontWeight: 600, color: "#f1f5f9" }}>
+                  🎯 CeloTap Operations
+                </p>
+                <p style={{ fontSize: 12, color: "#94a3b8", marginTop: 4 }}>
+                  Ultra-lightweight contract interactions. Ideal for maintaining streaks with minimal gas.
+                </p>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              {/* BUTTONS_PLACEHOLDER */}
+            </div>
+          </div>
+
           {/* Quick Reactions */}
           <div className="glass-card">
             <p style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: "#94a3b8" }}>
