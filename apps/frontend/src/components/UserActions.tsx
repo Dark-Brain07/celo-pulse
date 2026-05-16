@@ -87,8 +87,7 @@ export default function UserActions() {
       const tx = await contract.dailyCheckIn(getTxOverrides());
       showToast("⏳ Check-in transaction sent...", "info");
       await tx.wait();
-      showToast(`⚡ ${method.toUpperCase()} completed!`, "success");
-      refreshState();
+      showToast("⚡ Check-in completed!", "success");
       showToast("✅ Daily check-in successful! Streak updated.", "success");
       refreshState();
     } catch (err: any) {
