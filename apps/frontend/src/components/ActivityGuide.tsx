@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useWallet } from "@/context/WalletContext";
+import { subscribeTxSuccess } from "../lib/txEvents";
 
 interface ActivitySuggestion {
   id: string;
@@ -130,6 +131,13 @@ export default function ActivityGuide() {
   const [suggestions, setSuggestions] = useState<ActivitySuggestion[]>([]);
   const [sessionTxCount, setSessionTxCount] = useState(0);
   const [expanded, setExpanded] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = subscribeTxSuccess((payload) => {
+      setSessionTxCount((prev) => prev + 1);
+    });
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     // Generate activity suggestions based on current state and static template
