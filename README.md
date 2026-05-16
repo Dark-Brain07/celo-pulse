@@ -213,3 +213,11 @@ This project is covered under the MIT open-source license.
 ## Daily Workflow Tracking
 
 The CeloPulse dashboard now includes a daily local workflow tracking component. This helps users track their daily streaks and accrued local points, completely safely in localStorage without external dependencies.
+
+## Decoupled Frontend Transaction Event Broadcasting
+
+To support reactive real-time dashboard updates without hard component dependencies, CeloPulse incorporates a custom, lightweight event dispatcher (`subscribeTxSuccess` / `dispatchTxSuccess` under `apps/frontend/src/lib/txEvents.ts`).
+
+- **Decoupled Architecture**: Components emitting transaction actions (like `UserActions`) publish transaction confirmation events.
+- **Dynamic Session Count**: Listening components (like `ActivityGuide` or dashboard stat rings) subscribe to these events and increment session transaction count indices instantly, removing the need for polling.
+- **Zero Overhead**: Utilizes standard browser CustomEvents for zero impact on bundle sizes.
