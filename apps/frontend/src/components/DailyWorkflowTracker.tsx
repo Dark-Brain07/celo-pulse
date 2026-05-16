@@ -35,6 +35,7 @@ export default function DailyWorkflowTracker() {
           <button 
             onClick={checkIn} 
             disabled={hasCheckedIn}
+            aria-label={hasCheckedIn ? 'Workflow Completed Today' : 'Complete Daily Workflow'}
             style={{ 
               padding: '10px 20px', 
               background: hasCheckedIn ? '#334155' : 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', 
