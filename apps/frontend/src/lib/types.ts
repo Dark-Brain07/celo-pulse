@@ -10,3 +10,11 @@ export interface ITransaction {
 export interface IHistoryProps {
   walletAddress: string | null;
 }
+
+export interface ITxSuccessEventPayload {
+  hash: string;
+  method: string;
+  contractAddress: string;
+  timestamp: number;
+  pointsEarned?: number;
+}
