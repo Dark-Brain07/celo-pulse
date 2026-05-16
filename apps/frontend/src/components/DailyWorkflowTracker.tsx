@@ -48,7 +48,7 @@ export default function DailyWorkflowTracker() {
               transition: 'all 0.2s',
               boxShadow: hasCheckedIn ? 'none' : '0 4px 12px rgba(99, 102, 241, 0.3)'
             }}>
-            {hasCheckedIn ? 'Workflow Completed Today ✓' : 'Complete Daily Workflow 🚀'}
+            {hasCheckedIn ? 'Daily Streak Extended! 🎉' : 'Complete Daily Workflow 🚀'}
           </button>
           <div style={{ display: 'flex', gap: 16, padding: '8px 16px', background: 'rgba(0,0,0,0.2)', borderRadius: 12, border: '1px solid rgba(255,255,255,0.05)' }}>
             <span style={{ color: '#cbd5e1', fontSize: 14 }}>Streak: <strong style={{ color: '#f59e0b', fontSize: 16 }}>{data.currentStreak} 🔥</strong></span>
