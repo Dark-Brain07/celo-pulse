@@ -1,9 +1,21 @@
 'use client';
 import React from 'react';
 import { useDailyWorkflow } from '../hooks/useDailyWorkflow';
+import { dispatchTxSuccess } from '../lib/txEvents';
 
 export default function DailyWorkflowTracker() {
   const { data, loaded, checkIn, reset } = useDailyWorkflow();
+
+  const handleCheckIn = () => {
+    checkIn();
+    dispatchTxSuccess({
+      hash: "local-" + Math.random().toString(36).substring(2, 11),
+      method: "dailyCheckIn",
+      contractAddress: "local-workflow-tracker",
+      timestamp: Date.now(),
+      pointsEarned: 10
+    });
+  };
 
   if (!loaded) return null;
 
@@ -33,7 +45,7 @@ export default function DailyWorkflowTracker() {
         </div>
         <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
           <button 
-            onClick={checkIn} 
+            onClick={handleCheckIn} 
             disabled={hasCheckedIn}
             aria-label={hasCheckedIn ? 'Workflow Completed Today' : 'Complete Daily Workflow'}
             title={hasCheckedIn ? 'You have already completed the workflow today' : 'Click to complete your daily workflow'}
