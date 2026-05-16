@@ -14,6 +14,63 @@ interface ActivitySuggestion {
   cooldownEnd?: number;
 }
 
+const STATIC_SUGGESTIONS_TEMPLATE: Omit<ActivitySuggestion, "cooldownEnd">[] = [
+  {
+    id: "checkin",
+    title: "Daily Check-in",
+    description: "Start your day with a check-in to maintain your streak",
+    icon: "📅",
+    points: 10,
+    available: true,
+    urgency: "now",
+  },
+  {
+    id: "play1",
+    title: "Play Action #1",
+    description: "Quick play — only 30s cooldown between plays!",
+    icon: "🎮",
+    points: 5,
+    available: true,
+    urgency: "now",
+  },
+  {
+    id: "play2",
+    title: "Play Action #2",
+    description: "Chain multiple plays for combo bonuses",
+    icon: "🎮",
+    points: 5,
+    available: true,
+    urgency: "soon",
+  },
+  {
+    id: "react",
+    title: "Quick React",
+    description: "React to the community — 5 options available",
+    icon: "⚡",
+    points: 5,
+    available: true,
+    urgency: "now",
+  },
+  {
+    id: "tip",
+    title: "Send a Tip",
+    description: "Support another user with a micro-tip",
+    icon: "💸",
+    points: 25,
+    available: true,
+    urgency: "now",
+  },
+  {
+    id: "claim",
+    title: "Claim Rewards",
+    description: "Collect your earned rewards when threshold is met",
+    icon: "🎁",
+    points: 0,
+    available: false,
+    urgency: "later",
+  },
+];
+
 function ActivityStep({ suggestion }: { suggestion: ActivitySuggestion }) {
   const { title, description, icon, urgency, available } = suggestion;
   
@@ -75,65 +132,19 @@ export default function ActivityGuide() {
   const [expanded, setExpanded] = useState(true);
 
   useEffect(() => {
-    // Generate activity suggestions based on current state
+    // Generate activity suggestions based on current state and static template
     const now = Date.now();
-    setSuggestions([
-      {
-        id: "checkin",
-        title: "Daily Check-in",
-        description: "Start your day with a check-in to maintain your streak",
-        icon: "📅",
-        points: 10,
-        available: true,
-        urgency: "now",
-      },
-      {
-        id: "play1",
-        title: "Play Action #1",
-        description: "Quick play — only 30s cooldown between plays!",
-        icon: "🎮",
-        points: 5,
-        available: true,
-        urgency: "now",
-      },
-      {
-        id: "play2",
-        title: "Play Action #2",
-        description: "Chain multiple plays for combo bonuses",
-        icon: "🎮",
-        points: 5,
-        available: true,
-        urgency: "soon",
-        cooldownEnd: now + 30000,
-      },
-      {
-        id: "react",
-        title: "Quick React",
-        description: "React to the community — 5 options available",
-        icon: "⚡",
-        points: 5,
-        available: true,
-        urgency: "now",
-      },
-      {
-        id: "tip",
-        title: "Send a Tip",
-        description: "Support another user with a micro-tip",
-        icon: "💸",
-        points: 25,
-        available: true,
-        urgency: "now",
-      },
-      {
-        id: "claim",
-        title: "Claim Rewards",
-        description: "Collect your earned rewards when threshold is met",
-        icon: "🎁",
-        points: 0,
-        available: false,
-        urgency: "later",
-      },
-    ]);
+    setSuggestions(
+      STATIC_SUGGESTIONS_TEMPLATE.map((item) => {
+        if (item.id === "play2") {
+          return {
+            ...item,
+            cooldownEnd: now + 30000,
+          };
+        }
+        return item;
+      })
+    );
   }, [isConnected, address]);
 
   if (!isConnected) return null;
