@@ -44,7 +44,7 @@ export default function DailyWorkflowTracker() {
               borderRadius: 12, 
               fontWeight: 700, 
               border: hasCheckedIn ? '1px solid #475569' : '1px solid #818cf8', 
-              cursor: hasCheckedIn ? 'not-allowed' : 'pointer',
+              cursor: hasCheckedIn ? 'default' : 'pointer',
               transition: 'all 0.2s',
               boxShadow: hasCheckedIn ? 'none' : '0 4px 12px rgba(99, 102, 241, 0.3)'
             }}>
