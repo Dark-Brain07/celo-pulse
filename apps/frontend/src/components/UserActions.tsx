@@ -458,11 +458,13 @@ export default function UserActions() {
               ⚡ Quick Reactions (30s cooldown)
             </p>
             <div style={{ display: "flex", gap: 12 }}>
-              {["👍", "🔥", "💎", "🚀", "⭐"].map((emoji, i) => (
+              {[{ emoji: "👍", label: "Thumbs Up Reaction" }, { emoji: "🔥", label: "Fire Reaction" }, { emoji: "💎", label: "Gem Reaction" }, { emoji: "🚀", label: "Rocket Reaction" }, { emoji: "⭐", label: "Star Reaction" }].map(({ emoji, label }, i) => (
                 <button
                   key={i}
                   onClick={() => handleQuickReact(i + 1)}
                   disabled={!!state.loading}
+                  aria-label={label}
+                  title={label}
                   style={{
                     width: 48,
                     height: 48,
