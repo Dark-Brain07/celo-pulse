@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-05-16
+
+### Added
+- **Frontend**: Implemented a decoupled custom event dispatching and subscribing transaction notification architecture (`txEvents.ts`).
+- **Frontend**: Integrated the transaction success event system into `ActivityGuide` to automatically keep dynamic count of confirmed interactions.
+- **Frontend**: Emitted instant success events when a user completes their daily local tracking workflow in `DailyWorkflowTracker`.
+- **Frontend**: Emitted transaction events on success inside all on-chain handlers in `UserActions` (check-ins, rewards, tipping, reactions, and CeloTaps).
+- **Contracts**: Created a comprehensive Hardhat unit test suite for the gas-efficient `CeloTap` contract.
+- **SDK**: Integrated new `CeloTap` contract bindings inside `@celo-pulse/activity-helper` supporting `tap`, `beat`, and `signal` methods.
+- **SDK**: Added `calculateRealTimeGasSavings` helper within `CeloActivityHelper` to project dynamic cost comparisons against Ethereum.
+
+### Fixed
+- **Frontend**: Fixed a critical runtime error in `UserActions` where calling `handleCheckIn` attempted to print an undefined variable `method`.
+- **Frontend**: Enhanced fallback design in `ErrorBoundary` to adopt neon linear-gradients, high-fidelity glowing shadows, and micro-interactions.
+
 ## [1.5.0] - 2026-05-13
 
 ### Added
