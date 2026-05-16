@@ -209,3 +209,7 @@ Our journey continues with upcoming features focused on governance, social graph
 
 ## 📜 License 
 This project is covered under the MIT open-source license.
+
+## Daily Workflow Tracking
+
+The CeloPulse dashboard now includes a daily local workflow tracking component. This helps users track their daily streaks and accrued local points, completely safely in localStorage without external dependencies.
