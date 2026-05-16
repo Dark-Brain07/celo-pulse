@@ -180,18 +180,39 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     }
 
     const handleAccountsChanged = (accounts: string[]) => {
-      if (accounts.length === 0) disconnect();
-      else connect();
+      try {
+        if (!accounts || accounts.length === 0) {
+          disconnect();
+        } else {
+          connect().catch((connectErr) => {
+            console.warn("⚠️ Fallback account reconnect handler failed:", connectErr);
+          });
+        }
+      } catch (err) {
+        console.error("⚠️ Error within accountsChanged listener:", err);
+      }
     };
 
-    const handleChainChanged = () => connect();
+    const handleChainChanged = () => {
+      try {
+        connect().catch((connectErr) => {
+          console.warn("⚠️ Fallback chain reconnect handler failed:", connectErr);
+        });
+      } catch (err) {
+        console.error("⚠️ Error within chainChanged listener:", err);
+      }
+    };
 
     eth.on("accountsChanged", handleAccountsChanged);
     eth.on("chainChanged", handleChainChanged);
 
     return () => {
-      eth.removeListener("accountsChanged", handleAccountsChanged);
-      eth.removeListener("chainChanged", handleChainChanged);
+      try {
+        eth.removeListener("accountsChanged", handleAccountsChanged);
+        eth.removeListener("chainChanged", handleChainChanged);
+      } catch (err) {
+        console.warn("⚠️ Failed to unsubscribe listeners:", err);
+      }
     };
   }, [connect, disconnect]);
 
