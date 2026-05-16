@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 import { useWallet } from "@/context/WalletContext";
 import { CONTRACTS } from "@/lib/contracts";
+import { dispatchTxSuccess } from "../lib/txEvents";
 
 interface ActionState {
   loading: string | null;
@@ -89,6 +90,13 @@ export default function UserActions() {
       await tx.wait();
       showToast("⚡ Check-in completed!", "success");
       showToast("✅ Daily check-in successful! Streak updated.", "success");
+      dispatchTxSuccess({
+        hash: tx.hash,
+        method: "dailyCheckIn",
+        contractAddress: CONTRACTS.ACTIVITY_MANAGER.address,
+        timestamp: Date.now(),
+        pointsEarned: 10
+      });
       refreshState();
     } catch (err: any) {
       showToast(`❌ ${err.reason || "Check-in failed"}`, "error");
@@ -110,6 +118,13 @@ export default function UserActions() {
       showToast("⏳ Claiming reward...", "info");
       await tx.wait();
       showToast("🎉 Reward claimed successfully!", "success");
+      dispatchTxSuccess({
+        hash: tx.hash,
+        method: "claimReward",
+        contractAddress: CONTRACTS.REWARD_DISTRIBUTOR.address,
+        timestamp: Date.now(),
+        pointsEarned: 0
+      });
     } catch (err: any) {
       showToast(`❌ ${err.reason || "Claim failed"}`, "error");
     } finally {
@@ -130,6 +145,13 @@ export default function UserActions() {
       showToast("⏳ Playing action...", "info");
       await tx.wait();
       showToast("🎮 Action completed! +5 points", "success");
+      dispatchTxSuccess({
+        hash: tx.hash,
+        method: "playAction",
+        contractAddress: CONTRACTS.MICRO_ACTIONS.address,
+        timestamp: Date.now(),
+        pointsEarned: 5
+      });
       refreshState();
     } catch (err: any) {
       showToast(`❌ ${err.reason || "Action failed"}`, "error");
@@ -151,6 +173,13 @@ export default function UserActions() {
       showToast("⏳ Playing endless action...", "info");
       await tx.wait();
       showToast("⚡ Endless Action completed! +5 points", "success");
+      dispatchTxSuccess({
+        hash: tx.hash,
+        method: "playActionNoTimeout",
+        contractAddress: CONTRACTS.MICRO_ACTIONS_NO_TIMEOUT.address,
+        timestamp: Date.now(),
+        pointsEarned: 5
+      });
       refreshState();
     } catch (err: any) {
       showToast(`❌ ${err.reason || "Endless Action failed"}`, "error");
@@ -171,6 +200,13 @@ export default function UserActions() {
       const tx = await contract[method](getTxOverrides());
       showToast(`⏳ Executing ${method}...`, "info");
       await tx.wait();
+      dispatchTxSuccess({
+        hash: tx.hash,
+        method: method,
+        contractAddress: CONTRACTS.CELO_TAP.address,
+        timestamp: Date.now(),
+        pointsEarned: 2
+      });
     } catch (err: any) {
       showToast(`❌ ${err.reason || `${method} failed`}`, "error");
     } finally {
@@ -194,6 +230,13 @@ export default function UserActions() {
       showToast("⏳ Sending tip...", "info");
       await tx.wait();
       showToast("💸 Tip sent successfully!", "success");
+      dispatchTxSuccess({
+        hash: tx.hash,
+        method: "sendTip",
+        contractAddress: CONTRACTS.MICRO_ACTIONS.address,
+        timestamp: Date.now(),
+        pointsEarned: 25
+      });
     } catch (err: any) {
       showToast(`❌ ${err.reason || "Tip failed"}`, "error");
     } finally {
@@ -213,6 +256,13 @@ export default function UserActions() {
       const tx = await contract.quickReact(reactionType, getTxOverrides());
       await tx.wait();
       showToast("⚡ Reaction recorded!", "success");
+      dispatchTxSuccess({
+        hash: tx.hash,
+        method: "quickReact",
+        contractAddress: CONTRACTS.MICRO_ACTIONS.address,
+        timestamp: Date.now(),
+        pointsEarned: 5
+      });
       refreshState();
     } catch (err: any) {
       showToast(`❌ ${err.reason || "Reaction failed"}`, "error");
