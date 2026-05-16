@@ -382,6 +382,37 @@ export class CeloActivityHelper {
       multiplier: ethAvgCost / celoAvgCost,
     };
   }
+
+  /**
+   * Calculate detailed real-time gas savings comparing Celo to Ethereum.
+   * Takes actual gasPrice (in wei) and gasUsed from transaction execution.
+   */
+  calculateRealTimeGasSavings(gasUsed: bigint, celoGasPriceWei: bigint, ethGasPriceGwei = 30) {
+    const ethGasPriceWei = BigInt(ethGasPriceGwei) * BigInt(1000000000);
+    
+    // Estimate cost in native currencies
+    const celoCostWei = gasUsed * celoGasPriceWei;
+    const ethCostWei = gasUsed * ethGasPriceWei;
+
+    const celoCostEth = Number(celoCostWei) / 1e18;
+    const ethCostEth = Number(ethCostWei) / 1e18;
+
+    // Assumed baseline price feeds
+    const celoPriceUSD = 0.85;
+    const ethPriceUSD = 3200.00;
+
+    const celoUSD = celoCostEth * celoPriceUSD;
+    const ethUSD = ethCostEth * ethPriceUSD;
+    const savingsUSD = ethUSD - celoUSD;
+
+    return {
+      gasUsed: gasUsed.toString(),
+      celoCostUSD: celoUSD,
+      ethCostUSD: ethUSD,
+      savingsUSD: savingsUSD,
+      percentSavings: ethUSD > 0 ? ((ethUSD - celoUSD) / ethUSD) * 100 : 99.9,
+    };
+  }
 }
 
 export default CeloActivityHelper;
