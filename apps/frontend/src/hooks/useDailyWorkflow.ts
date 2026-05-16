@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { WorkflowData } from '../types/workflow';
 import { safeGetStorage, safeSetStorage, safeRemoveStorage } from '../lib/storage';
+import { getFormattedDate, calculateDaysDifference } from '../lib/dateUtils';
 
 const WORKFLOW_KEY = 'celo_pulse_daily_workflow';
 const defaultData: WorkflowData = { lastCheckIn: null, currentStreak: 0, totalCheckIns: 0, points: 0 };
@@ -15,8 +16,7 @@ export function useDailyWorkflow() {
     if (stored.lastCheckIn) {
       const lastDate = new Date(stored.lastCheckIn);
       const today = new Date();
-      const diffTime = Math.abs(today.getTime() - lastDate.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+      const diffDays = calculateDaysDifference(lastDate, today);
       
       if (diffDays > 2) {
         stored.currentStreak = 0; 
@@ -28,7 +28,7 @@ export function useDailyWorkflow() {
   }, []);
 
   const checkIn = () => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getFormattedDate();
     if (data.lastCheckIn === today) return; 
     
     const newData = { ...data, lastCheckIn: today, currentStreak: data.currentStreak + 1, totalCheckIns: data.totalCheckIns + 1, points: data.points + 10 };
