@@ -44,6 +44,17 @@ const REFERRAL_SYSTEM_ABI = [
   "event ReferralRewardPaid(address indexed referrer, address indexed referee, uint256 amount, uint256 timestamp)",
 ];
 
+// CeloTap ABI
+const CELO_TAP_ABI = [
+  "function tap() external",
+  "function beat() external",
+  "function signal() external",
+  "function PROJECT_ID() view returns (string)",
+  "event Tap(address indexed user)",
+  "event Beat(address indexed user)",
+  "event Signal(address indexed user)",
+];
+
 export interface ActivityInfo {
   lastCheckIn: bigint;
   currentStreak: bigint;
@@ -89,13 +100,15 @@ export class CeloActivityHelper {
   private microActionsContract: ethers.Contract;
   private leaderboardContract: ethers.Contract;
   private referralContract: ethers.Contract | null;
+  private celoTapContract: ethers.Contract | null = null;
 
   constructor(
     activityManagerAddress: string,
     microActionsAddress: string,
     leaderboardAddress: string,
     signerOrProvider: ethers.Signer | ethers.Provider,
-    referralSystemAddress?: string
+    referralSystemAddress?: string,
+    celoTapAddress?: string
   ) {
     this.activityContract = new ethers.Contract(
       activityManagerAddress,
@@ -115,6 +128,35 @@ export class CeloActivityHelper {
     this.referralContract = referralSystemAddress
       ? new ethers.Contract(referralSystemAddress, REFERRAL_SYSTEM_ABI, signerOrProvider)
       : null;
+    this.celoTapContract = celoTapAddress
+      ? new ethers.Contract(celoTapAddress, CELO_TAP_ABI, signerOrProvider)
+      : null;
+  }
+
+  // ─── CeloTap Actions ───
+
+  /**
+   * Perform a Tap action - Cheapest on-chain interaction
+   */
+  async tap(): Promise<ethers.TransactionResponse> {
+    if (!this.celoTapContract) throw new Error("CeloTap contract not configured");
+    return await this.celoTapContract.tap();
+  }
+
+  /**
+   * Perform a Beat action - Lightweight on-chain heart beat
+   */
+  async beat(): Promise<ethers.TransactionResponse> {
+    if (!this.celoTapContract) throw new Error("CeloTap contract not configured");
+    return await this.celoTapContract.beat();
+  }
+
+  /**
+   * Perform a Signal action - Lightweight on-chain broadcast
+   */
+  async signal(): Promise<ethers.TransactionResponse> {
+    if (!this.celoTapContract) throw new Error("CeloTap contract not configured");
+    return await this.celoTapContract.signal();
   }
 
   // ─── Check-In ───
