@@ -67,3 +67,8 @@ test_commit_ignore.txt
 deploy_log.txt
 verify_log.txt
 
+# Local instructions and developer scratchpad (keep locally only)
+QUICK_FIX_PROMPT.md
+CONTRIBUTING.md
+
+
