@@ -1,6 +1,6 @@
 import { ITxSuccessEventPayload } from "./types";
 
-const CELOPULSE_TX_SUCCESS_EVENT = "celopulse-tx-success";
+export const CELOPULSE_TX_SUCCESS_EVENT = "celopulse-tx-success";
 
 /**
  * Dispatch a transaction success event to notify all listening UI components
