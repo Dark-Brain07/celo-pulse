@@ -9,6 +9,7 @@ export default function DailyWorkflowTracker() {
   const handleCheckIn = () => {
     checkIn();
     dispatchTxSuccess({
+      // Generate a mock transaction hash for local demonstration
       hash: "local-" + Math.random().toString(36).substring(2, 11),
       method: "dailyCheckIn",
       contractAddress: "local-workflow-tracker",
@@ -74,7 +75,11 @@ export default function DailyWorkflowTracker() {
           </div>
         </div>
       </div>
-      <div style={{ textAlign: 'right', padding: '12px 24px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: 16, border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+      <div 
+        role="status" 
+        aria-live="polite"
+        style={{ textAlign: 'right', padding: '12px 24px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: 16, border: '1px solid rgba(16, 185, 129, 0.2)' }}
+      >
         <div style={{ fontSize: 13, color: '#34d399', marginBottom: 2, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Local Points</div>
         <div style={{ fontSize: 36, fontWeight: 900, color: '#10b981', lineHeight: 1 }}>{data.points}</div>
       </div>
