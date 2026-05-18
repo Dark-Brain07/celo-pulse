@@ -18,6 +18,7 @@ export function useDailyWorkflow() {
       const today = new Date();
       const diffDays = calculateDaysDifference(lastDate, today);
       
+      // Reset streak if user missed more than the allowed maximum days
       if (diffDays > WORKFLOW_MAX_MISSED_DAYS) {
         stored.currentStreak = 0; 
       }
