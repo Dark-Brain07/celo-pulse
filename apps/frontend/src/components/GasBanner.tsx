@@ -12,8 +12,11 @@ export default function GasBanner() {
 
   // Only show if connected and balance is very low (unless override toggled)
   if (!isConnected) return null;
+  
   const balanceNum = parseFloat(balance);
-  if (balanceNum >= 0.01 && !overrideShow) {
+  const isBalanceSufficient = balanceNum >= 0.01;
+  
+  if (isBalanceSufficient && !overrideShow) {
     return (
       <div style={{ textAlign: "right", margin: "0 0 10px" }}>
         <button 
@@ -51,6 +54,8 @@ export default function GasBanner() {
             justifyContent: "center",
             fontSize: 20,
           }}
+          role="img"
+          aria-label="Gas Pump Emoji"
         >
           ⛽
         </div>
@@ -73,6 +78,7 @@ export default function GasBanner() {
           href={CELO_FAUCET_URL}
           target="_blank"
           rel="noopener noreferrer"
+          title="Opens Celo Faucet in a new tab"
           style={{
             padding: "10px 20px",
             borderRadius: 10,
