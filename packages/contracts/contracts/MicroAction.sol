@@ -14,6 +14,7 @@ contract MicroAction {
     event Ping(address indexed user, uint256 currentCount);
 
     function ping() external {
+        require(msg.sender != address(0), "MicroAction: Invalid sender");
         require(block.timestamp >= lastPing[msg.sender] + COOLDOWN, "MicroAction: Cooldown active");
         
         pingCount += 1;
