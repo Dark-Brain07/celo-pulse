@@ -1,3 +1,6 @@
+/**
+ * Returns the current date in YYYY-MM-DD format
+ */
 export const getFormattedDate = (): string => {
   return new Date().toISOString().split('T')[0];
 };
