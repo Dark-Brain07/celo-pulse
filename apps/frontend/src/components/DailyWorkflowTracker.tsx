@@ -17,7 +17,13 @@ export default function DailyWorkflowTracker() {
     });
   };
 
-  if (!loaded) return null;
+  if (!loaded) {
+    return (
+      <div style={{ padding: '24px 32px', textAlign: 'center', color: '#94a3b8' }}>
+        Loading workflow data...
+      </div>
+    );
+  }
 
   const today = new Date().toISOString().split('T')[0];
   const hasCheckedIn = data.lastCheckIn === today;
