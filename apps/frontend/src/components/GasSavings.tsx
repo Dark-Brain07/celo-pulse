@@ -13,9 +13,12 @@ export function GasSavings({ totalTransactions = 0 }: { totalTransactions?: numb
   // Simulated savings logic based on average gas prices
   // Ethereum avg tx: $2.50
   // Celo avg tx: $0.001
+  const ETH_AVG_TX_COST = 2.50;
+  const CELO_AVG_TX_COST = 0.001;
+
   const savings = useMemo(() => {
-    const ethCost = totalTransactions * 2.50;
-    const celoCost = totalTransactions * 0.001;
+    const ethCost = totalTransactions * ETH_AVG_TX_COST;
+    const celoCost = totalTransactions * CELO_AVG_TX_COST;
     const totalSaved = ethCost - celoCost;
     return {
       ethCost: ethCost.toFixed(2),
@@ -27,7 +30,7 @@ export function GasSavings({ totalTransactions = 0 }: { totalTransactions?: numb
   if (totalTransactions === 0) return null;
 
   return (
-    <div className="glass-card" style={{ padding: 24, marginBottom: 32 }}>
+    <div className="glass-card" style={{ padding: 24, marginBottom: 32 }} aria-label="Gas Savings Calculator">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
         <div>
           <h3 style={{ fontSize: 18, fontWeight: 700, color: "#f1f5f9" }}>💎 Gas Savings</h3>
