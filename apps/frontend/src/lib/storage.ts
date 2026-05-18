@@ -21,6 +21,9 @@ export const safeSetStorage = (key: string, value: any) => {
   }
 };
 
+/**
+ * Safely removes an item from localStorage
+ */
 export const safeRemoveStorage = (key: string) => {
   if (typeof window === "undefined") return;
   try {
