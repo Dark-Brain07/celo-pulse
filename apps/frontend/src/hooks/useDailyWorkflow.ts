@@ -4,6 +4,7 @@ import { safeGetStorage, safeSetStorage, safeRemoveStorage } from '../lib/storag
 import { getFormattedDate, calculateDaysDifference } from '../lib/dateUtils';
 import { WORKFLOW_STORAGE_KEY, WORKFLOW_POINTS_PER_CHECKIN, WORKFLOW_MAX_MISSED_DAYS } from '../constants/workflow';
 
+// Initial default state for the workflow data
 const defaultData: WorkflowData = { lastCheckIn: null, currentStreak: 0, totalCheckIns: 0, points: 0 };
 
 export function useDailyWorkflow() {
