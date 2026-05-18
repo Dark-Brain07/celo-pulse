@@ -73,8 +73,9 @@ export default function Footer() {
           {[
             { label: "Celo Docs", url: "https://docs.celo.org" },
             { label: "Blockscout", url: "https://explorer.celo.org" },
+            { label: "Self Protocol", url: "https://self.xyz" },
+            { label: "thirdweb x402", url: "https://thirdweb.com" },
             { label: "GitHub", url: "https://github.com/Dark-Brain07/celo-pulse" },
-            { label: "SDK Docs", url: "https://github.com/Dark-Brain07/celo-activity-helper" },
           ].map((item) => (
             <a
               key={item.label}
@@ -137,8 +138,12 @@ export default function Footer() {
         <p style={{ fontSize: 12, color: "#475569" }}>
           © 2026 CeloPulse. Built on Celo for the Talent Protocol ecosystem.
         </p>
-        <div style={{ display: "flex", gap: 16 }}>
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           <span style={{ fontSize: 11, color: "#475569" }}>Powered by Celo</span>
+          <span style={{ fontSize: 11, color: "#475569" }}>•</span>
+          <span style={{ fontSize: 11, color: "#475569" }}>ERC-8004 via Self Protocol</span>
+          <span style={{ fontSize: 11, color: "#475569" }}>•</span>
+          <span style={{ fontSize: 11, color: "#475569" }}>x402 via thirdweb</span>
           <span style={{ fontSize: 11, color: "#475569" }}>•</span>
           <span style={{ fontSize: 11, color: "#475569" }}>Indexed by Blockscout</span>
         </div>

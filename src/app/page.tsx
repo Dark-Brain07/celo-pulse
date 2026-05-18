@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import DashboardStats from "@/components/DashboardStats";
 import ActivityGuide from "@/components/ActivityGuide";
 import GasBanner from "@/components/GasBanner";
+import SelfAgentPanel from "@/components/SelfAgentPanel";
+import X402TransactionPanel from "@/components/X402TransactionPanel";
 import UserActions from "@/components/UserActions";
 import ReferralPanel from "@/components/ReferralPanel";
 import StreakBadges from "@/components/StreakBadges";
@@ -100,8 +102,8 @@ export default function Home() {
           }}
         >
           {[
-            { label: "Contracts", value: "5" },
-            { label: "Actions", value: "8+" },
+            { label: "Contracts", value: "7" },
+            { label: "Actions", value: "12+" },
             { label: "Min TXs/Session", value: "5-10" },
             { label: "Referral Bonus", value: "2x" },
           ].map((s) => (
@@ -123,6 +125,12 @@ export default function Home() {
 
         {/* Activity guide with session progress — only shows when connected */}
         <ActivityGuide />
+
+        {/* ERC-8004 Self Agent ID Registration */}
+        <SelfAgentPanel />
+
+        {/* x402 Protocol Onchain Transactions (thirdweb) */}
+        <X402TransactionPanel />
 
         {/* Core user actions */}
         <UserActions />

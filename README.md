@@ -17,7 +17,9 @@ The **CeloPulse Dashboard** is a fast, responsive, and data-rich Web3 applicatio
 
 ### The Mechanism
 1. **Connect Wallet:** Seamlessly integrate with any Celo-compatible wallet including **MiniPay** via Ethers/Wagmi.
-2. **Perform Micro-Actions:** Trigger gamified, low-stakes interactions (Daily Check-ins, Streaks, Gaming) that write to Celo Smart Contracts.
+2. **ERC-8004 Agent ID (Self Protocol):** Register your wallet as a cryptographically verifiable "human-backed agent" via the official ERC-8004 Identity Registry, minting an ERC-721 Agent NFT to expose secure agent endpoints.
+3. **x402 Micropayments (thirdweb):** Execute native CELO and cUSD micropayments directly matching the thirdweb x402 specification for automated, zero-friction developer API settlement.
+4. **Perform Micro-Actions:** Trigger gamified, low-stakes interactions (Daily Check-ins, Streaks, Gaming) that write to Celo Smart Contracts.
 3. **Earn Rewards:** Achieve high ranks on the global leaderboard, earn badges, and win automatic CELO airdrops through the Reward Pool.
 4. **Ascend Tiers:** Level up from Bronze to Platinum based on total on-chain interaction volume, unlocking higher reward multipliers and exclusive badges.
 
@@ -84,6 +86,8 @@ All contracts are deployed and verified on Celo Mainnet via Blockscout:
 | **MicroActions** | `0xDdD816E5e469279dcB385F039a470077b5F58930` | High-frequency gaming transactions (30s cooldown) |
 | **Leaderboard** | `0xb2137812BC7b1439C238693df4e2F7AB07691014` | Composite scoring from activity + micro-actions |
 | **ReferralSystem** | `0x7f4E1Cbe199B1ed7C85c382632Ee3B6fa7412838` | Dual-reward referral tracking |
+| **ERC-8004 IdentityRegistry** | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` | Self Protocol verifiable AI Agent Identity (mints ERC-721 NFT) |
+| **ERC-8004 ReputationRegistry** | `0x8004BAa17C55a88189AE136b182e5fdA19dE9b63` | Trust & Attestation score tracker for AI-Agent activities |
 
 Contract source code: [`packages/contracts/contracts/`](./packages/contracts/contracts/)
 
