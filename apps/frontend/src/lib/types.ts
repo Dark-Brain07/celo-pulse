@@ -17,4 +17,5 @@ export interface ITxSuccessEventPayload {
   contractAddress: string;
   timestamp: number;
   pointsEarned?: number;
+  description?: string;
 }
