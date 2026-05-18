@@ -9,6 +9,9 @@ export const safeGetStorage = (key: string, defaultValue: any) => {
   }
 };
 
+/**
+ * Safely stringifies and stores a value in localStorage
+ */
 export const safeSetStorage = (key: string, value: any) => {
   if (typeof window === "undefined") return;
   try {
