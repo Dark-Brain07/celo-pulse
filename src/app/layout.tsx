@@ -62,7 +62,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+      <body suppressHydrationWarning style={{ fontFamily: "var(--font-inter), sans-serif" }}>
         <WalletProvider>{children}</WalletProvider>
       </body>
     </html>
