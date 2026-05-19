@@ -69,7 +69,7 @@ export function NetworkBadge() {
           animation: status === "checking" ? "pulse 1.5s infinite" : undefined,
         }}
       />
-      <span style={{ color: colors[status].text }}>
+      <span style={{ color: colors[status].text, letterSpacing: "0.02em", transition: "color 0.3s ease" }}>
         {status === "connected" && blockNumber
           ? `Celo #${blockNumber.toLocaleString()}`
           : status === "checking"
