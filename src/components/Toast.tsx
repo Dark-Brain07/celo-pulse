@@ -53,7 +53,7 @@ export function Toast({ message, type = "info", visible, onClose }: ToastProps) 
         fontSize: "0.95rem",
         fontWeight: 500,
         boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-        animation: "toastSlideIn 0.3s ease-out",
+        animation: "toastSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
         maxWidth: 400,
       }}
     >
