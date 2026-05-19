@@ -44,7 +44,7 @@ export default function GasBanner() {
             Low Gas Balance Detected
           </p>
           <p style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>
-            You need CELO to perform transactions.{" "}
+            You need CELO to perform transactions. Celo fees are extremely cheap (~$0.001/tx).{" "}
             {balanceNum === 0
               ? "Your balance is 0 CELO."
               : `Current balance: ${balanceNum.toFixed(4)} CELO.`}
