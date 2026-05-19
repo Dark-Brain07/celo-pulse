@@ -398,14 +398,16 @@ export class CeloActivityHelper {
   calculateRealTimeGasSavings(gasUsed: bigint, celoGasPriceWei: bigint, ethGasPriceGwei = 30) {
     const ethGasPriceWei = BigInt(ethGasPriceGwei) * BigInt(1000000000);
     
-    // Estimate cost in native currencies
+    // 1. Calculate gas cost in the respective base native currency unit (Wei)
     const celoCostWei = gasUsed * celoGasPriceWei;
     const ethCostWei = gasUsed * ethGasPriceWei;
 
+    // 2. Convert raw Wei values to standard fractional tokens (1 Ether = 10^18 Wei)
     const celoCostEth = Number(celoCostWei) / 1e18;
     const ethCostEth = Number(ethCostWei) / 1e18;
 
-    // Assumed baseline price feeds
+    // 3. Define reference USD price indexes for real-time comparison:
+    // CELO baseline set to $0.85; ETH baseline set to $3200.00
     const celoPriceUSD = 0.85;
     const ethPriceUSD = 3200.00;
 
