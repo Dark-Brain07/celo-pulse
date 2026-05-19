@@ -68,9 +68,13 @@ export function Toast({ message, type = "info", visible, onClose }: ToastProps) 
           color: "rgba(255,255,255,0.5)",
           cursor: "pointer",
           fontSize: "1.2rem",
-          padding: 0,
+          padding: "4px 8px",
+          marginLeft: "8px",
           lineHeight: 1,
+          transition: "color 0.2s ease",
         }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
       >
         ×
       </button>
