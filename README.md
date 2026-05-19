@@ -70,7 +70,7 @@ ngrok http 3000
 - **Styling:** Vanilla CSS Modules + Tailwind Utility Classes
 - **Web3 Integration:** `ethers.js` v6 + Custom Celo SDKs
 - **Wallet:** MiniPay + MetaMask + any EIP-1193 wallet
-- **Analytics Visualization:** `recharts` / custom SVGs integrated with the active Blockscout API feed
+- **Analytics Visualization:** Integrated with `recharts` and dynamic SVG renderers powered by direct Blockscout developer REST API feeds and JSON-RPC query models.
 - **Smart Contracts:** Solidity (Hardhat + OpenZeppelin)
 
 ---
