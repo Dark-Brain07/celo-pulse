@@ -13,13 +13,14 @@ export default function Footer() {
         style={{
           maxWidth: 1400,
           margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr",
+          display: "flex",
+          flexWrap: "wrap",
           gap: 48,
+          justifyContent: "space-between",
         }}
       >
         {/* Brand */}
-        <div>
+        <div style={{ flex: "2 1 280px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
             <img src="/logo.png" alt="CeloPulse" style={{ width: 108, height: 108, objectFit: "contain", margin: "-36px -18px -36px -28px", pointerEvents: "none" }} />
             <span
