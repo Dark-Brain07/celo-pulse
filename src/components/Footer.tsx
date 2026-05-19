@@ -42,7 +42,7 @@ export default function Footer() {
         </div>
 
         {/* Ecosystem */}
-        <div>
+        <div style={{ flex: "1 1 180px" }}>
           <h4 style={{ fontSize: 13, fontWeight: 700, color: "#94a3b8", marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.05em" }}>
             Ecosystem
           </h4>
@@ -67,7 +67,7 @@ export default function Footer() {
         </div>
 
         {/* Resources */}
-        <div>
+        <div style={{ flex: "1 1 180px" }}>
           <h4 style={{ fontSize: 13, fontWeight: 700, color: "#94a3b8", marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.05em" }}>
             Resources
           </h4>
@@ -100,7 +100,7 @@ export default function Footer() {
         </div>
 
         {/* Community */}
-        <div>
+        <div style={{ flex: "1 1 180px" }}>
           <h4 style={{ fontSize: 13, fontWeight: 700, color: "#94a3b8", marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.05em" }}>
             Community
           </h4>
