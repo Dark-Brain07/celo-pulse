@@ -224,4 +224,4 @@ To support reactive real-time dashboard updates without hard component dependenc
 
 - **Decoupled Architecture**: Components emitting transaction actions (like `UserActions`) publish transaction confirmation events.
 - **Dynamic Session Count**: Listening components (like `ActivityGuide` or dashboard stat rings) subscribe to these events and increment session transaction count indices instantly, removing the need for polling.
-- **Zero Overhead**: Utilizes standard browser CustomEvents for zero impact on bundle sizes.
+- **Zero Overhead**: Utilizes standard browser CustomEvents for zero impact on bundle sizes, completely side-stepping state synchronization lag.
