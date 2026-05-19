@@ -1,8 +1,13 @@
 /**
- * Returns the current date in YYYY-MM-DD format
+ * Returns the current local date in YYYY-MM-DD format safely.
+ * Avoids UTC timezone slippage bugs on split boundaries.
  */
 export const getFormattedDate = (): string => {
-  return new Date().toISOString().split('T')[0];
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
 
 /**
