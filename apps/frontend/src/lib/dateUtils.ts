@@ -11,7 +11,10 @@ export const getFormattedDate = (): string => {
 };
 
 /**
- * Calculates the absolute difference in days between two dates
+ * Calculates the absolute difference in whole days between two Date objects.
+ * @param date1 The first reference Date object
+ * @param date2 The second comparison Date object
+ * @returns The rounded-up absolute number of days between dates
  */
 export const calculateDaysDifference = (date1: Date, date2: Date): number => {
   const diffTime = Math.abs(date2.getTime() - date1.getTime());
