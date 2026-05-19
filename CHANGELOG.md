@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-05-19
+
+### Added
+- **Frontend**: Upgraded overall footer layout configuration from rigid grid format to responsive wrapped flex container.
+- **Frontend**: Fine-tuned interactive hover transition timers on footer links to a silky-smooth 0.3s ease profile.
+- **Frontend**: Snapped toast warning slide-in timings with new cubic-bezier parameters.
+- **Frontend**: Injected detailed Celo network sub-penny gas fee statistics inside `GasBanner`.
+
 ## [1.6.0] - 2026-05-16
 
 ### Added
