@@ -17,7 +17,7 @@ export default function GasBanner() {
         margin: "0 0 24px",
         padding: "16px 24px",
         borderRadius: 14,
-        background: "linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.05))",
+        background: "linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(239, 68, 68, 0.08))",
         border: "1px solid rgba(245, 158, 11, 0.2)",
         display: "flex",
         alignItems: "center",
