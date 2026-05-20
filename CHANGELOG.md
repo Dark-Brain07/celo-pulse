@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2026-05-20
+
+### Added
+- **Contracts**: Integrated comprehensive NatSpec developer documentation in `ActivityManager.sol` for standard action-tracking endpoints.
+- **Contracts**: Designed a new `Edge Cases` unit testing suite inside `ActivityManager.test.js` validating zero-address transitions.
+- **Contracts**: Added zero-address validation protection in `RewardDistributor.sol` for `recoverERC20` asset recoveries.
+
 ## [1.7.0] - 2026-05-19
 
 ### Added
