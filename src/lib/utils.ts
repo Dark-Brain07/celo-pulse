@@ -61,12 +61,15 @@ export function formatCompact(num: number): string {
 }
 
 /**
- * Validate an Ethereum/Celo address format.
+ * Validate an Ethereum/Celo address format with zero-address check.
  * @param address Address string to validate
- * @returns True if valid hex address
+ * @returns True if valid non-zero hex address
  */
 export function isValidAddress(address: string): boolean {
-  return /^0x[0-9a-fA-F]{40}$/.test(address);
+  if (!address || typeof address !== "string") return false;
+  const isHex = /^0x[0-9a-fA-F]{40}$/.test(address);
+  const isZero = address === "0x0000000000000000000000000000000000000000";
+  return isHex && !isZero;
 }
 
 /**
