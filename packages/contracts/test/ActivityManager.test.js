@@ -100,11 +100,23 @@ describe("ActivityManager", function () {
       }
       expect(await activityManager.totalInteractions()).to.equal(10n);
     });
+    });
+  });
+
+  describe("Edge Cases", function () {
+    it("should revert setGasPriceOracle when given a zero address", async function () {
+      await expect(activityManager.connect(owner).setGasPriceOracle("0x0000000000000000000000000000000000000000"))
+        .to.be.revertedWith("Invalid oracle address");
+    });
+
+    it("should allow querying stats for a user with zero activity", async function () {
+      const stats = await activityManager.getUserStats(user2.address);
+      expect(stats.interactions).to.equal(0n);
+      expect(stats.lastActive).to.equal(0n);
+      expect(stats.tier).to.equal(0);
+    });
   });
 });
 
 // Helper for matching timestamps
 const anyValue = () => true;
-
-
-// TODO: Add edge case testing for maximum activity streaks.
