@@ -8,6 +8,7 @@ const { ethers } = require("hardhat");
 describe("SDK Integration", function () {
   let activityManager;
   let microActions;
+  let leaderboard;
   let owner, user1;
 
   beforeEach(async function () {
@@ -18,6 +19,9 @@ describe("SDK Integration", function () {
 
     const MicroActions = await ethers.getContractFactory("MicroActions");
     microActions = await MicroActions.deploy();
+
+    const Leaderboard = await ethers.getContractFactory("Leaderboard");
+    leaderboard = await Leaderboard.deploy();
   });
 
   it("should provide consistent stats for SDK consumption", async function () {
@@ -38,5 +42,12 @@ describe("SDK Integration", function () {
     const dummyOracle = "0x0000000000000000000000000000000000000001";
     await activityManager.setGasPriceOracle(dummyOracle);
     expect(await activityManager.gasPriceOracle()).to.equal(dummyOracle);
+  });
+
+  it("should integrate Leaderboard points correctly on check-in activities", async function () {
+    await leaderboard.connect(owner).recordCheckIn(user1.address);
+    const scoreInfo = await leaderboard.getUserScore(user1.address);
+    expect(scoreInfo.score).to.equal(10n); // CHECK_IN_POINTS = 10
+    expect(scoreInfo.isActive).to.equal(true);
   });
 });
