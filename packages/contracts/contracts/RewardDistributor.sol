@@ -154,6 +154,7 @@ contract RewardDistributor is Ownable, ReentrancyGuard, Pausable {
      * @param amount Amount to recover
      */
     function recoverERC20(address token, uint256 amount) external onlyOwner {
+        require(token != address(0), "CeloPulse: Invalid token address");
         IERC20(token).transfer(owner(), amount);
     }
 }
