@@ -69,8 +69,9 @@ contract Leaderboard is Ownable {
         uint256[] calldata points,
         string calldata reason
     ) external onlyOwner {
-        require(users.length == points.length, "Leaderboard: Length mismatch");
-        for (uint256 i = 0; i < users.length; i++) {
+        uint256 len = users.length;
+        require(len == points.length, "Leaderboard: Length mismatch");
+        for (uint256 i = 0; i < len; i++) {
             _addPointsInternal(users[i], points[i]);
             emit PointsUpdated(users[i], points[i], reason);
         }
@@ -84,8 +85,9 @@ contract Leaderboard is Ownable {
         uint256[] calldata points,
         string calldata reason
     ) external onlyOwner {
-        require(users.length == points.length, "Leaderboard: Length mismatch");
-        for (uint256 i = 0; i < users.length; i++) {
+        uint256 len = users.length;
+        require(len == points.length, "Leaderboard: Length mismatch");
+        for (uint256 i = 0; i < len; i++) {
             _deductPointsInternal(users[i], points[i]);
             emit PointsDeducted(users[i], points[i], reason);
         }
