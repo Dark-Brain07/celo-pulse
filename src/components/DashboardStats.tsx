@@ -47,7 +47,7 @@ function StatCard({ title, value, change, icon, gradient, suffix }: StatCardProp
           <p
             className="animate-count-up"
             style={{
-              fontSize: 32,
+              fontSize: "clamp(1.75rem, 4vw, 2rem)",
               fontWeight: 800,
               letterSpacing: "-0.02em",
               background: gradient,
@@ -142,7 +142,7 @@ export default function DashboardStats() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: 20,
         }}
       >
