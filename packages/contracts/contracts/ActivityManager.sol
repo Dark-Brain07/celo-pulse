@@ -21,6 +21,11 @@ contract ActivityManager is Ownable, Pausable {
 
     constructor() Ownable(msg.sender) {}
 
+    /**
+     * @notice Record a new user on-chain activity.
+     * @dev Increments interaction counts, records last active timestamp, and updates tiers dynamically.
+     *      Emits an {ActivityRecorded} event on success.
+     */
     function recordActivity() external whenNotPaused {
         userInteractions[msg.sender] += 1;
         lastInteractionTime[msg.sender] = block.timestamp;
@@ -31,6 +36,12 @@ contract ActivityManager is Ownable, Pausable {
         emit ActivityRecorded(msg.sender, userInteractions[msg.sender], block.timestamp);
     }
 
+    /**
+     * @dev Internal helper function to upgrade a user's tier based on their cumulative interactions.
+     *      Tiers range from 0 (Bronze) to 3 (Platinum).
+     *      Emits a {TierUpdated} event if a tier promotion occurs.
+     * @param user The address of the user to evaluate and update.
+     */
     function _updateTier(address user) internal {
         uint256 interactions = userInteractions[user];
         uint8 currentTier = userTier[user];
@@ -47,7 +58,11 @@ contract ActivityManager is Ownable, Pausable {
     }
 
     /**
-     * @notice Returns activity stats for a given user
+     * @notice Returns activity stats for a given user.
+     * @param user The address of the user to query.
+     * @return interactions The total number of registered interactions.
+     * @return lastActive The timestamp of the user's last recorded action.
+     * @return tier The numerical tier classification of the user.
      */
     function getUserStats(address user) external view returns (
         uint256 interactions,
@@ -59,14 +74,27 @@ contract ActivityManager is Ownable, Pausable {
 
     // ─── Emergency Admin Controls ───
 
+    /**
+     * @notice Emergency trigger to pause active contract modifications.
+     * @dev Restricts access to onlyOwner.
+     */
     function pause() external onlyOwner {
         _pause();
     }
 
+    /**
+     * @notice Resumes normal contract operations.
+     * @dev Restricts access to onlyOwner.
+     */
     function unpause() external onlyOwner {
         _unpause();
     }
 
+    /**
+     * @notice Updates the current on-chain gas price oracle address.
+     * @dev Validates that the input address is not zero. Restricts access to onlyOwner.
+     * @param _oracle The new gas price oracle address.
+     */
     function setGasPriceOracle(address _oracle) external onlyOwner {
         require(_oracle != address(0), "Invalid oracle address");
         gasPriceOracle = _oracle;
