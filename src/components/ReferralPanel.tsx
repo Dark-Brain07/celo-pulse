@@ -76,9 +76,9 @@ export default function ReferralPanel() {
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
         {/* Share your link */}
-        <div className="glass-card">
+        <div className="glass-card" style={{ transition: "all 0.3s ease" }}>
           <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16, color: "#f1f5f9" }}>
             🔗 Your Referral Link
           </h3>
