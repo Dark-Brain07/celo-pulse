@@ -97,6 +97,35 @@ export default function StreakBadges() {
 
   return (
     <section style={{ marginBottom: 32 }}>
+      {/* Premium subtle breathing glow styles for active (earned) badges */}
+      <style>{`
+        @keyframes earnedPulseGlow {
+          0% {
+            box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.15);
+          }
+          50% {
+            box-shadow: 0 4px 24px 2px rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.45);
+          }
+          100% {
+            box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.15);
+          }
+        }
+        .earned-badge-breathing {
+          border: 1px solid rgba(16, 185, 129, 0.15) !important;
+          animation: earnedPulseGlow 3.5s infinite ease-in-out;
+          transition: all 0.2s ease-in-out !important;
+        }
+        .earned-badge-breathing:hover {
+          border-color: rgba(16, 185, 129, 0.55) !important;
+          box-shadow: 0 6px 28px rgba(16, 185, 129, 0.25) !important;
+          transform: translateY(-2px) !important;
+          animation-play-state: paused;
+        }
+      `}</style>
+
       <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <h2 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9" }}>
@@ -131,29 +160,30 @@ export default function StreakBadges() {
         {badges.map((badge) => (
           <div
             key={badge.id}
+            className={badge.earned ? "earned-badge-breathing" : undefined}
             style={{
               padding: 18,
               borderRadius: 14,
               background: badge.earned
                 ? "rgba(16, 185, 129, 0.06)"
                 : "rgba(17, 24, 39, 0.5)",
-              border: `1px solid ${
-                badge.earned ? "rgba(16, 185, 129, 0.2)" : "rgba(99, 102, 241, 0.08)"
-              }`,
+              border: badge.earned
+                ? undefined
+                : "1px solid rgba(99, 102, 241, 0.08)",
               transition: "all 0.2s",
               cursor: "pointer",
               opacity: badge.progress > 0 ? 1 : 0.6,
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = badge.earned
-                ? "rgba(16, 185, 129, 0.4)"
-                : "rgba(99, 102, 241, 0.2)";
+              if (!badge.earned) {
+                e.currentTarget.style.borderColor = "rgba(99, 102, 241, 0.2)";
+              }
               e.currentTarget.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = badge.earned
-                ? "rgba(16, 185, 129, 0.2)"
-                : "rgba(99, 102, 241, 0.08)";
+              if (!badge.earned) {
+                e.currentTarget.style.borderColor = "rgba(99, 102, 241, 0.08)";
+              }
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
