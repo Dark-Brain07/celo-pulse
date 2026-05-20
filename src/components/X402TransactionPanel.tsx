@@ -148,6 +148,27 @@ export default function X402TransactionPanel() {
             />
           </div>
 
+          {/* Active transaction feedback banner */}
+          {loading && (
+            <div style={{
+              margin: "0 0 16px 0",
+              padding: "12px 16px",
+              borderRadius: 10,
+              background: "rgba(99, 102, 241, 0.08)",
+              border: "1px solid rgba(99, 102, 241, 0.25)",
+              color: "#a5b4fc",
+              fontSize: 13,
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              boxShadow: "0 0 15px rgba(99, 102, 241, 0.1)",
+              transition: "all 0.3s ease"
+            }}>
+              <span style={{ display: "inline-block" }} className="animate-pulse">⚡</span>
+              <span><strong>Broadcasting:</strong> signature requested, awaiting confirmation on Celo Network...</span>
+            </div>
+          )}
+
           {/* Action Cards */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 16, marginBottom: 24 }}>
             {X402_ACTIONS.map((action) => {
