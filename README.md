@@ -95,17 +95,24 @@ Contract source code: [`packages/contracts/contracts/`](./packages/contracts/con
 
 ## 🚀 Quick Start — Local Development
 
+This project utilizes npm/pnpm workspaces to coordinate the frontend application and custom SDK libraries inside a single monorepo:
+
 ```bash
-# 1. Install dependencies
+# 1. Install all dependencies across all workspaces
 npm install
 
-# 2. Copy the environment variables
+# 2. Build local packages (celo-activity-helper and celo-airdrop-sdk)
+npm run build -w @rajuice/celo-activity-helper
+npm run build -w celo-airdrop-sdk
+
+# 3. Copy the environment variables in the frontend app
 cp .env.example .env.local
 
-# 3. Add your Blockscout API key to .env.local
-
-# 4. Start the development server
+# 4. Start the development server for the Next.js frontend
 npm run dev
+
+# 5. Alternatively, run specific workspace scripts from the root
+npm run test:contracts
 ```
 
 Navigate to `http://localhost:3000` to view your dashboard.
