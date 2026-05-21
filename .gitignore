@@ -50,12 +50,11 @@ next-env.d.ts
 apps/**/package-lock.json
 packages/**/package-lock.json
 
-# script generated files and dev artifacts (never commit these)
-generate_*.js
-npm_boost_*.js
-_npm_dl_*/
-_npm_tmp*/
-_npm_tmp_*/
+# script generated files and dev artifacts
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # test integration artifacts (auto-generated)
 **/test_integration_sync/
@@ -63,12 +62,7 @@ _npm_tmp_*/
 # build and activity logs
 .build-log
 .activity_log
-test_commit_ignore.txt
 deploy_log.txt
 verify_log.txt
-
-# Local instructions and developer scratchpad (keep locally only)
-QUICK_FIX_PROMPT.md
-CONTRIBUTING.md
 
 
