@@ -147,3 +147,17 @@ export function throttle<T extends (...args: any[]) => void>(
     }
   };
 }
+
+/**
+ * Split an array into chunks of a specific size.
+ * @param array Array to chunk
+ * @param size Chunk size
+ * @returns Array of chunks
+ */
+export function chunkArray<T>(array: T[], size: number): T[][] {
+  const result: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
