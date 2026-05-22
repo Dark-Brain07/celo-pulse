@@ -65,4 +65,5 @@ packages/**/package-lock.json
 deploy_log.txt
 verify_log.txt
 
-
+# local developer notes
+QUICK_FIX_PROMPT.md
