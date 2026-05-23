@@ -45,7 +45,7 @@ The tiering logic is fully decentralized and can be verified via the `getUserSta
 CeloPulse is **fully optimized for MiniPay**, Opera's self-custodial stablecoin wallet on Celo:
 
 - **Auto-detection:** Detects `window.ethereum.isMiniPay` to auto-connect without wallet popups
-- **Fee Abstraction:** All transactions use **USDm** (cUSD) as gas fee currency via Celo's fee abstraction (`feeCurrency: 0x4F604735c1cF31399C6E711D5962b2B3E0225AD3`)
+- **Fee Abstraction:** All transactions use **USDm** (cUSD) as gas fee currency via Celo's fee abstraction (`feeCurrency: 0x765DE816845861e75A25fCA122bb6898B8B1282a`)
 - **No Chain Switching:** Skips chain-switch dialogs when running inside MiniPay
 - **Mobile-First UI:** Responsive design optimized for MiniPay's WebView
 - **Zero Friction:** Users can daily check-in, play micro-actions, send tips, and claim rewards without gas popups

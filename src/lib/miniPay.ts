@@ -10,7 +10,7 @@
 // ─── Fee Currency Addresses ───
 
 /** USDm (cUSD) fee currency address for gas fee abstraction on Celo Mainnet */
-export const MINIPAY_FEE_CURRENCY_USDM = "0x4F604735c1cF31399C6E711D5962b2B3E0225AD3" as const;
+export const MINIPAY_FEE_CURRENCY_USDM = "0x765DE816845861e75A25fCA122bb6898B8B1282a" as const;
 
 /** USDm token address on Celo Mainnet (for balance checks, transfers) */
 export const USDM_TOKEN_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a" as const;

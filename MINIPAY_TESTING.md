@@ -127,7 +127,7 @@ CeloPulse should load inside MiniPay's WebView with:
 
 When inside MiniPay, all transactions should include:
 ```
-feeCurrency: "0x4F604735c1cF31399C6E711D5962b2B3E0225AD3"
+feeCurrency: "0x765DE816845861e75A25fCA122bb6898B8B1282a"
 ```
 
 This means gas is paid in **USDm** instead of CELO. You can verify this by checking the transaction on [CeloScan](https://celoscan.io).
