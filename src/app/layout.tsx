@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { WalletProvider } from "@/context/WalletContext";
+import { MiniPayProvider } from "@/components/MiniPayProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,6 +59,7 @@ export const metadata: Metadata = {
   },
   other: {
     "talentapp:project_verification": "b8e55e668d06babf3822223ce13a1d961f92ad3a357d4717cb12128db7834a866063740f16a4cbd895edcadd38fe727aadd6fda39b8e869c90e8d1288cdad2aa",
+    "mini-pay": "true",
   },
 };
 
@@ -69,7 +71,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body suppressHydrationWarning style={{ fontFamily: "var(--font-inter), sans-serif" }}>
-        <WalletProvider>{children}</WalletProvider>
+        <WalletProvider>
+          <MiniPayProvider>{children}</MiniPayProvider>
+        </WalletProvider>
       </body>
     </html>
   );
