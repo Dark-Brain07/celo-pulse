@@ -103,3 +103,14 @@ export const MINIPAY_INFO = {
   supportedChains: [42220], // Celo Mainnet
   supportedFeeCurrencies: ["USDm"],
 } as const;
+
+/**
+ * Formats a MiniPay address for display, showing the first 6 and last 4 characters.
+ * @param address The full Celo address
+ * @returns The formatted address (e.g. 0x1234...5678)
+ */
+export function formatMiniPayAddress(address: string | null): string {
+  if (!address) return "";
+  if (address.length < 10) return address;
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}

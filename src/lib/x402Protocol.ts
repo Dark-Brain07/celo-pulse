@@ -10,6 +10,7 @@
  */
 
 import { ethers } from "ethers";
+import { getMiniPayFeeOptions } from "@/lib/miniPay";
 
 // ─── x402 Configuration ───
 
@@ -155,6 +156,7 @@ export async function sendCeloTransfer(
   const tx = await signer.sendTransaction({
     to: recipient,
     value: ethers.parseEther(amountCelo),
+    ...getMiniPayFeeOptions(),
   });
 
   const receipt = await tx.wait();
