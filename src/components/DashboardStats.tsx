@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import { CONTRACTS, BLOCKSCOUT_API, BLOCKSCOUT_API_KEY } from "@/lib/contracts";
 
 interface StatCardProps {
   title: string;
@@ -9,16 +11,18 @@ interface StatCardProps {
   icon: string;
   gradient: string;
   suffix?: string;
+  loading?: boolean;
 }
 
-function StatCard({ title, value, change, icon, gradient, suffix }: StatCardProps) {
+function StatCard({ title, value, change, icon, gradient, suffix, loading }: StatCardProps) {
   const [displayValue, setDisplayValue] = useState(0);
   const numericValue = typeof value === "string" ? parseFloat(value) || 0 : value;
 
   useEffect(() => {
+    if (loading) return;
     let start = 0;
     const end = numericValue;
-    if (end === 0) return;
+    if (end === 0) { setDisplayValue(0); return; }
     const duration = 1200;
     const stepTime = 16;
     const steps = duration / stepTime;
@@ -35,7 +39,7 @@ function StatCard({ title, value, change, icon, gradient, suffix }: StatCardProp
     }, stepTime);
 
     return () => clearInterval(timer);
-  }, [numericValue]);
+  }, [numericValue, loading]);
 
   return (
     <div className="stat-card">
@@ -55,8 +59,8 @@ function StatCard({ title, value, change, icon, gradient, suffix }: StatCardProp
               WebkitTextFillColor: "transparent",
             }}
           >
-            {displayValue.toLocaleString()}
-            {suffix && <span style={{ fontSize: 16, marginLeft: 4 }}>{suffix}</span>}
+            {loading ? "—" : displayValue.toLocaleString()}
+            {suffix && !loading && <span style={{ fontSize: 16, marginLeft: 4 }}>{suffix}</span>}
           </p>
         </div>
         <div
@@ -84,12 +88,10 @@ function StatCard({ title, value, change, icon, gradient, suffix }: StatCardProp
             display: "flex",
             alignItems: "center",
             gap: 4,
-            color: change.startsWith("+") ? "#10b981" : "#ef4444",
+            color: "#64748b",
           }}
         >
-          <span>{change.startsWith("+") ? "↗" : "↘"}</span>
-          <span style={{ fontWeight: 600 }}>{change}</span>
-          <span style={{ color: "#64748b" }}>vs last week</span>
+          <span>{change}</span>
         </div>
       )}
     </div>
@@ -97,37 +99,85 @@ function StatCard({ title, value, change, icon, gradient, suffix }: StatCardProp
 }
 
 export default function DashboardStats() {
-  // Demo data — in production these come from Blockscout API + contracts
-  const stats = [
+  const [stats, setStats] = useState({
+    totalCheckIns: 0,
+    uniqueUsers: 0,
+    rewardPool: 0,
+    totalClaims: 0,
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const provider = new ethers.JsonRpcProvider("https://forno.celo.org");
+
+        const activityContract = new ethers.Contract(
+          CONTRACTS.ACTIVITY_MANAGER.address,
+          CONTRACTS.ACTIVITY_MANAGER.abi,
+          provider
+        );
+        const rewardContract = new ethers.Contract(
+          CONTRACTS.REWARD_DISTRIBUTOR.address,
+          CONTRACTS.REWARD_DISTRIBUTOR.abi,
+          provider
+        );
+
+        const [totalCheckIns, uniqueUsers, rewardPool, totalClaims] = await Promise.allSettled([
+          activityContract.totalCheckIns(),
+          activityContract.totalUniqueUsers(),
+          rewardContract.rewardPool(),
+          rewardContract.totalClaims(),
+        ]);
+
+        setStats({
+          totalCheckIns: totalCheckIns.status === "fulfilled" ? Number(totalCheckIns.value) : 0,
+          uniqueUsers: uniqueUsers.status === "fulfilled" ? Number(uniqueUsers.value) : 0,
+          rewardPool:
+            rewardPool.status === "fulfilled"
+              ? parseFloat(ethers.formatEther(rewardPool.value))
+              : 0,
+          totalClaims: totalClaims.status === "fulfilled" ? Number(totalClaims.value) : 0,
+        });
+      } catch (err) {
+        console.error("[DashboardStats] Failed to fetch onchain stats:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  const displayStats = [
     {
-      title: "Total Transactions",
-      value: 12847,
-      change: "+18.2%",
+      title: "Total Check-ins",
+      value: stats.totalCheckIns,
+      change: "Onchain from ActivityManager",
       icon: "📊",
       gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
     },
     {
-      title: "Active Users",
-      value: 342,
-      change: "+12.5%",
+      title: "Unique Users",
+      value: stats.uniqueUsers,
+      change: "Registered onchain",
       icon: "👥",
       gradient: "linear-gradient(135deg, #06b6d4, #6366f1)",
     },
     {
-      title: "Gas Usage",
-      value: 4521,
-      change: "+24.7%",
-      icon: "⛽",
+      title: "Reward Pool",
+      value: stats.rewardPool,
+      change: "Available in RewardDistributor",
+      icon: "💰",
       gradient: "linear-gradient(135deg, #10b981, #06b6d4)",
-      suffix: "Gwei",
+      suffix: "CELO",
     },
     {
-      title: "Activity Rate",
-      value: 87,
-      change: "+5.3%",
-      icon: "🔥",
+      title: "Total Claims",
+      value: stats.totalClaims,
+      change: "Rewards distributed",
+      icon: "🎁",
       gradient: "linear-gradient(135deg, #f59e0b, #ef4444)",
-      suffix: "%",
     },
   ];
 
@@ -136,7 +186,7 @@ export default function DashboardStats() {
       <div style={{ marginBottom: 24 }}>
         <h2 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9" }}>Dashboard Overview</h2>
         <p style={{ fontSize: 14, color: "#64748b", marginTop: 4 }}>
-          Real-time CeloPulse ecosystem metrics
+          Onchain metrics from CeloPulse smart contracts
         </p>
       </div>
       <div
@@ -146,8 +196,8 @@ export default function DashboardStats() {
           gap: 20,
         }}
       >
-        {stats.map((stat) => (
-          <StatCard key={stat.title} {...stat} />
+        {displayStats.map((stat) => (
+          <StatCard key={stat.title} {...stat} loading={loading} />
         ))}
       </div>
     </section>

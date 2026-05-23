@@ -104,10 +104,17 @@ export default function Footer() {
           <h4 style={{ fontSize: 13, fontWeight: 700, color: "#94a3b8", marginBottom: 16, textTransform: "uppercase", letterSpacing: "0.05em" }}>
             Community
           </h4>
-          {["Twitter", "Discord", "Telegram", "Talent Protocol"].map((item) => (
+          {[
+            { label: "Twitter", url: "https://twitter.com/CeloOrg" },
+            { label: "Discord", url: "https://discord.gg/celo" },
+            { label: "Telegram", url: "https://t.me/celoplatform" },
+            { label: "Talent Protocol", url: "https://talentprotocol.com" },
+          ].map((item) => (
             <a
-              key={item}
-              href="#"
+              key={item.label}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: "block",
                 fontSize: 14,
@@ -119,7 +126,7 @@ export default function Footer() {
               onMouseEnter={(e) => (e.currentTarget.style.color = "#f1f5f9")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#64748b")}
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </div>

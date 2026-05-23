@@ -67,3 +67,16 @@ verify_log.txt
 
 # local developer notes
 QUICK_FIX_PROMPT.md
+
+# auto-generated module spam (never commit)
+src/features/
+src/lib/modules/
+src/types/
+src/api/dummy_commits.txt
+apps/frontend/src/features/
+apps/frontend/src/lib/modules/
+apps/frontend/src/types/modules/
+packages/core/src/lib/modules/
+packages/core/src/types/
+packages/sdk/src/lib/modules/
+packages/sdk/src/types/
