@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useCeloNetwork } from "@/hooks/useCeloNetwork";
 
 /**
  * Network status badge component.
@@ -9,6 +10,7 @@ import React from "react";
 export function NetworkBadge() {
   const [status, setStatus] = React.useState<"connected" | "disconnected" | "checking">("checking");
   const [blockNumber, setBlockNumber] = React.useState<number | null>(null);
+  const { blockNumber: hookBlock, gasPrice } = useCeloNetwork();
 
   React.useEffect(() => {
     const checkNetwork = async () => {
@@ -76,6 +78,11 @@ export function NetworkBadge() {
           ? "Connecting..."
           : "Disconnected"}
       </span>
+      {status === "connected" && gasPrice !== "0" && (
+        <span style={{ color: "rgba(252,255,81,0.7)", fontSize: "0.72rem", letterSpacing: "0.02em" }}>
+          | Gas: {gasPrice} Gwei
+        </span>
+      )}
     </div>
   );
 }
