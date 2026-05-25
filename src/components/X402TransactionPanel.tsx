@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useWallet } from "@/context/WalletContext";
+import { useCusdBalance } from "@/hooks/useCusdBalance";
+import { useMiniPay } from "@/hooks/useMiniPay";
 import {
   type X402TransactionRecord,
   X402_ACTIONS,
@@ -17,6 +19,8 @@ import {
 
 export default function X402TransactionPanel() {
   const { address, signer, provider, isConnected } = useWallet();
+  const { isMiniPay } = useMiniPay();
+  const { balance: liveCusdBalance, loading: cusdLoading } = useCusdBalance(address);
   const [history, setHistory] = useState<X402TransactionRecord[]>([]);
   const [sessionSpend, setSessionSpend] = useState(0);
   const [loading, setLoading] = useState<string | null>(null);
@@ -115,7 +119,7 @@ export default function X402TransactionPanel() {
       {/* Session Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))", gap: 16, marginBottom: 20 }}>
         {[
-          { label: "cUSD Balance", value: parseFloat(cusdBalance).toFixed(4), color: "#10b981", icon: "💰" },
+          { label: "cUSD Balance", value: cusdLoading ? "..." : parseFloat(liveCusdBalance).toFixed(4), color: "#10b981", icon: "💰" },
           { label: "Session Spend", value: formatX402Amount(sessionSpend.toFixed(4)), color: "#6366f1", icon: "📊" },
           { label: "Transactions", value: history.length.toString(), color: "#8b5cf6", icon: "⚡" },
           { label: "Network", value: "Celo (42220)", color: "#06b6d4", icon: "🌐" },
