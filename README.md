@@ -65,6 +65,23 @@ ngrok http 3000
 
 ---
 
+## 🤖 AI Agent Identity (ERC-8004 + Self Protocol)
+
+CeloPulse runs a verifiable AI agent registered on Celo Mainnet:
+
+| Field | Value |
+|---|---|
+| ERC-8004 Token | AgentIdentity (AGENT) #9093 |
+| Identity Registry | 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432 |
+| Reputation Registry | 0x8004BAa17C55a88189AE136b182e5fdA19dE9b63 |
+| Agent Wallet | 0xfd4960F33670f3477ebe817B184dd59fC4961437 |
+| Ed25519 Public Key | 914472276af8f5b2c2a0b01b0fa5a47e5ef3cb632dfc3abe872fa1f62abfc11e |
+| Self Protocol | Registered via self.xyz |
+
+The agent handles: check-in verification, reward distribution scoring, leaderboard ranking, and x402 micropayment settlement on Celo Mainnet.
+
+---
+
 ## 🛠️ Tech Stack
 - **Framework:** Next.js 15 (App Router + Server Components)
 - **Styling:** Vanilla CSS Modules + Tailwind Utility Classes
