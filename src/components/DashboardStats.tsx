@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { CONTRACTS, BLOCKSCOUT_API, BLOCKSCOUT_API_KEY } from "@/lib/contracts";
+import { useActivityStats } from "@/hooks/useActivityStats";
 
 interface StatCardProps {
   title: string;
@@ -106,6 +107,7 @@ export default function DashboardStats() {
     totalClaims: 0,
   });
   const [loading, setLoading] = useState(true);
+  const { globalStats: activityGlobal, loading: activityLoading } = useActivityStats(null);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -152,17 +154,19 @@ export default function DashboardStats() {
   const displayStats = [
     {
       title: "Total Check-ins",
-      value: stats.totalCheckIns,
+      value: activityGlobal ? Number(activityGlobal.totalCheckIns) : stats.totalCheckIns,
       change: "Onchain from ActivityManager",
       icon: "📊",
       gradient: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+      loading: loading && activityLoading,
     },
     {
       title: "Unique Users",
-      value: stats.uniqueUsers,
+      value: activityGlobal ? Number(activityGlobal.totalUsers) : stats.uniqueUsers,
       change: "Registered onchain",
       icon: "👥",
       gradient: "linear-gradient(135deg, #06b6d4, #6366f1)",
+      loading: loading && activityLoading,
     },
     {
       title: "Reward Pool",
@@ -197,7 +201,7 @@ export default function DashboardStats() {
         }}
       >
         {displayStats.map((stat) => (
-          <StatCard key={stat.title} {...stat} loading={loading} />
+          <StatCard key={stat.title} {...stat} loading={stat.loading ?? loading} />
         ))}
       </div>
     </section>
