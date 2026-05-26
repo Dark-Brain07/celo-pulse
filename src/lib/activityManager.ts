@@ -15,18 +15,19 @@ export const ACTIVITY_MANAGER_ADDRESS = "0x52C26081bb28351Dae6A4D678B4b144bc5A0B
 // ─── Minimal Read-Only ABI ───
 
 export const ACTIVITY_MANAGER_ABI = [
-  "function getUserStats(address) view returns (uint256 checkIns, uint256 points, uint256 streak, uint256 tier)",
-  "function getTotalUsers() view returns (uint256)",
-  "function getTotalCheckIns() view returns (uint256)",
+  "function getUserActivity(address user) view returns (uint256 lastCheckIn, uint256 currentStreak, uint256 longestStreak, uint256 checkIns, uint256 actions)",
+  "function totalUniqueUsers() view returns (uint256)",
+  "function totalCheckIns() view returns (uint256)",
 ];
 
 // ─── Types ───
 
 export type UserStats = {
+  lastCheckIn: string;
+  currentStreak: string;
+  longestStreak: string;
   checkIns: string;
-  points: string;
-  streak: string;
-  tier: number;
+  actions: string;
 };
 
 // ─── Provider Helper ───
@@ -57,16 +58,17 @@ function getContract(): ethers.Contract {
 export async function getUserStats(walletAddress: string): Promise<UserStats> {
   try {
     const contract = getContract();
-    const result = await contract.getUserStats(walletAddress);
+    const result = await contract.getUserActivity(walletAddress);
     return {
-      checkIns: result.checkIns.toString(),
-      points: result.points.toString(),
-      streak: result.streak.toString(),
-      tier: Number(result.tier),
+      lastCheckIn: result[0].toString(),
+      currentStreak: result[1].toString(),
+      longestStreak: result[2].toString(),
+      checkIns: result[3].toString(),
+      actions: result[4].toString(),
     };
   } catch (error) {
     console.error("[activityManager] getUserStats failed:", error);
-    return { checkIns: "0", points: "0", streak: "0", tier: 0 };
+    return { lastCheckIn: "0", currentStreak: "0", longestStreak: "0", checkIns: "0", actions: "0" };
   }
 }
 
@@ -76,7 +78,7 @@ export async function getUserStats(walletAddress: string): Promise<UserStats> {
 export async function getTotalUsers(): Promise<string> {
   try {
     const contract = getContract();
-    const total = await contract.getTotalUsers();
+    const total = await contract.totalUniqueUsers();
     return total.toString();
   } catch (error) {
     console.error("[activityManager] getTotalUsers failed:", error);
@@ -90,7 +92,7 @@ export async function getTotalUsers(): Promise<string> {
 export async function getTotalCheckIns(): Promise<string> {
   try {
     const contract = getContract();
-    const total = await contract.getTotalCheckIns();
+    const total = await contract.totalCheckIns();
     return total.toString();
   } catch (error) {
     console.error("[activityManager] getTotalCheckIns failed:", error);

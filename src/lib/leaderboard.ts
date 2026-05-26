@@ -15,7 +15,7 @@ export const LEADERBOARD_ADDRESS = "0xb2137812BC7b1439C238693df4e2F7AB07691014";
 
 /** Minimal ABI for the Leaderboard contract (view functions only) */
 export const LEADERBOARD_ABI = [
-  "function getTopUsers(uint256 count) view returns (address[], uint256[])",
+  "function getTopUsers(uint256 offset, uint256 limit) view returns (address[], uint256[])",
   "function getUserRank(address) view returns (uint256)",
 ];
 
@@ -56,7 +56,7 @@ export async function getTopLeaderboard(
   try {
     const contract = getLeaderboardContract();
     const [addresses, scores]: [string[], bigint[]] =
-      await contract.getTopUsers(count);
+      await contract.getTopUsers(0, count);
 
     return addresses.map((addr: string, i: number) => ({
       address: addr,
