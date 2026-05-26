@@ -1,7 +1,7 @@
 "use client";
 
 import { useLeaderboard } from "../hooks/useLeaderboard";
-import { useMiniPay } from "../hooks/useMiniPay";
+import { useWallet } from "@/context/WalletContext";
 
 function RankBadge({ rank }: { rank: number }) {
   const emoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : null;
@@ -32,7 +32,7 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 export default function Leaderboard() {
-  const { address } = useMiniPay();
+  const { address } = useWallet();
   const { entries, userRank, loading: isLoading } = useLeaderboard(address);
 
   return (
