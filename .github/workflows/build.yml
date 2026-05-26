@@ -10,10 +10,6 @@ jobs:
     name: Build Next.js Application
     runs-on: ubuntu-latest
     
-    defaults:
-      run:
-        working-directory: ./apps/frontend
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
