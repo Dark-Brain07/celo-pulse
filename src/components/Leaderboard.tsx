@@ -1,29 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-interface LeaderboardEntry {
-  rank: number;
-  address: string;
-  score: number;
-  checkIns: number;
-  actions: number;
-  streak: number;
-}
-
-// Demo leaderboard data — in production, fetched from Leaderboard contract
-const demoLeaderboard: LeaderboardEntry[] = [
-  { rank: 1, address: "0x1234...abcd", score: 4850, checkIns: 45, actions: 312, streak: 14 },
-  { rank: 2, address: "0x5678...efgh", score: 3920, checkIns: 38, actions: 256, streak: 11 },
-  { rank: 3, address: "0x9abc...ijkl", score: 3410, checkIns: 32, actions: 198, streak: 9 },
-  { rank: 4, address: "0xdef0...mnop", score: 2890, checkIns: 28, actions: 167, streak: 7 },
-  { rank: 5, address: "0x1357...qrst", score: 2340, checkIns: 22, actions: 145, streak: 5 },
-  { rank: 6, address: "0x2468...uvwx", score: 1980, checkIns: 19, actions: 121, streak: 4 },
-  { rank: 7, address: "0x3690...yzab", score: 1560, checkIns: 15, actions: 98, streak: 3 },
-  { rank: 8, address: "0x4812...cdef", score: 1230, checkIns: 12, actions: 76, streak: 2 },
-  { rank: 9, address: "0x5934...ghij", score: 890, checkIns: 9, actions: 54, streak: 2 },
-  { rank: 10, address: "0x6045...klmn", score: 650, checkIns: 6, actions: 38, streak: 1 },
-];
+import { useLeaderboard } from "../hooks/useLeaderboard";
+import { useMiniPay } from "../hooks/useMiniPay";
 
 function RankBadge({ rank }: { rank: number }) {
   const emoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : null;
@@ -54,24 +32,15 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 export default function Leaderboard() {
-  const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setEntries(demoLeaderboard);
-      setIsLoading(false);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
+  const { address } = useMiniPay();
+  const { entries, userRank, loading: isLoading } = useLeaderboard(address);
 
   return (
     <section id="leaderboard" style={{ marginBottom: 32 }}>
       <div style={{ marginBottom: 24 }}>
         <h2 style={{ fontSize: 24, fontWeight: 700, color: "#f1f5f9" }}>Leaderboard</h2>
         <p style={{ fontSize: 14, color: "#64748b", marginTop: 4 }}>
-          Top users ranked by activity score
+          Top users ranked by on-chain activity score
         </p>
       </div>
 
@@ -80,7 +49,7 @@ export default function Leaderboard() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "60px 1fr 100px 100px 100px 80px",
+            gridTemplateColumns: "60px 1fr 120px",
             padding: "16px 20px",
             borderBottom: "1px solid rgba(99, 102, 241, 0.1)",
             fontSize: 12,
@@ -93,9 +62,6 @@ export default function Leaderboard() {
           <span>Rank</span>
           <span>Address</span>
           <span style={{ textAlign: "right" }}>Score</span>
-          <span style={{ textAlign: "right" }}>Check-ins</span>
-          <span style={{ textAlign: "right" }}>Actions</span>
-          <span style={{ textAlign: "right" }}>Streak</span>
         </div>
 
         {/* Loading skeleton */}
@@ -114,6 +80,13 @@ export default function Leaderboard() {
           </div>
         )}
 
+        {/* Empty state */}
+        {!isLoading && entries.length === 0 && (
+          <div style={{ padding: "32px 20px", textAlign: "center", color: "#64748b" }}>
+            No leaderboard data available yet.
+          </div>
+        )}
+
         {/* Leaderboard rows */}
         {!isLoading &&
           entries.map((entry) => (
@@ -121,7 +94,7 @@ export default function Leaderboard() {
               key={entry.rank}
               style={{
                 display: "grid",
-                gridTemplateColumns: "60px 1fr 100px 100px 100px 80px",
+                gridTemplateColumns: "60px 1fr 120px",
                 padding: "16px 20px",
                 borderBottom: "1px solid rgba(99, 102, 241, 0.06)",
                 transition: "all 0.2s",
@@ -145,7 +118,7 @@ export default function Leaderboard() {
                     fontWeight: entry.rank <= 3 ? 600 : 400,
                   }}
                 >
-                  {entry.address}
+                  {entry.address.slice(0, 6)}...{entry.address.slice(-4)}
                 </span>
               </div>
               <span
@@ -161,26 +134,26 @@ export default function Leaderboard() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                {entry.score.toLocaleString()}
-              </span>
-              <span style={{ textAlign: "right", color: "#94a3b8", fontSize: 14 }}>
-                {entry.checkIns}
-              </span>
-              <span style={{ textAlign: "right", color: "#94a3b8", fontSize: 14 }}>
-                {entry.actions}
-              </span>
-              <span style={{ textAlign: "right" }}>
-                {entry.streak > 0 && (
-                  <span
-                    className="streak-badge streak-fire"
-                    style={{ fontSize: 12, padding: "3px 8px" }}
-                  >
-                    🔥 {entry.streak}
-                  </span>
-                )}
+                {Number(entry.score).toLocaleString()}
               </span>
             </div>
           ))}
+
+        {/* User rank footer */}
+        {!isLoading && userRank > 0 && (
+          <div
+            style={{
+              padding: "14px 20px",
+              borderTop: "1px solid rgba(99, 102, 241, 0.15)",
+              background: "rgba(99, 102, 241, 0.06)",
+              fontSize: 13,
+              color: "#94a3b8",
+              textAlign: "center",
+            }}
+          >
+            Your rank: <strong style={{ color: "#a78bfa" }}>#{userRank}</strong>
+          </div>
+        )}
       </div>
     </section>
   );
