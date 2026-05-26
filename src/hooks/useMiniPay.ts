@@ -1,21 +1,38 @@
 import { useEffect, useState } from "react";
 
 /**
- * React hook to detect whether the app is running inside Opera MiniPay.
+ * React hook for Opera MiniPay wallet integration.
  *
- * MiniPay injects `window.ethereum` with an `isMiniPay` flag set to `true`.
- * This hook checks for that flag on mount and returns a boolean.
+ * Detects whether the app is running inside MiniPay's WebView
+ * and auto-connects to retrieve the user's wallet address.
  *
- * @returns {{ isMiniPay: boolean }} Whether the current environment is MiniPay
+ * MiniPay injects `window.ethereum` with `isMiniPay = true`.
+ * When detected, this hook calls `eth_requestAccounts` to get the address.
+ *
+ * @returns {{ isMiniPay: boolean, address: string | null }}
  */
 export function useMiniPay() {
   const [isMiniPay, setIsMiniPay] = useState(false);
+  const [address, setAddress] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.ethereum && (window.ethereum as any).isMiniPay) {
-      setIsMiniPay(true);
-    }
+    if (typeof window === "undefined") return;
+
+    const ethereum = (window as any).ethereum;
+    if (!ethereum?.isMiniPay) return;
+
+    setIsMiniPay(true);
+
+    // Auto-connect: MiniPay always has an account ready
+    ethereum
+      .request({ method: "eth_requestAccounts", params: [] })
+      .then((accounts: string[]) => {
+        if (accounts[0]) setAddress(accounts[0]);
+      })
+      .catch((err: Error) => {
+        console.error("[useMiniPay] auto-connect failed:", err);
+      });
   }, []);
 
-  return { isMiniPay };
+  return { isMiniPay, address };
 }
