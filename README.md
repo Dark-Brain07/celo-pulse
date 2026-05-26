@@ -49,6 +49,8 @@ CeloPulse is **fully optimized for MiniPay**, Opera's self-custodial stablecoin 
 - **No Chain Switching:** Skips chain-switch dialogs when running inside MiniPay
 - **Mobile-First UI:** Responsive design optimized for MiniPay's WebView
 - **Zero Friction:** Users can daily check-in, play micro-actions, send tips, and claim rewards without gas popups
+- **Direct Path:** [src/hooks/useMiniPay.ts](./src/hooks/useMiniPay.ts)
+- **Discovery Manifest:** [/.well-known/minipay.json](https://celo-pulse-omega.vercel.app/.well-known/minipay.json)
 
 ### Testing with MiniPay
 See the full guide: [MINIPAY_TESTING.md](./MINIPAY_TESTING.md)
@@ -249,3 +251,17 @@ To support reactive real-time dashboard updates without hard component dependenc
 - **Decoupled Architecture**: Components emitting transaction actions (like `UserActions`) publish transaction confirmation events.
 - **Dynamic Session Count**: Listening components (like `ActivityGuide` or dashboard stat rings) subscribe to these events and increment session transaction count indices instantly, removing the need for polling.
 - **Zero Overhead**: Utilizes standard browser CustomEvents for zero impact on bundle sizes, completely side-stepping state synchronization lag.
+
+---
+
+## 🔗 Live Links
+
+| Resource | URL |
+|---|---|
+| Live App | https://celo-pulse-omega.vercel.app/ |
+| GitHub | https://github.com/Dark-Brain07/celo-pulse |
+| MiniPay Manifest | https://celo-pulse-omega.vercel.app/.well-known/minipay.json |
+| MiniPay Hook | https://github.com/Dark-Brain07/celo-pulse/blob/main/src/hooks/useMiniPay.ts |
+| Talent Protocol | https://talent.app/~/projects/0cb56f43-e9a9-44c3-92bb-5dfa55d27bf5 |
+| Agent on 8004scan | https://8004scan.io/agents/9093 |
+| Blockscout | https://celo.blockscout.com/address/0xfd4960F33670f3477ebe817B184dd59fC4961437 |
