@@ -1,10 +1,9 @@
 {
   "name": "CeloPulse",
-  "description": "CeloPulse — Proof-of-Activity dApp on Celo. Daily check-ins, rewards, micro-actions, and leaderboards generating real onchain engagement.",
-  "url": "https://celo-pulse.vercel.app",
-  "logo": "https://celo-pulse.vercel.app/logo.png",
-  "category": "finance",
-  "chain": "celo",
+  "description": "Proof-of-Activity dApp on Celo — daily check-ins, streaks, leaderboard and CELO rewards",
+  "url": "https://celo-pulse-omega.vercel.app",
+  "iconUrl": "https://celo-pulse-omega.vercel.app/icon.png",
+  "chainId": 42220,
   "rpcUrl": "https://forno.celo.org",
-  "chainId": 42220
+  "miniPayHook": "src/hooks/useMiniPay.ts"
 }
