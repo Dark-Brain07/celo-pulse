@@ -1,0 +1,10 @@
+{
+  "name": "CeloPulse",
+  "description": "CeloPulse — Proof-of-Activity dApp on Celo. Daily check-ins, rewards, micro-actions, and leaderboards generating real onchain engagement.",
+  "url": "https://celo-pulse.vercel.app",
+  "logo": "https://celo-pulse.vercel.app/logo.png",
+  "category": "finance",
+  "chain": "celo",
+  "rpcUrl": "https://forno.celo.org",
+  "chainId": 42220
+}
