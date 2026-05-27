@@ -7,7 +7,5 @@
   "category": "finance",
   "chain": "celo",
   "chainId": 42220,
-  "rpcUrl": "https://forno.celo.org",
-  "miniPayHook": "src/hooks/useMiniPay.ts",
   "miniPayHookUrl": "https://github.com/Dark-Brain07/celo-pulse/blob/main/src/hooks/useMiniPay.ts"
 }
