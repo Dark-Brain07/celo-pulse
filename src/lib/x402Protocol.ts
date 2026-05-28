@@ -97,8 +97,8 @@ export async function executeX402Payment(
 
   const amountWei = ethers.parseUnits(amount, decimals);
 
-  // Execute the actual onchain transfer
-  const tx = await token.transfer(recipient, amountWei);
+  // Execute the actual onchain transfer (with MiniPay fee currency support)
+  const tx = await token.transfer(recipient, amountWei, getMiniPayFeeOptions());
   const receipt = await tx.wait();
 
   const record: X402TransactionRecord = {
