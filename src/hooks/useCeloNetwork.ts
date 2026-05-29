@@ -1,8 +1,10 @@
+"use client";
+
 /**
  * useCeloNetwork Hook
  *
  * Fetches and auto-refreshes Celo Mainnet health metrics
- * (block number and gas price) every 30 seconds.
+ * (block number and gas price) every 60 seconds.
  */
 
 import { useState, useEffect } from "react";
@@ -34,7 +36,7 @@ export function useCeloNetwork() {
     fetchNetworkData();
 
     // Refresh every 30 seconds
-    const interval = setInterval(fetchNetworkData, 30_000);
+    const interval = setInterval(fetchNetworkData, 60_000);
 
     return () => {
       isMounted = false;

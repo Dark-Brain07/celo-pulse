@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState, useCallback } from "react";
 import { ethers } from "ethers";
 
@@ -13,6 +15,13 @@ const ERC20_BALANCE_ABI = [
 ];
 
 const CELO_RPC = "https://forno.celo.org";
+
+// Singleton provider to avoid creating new connections on every poll
+let _provider: ethers.JsonRpcProvider | null = null;
+function getProvider(): ethers.JsonRpcProvider {
+  if (!_provider) _provider = new ethers.JsonRpcProvider(CELO_RPC);
+  return _provider;
+}
 
 /**
  * React hook that fetches the cUSD balance for a given wallet address
@@ -38,7 +47,7 @@ export function useCusdBalance(walletAddress: string | undefined | null) {
     setError(null);
 
     try {
-      const provider = new ethers.JsonRpcProvider(CELO_RPC);
+      const provider = getProvider();
       const token = new ethers.Contract(CUSD_ADDRESS, ERC20_BALANCE_ABI, provider);
       const [rawBalance, decimals] = await Promise.all([
         token.balanceOf(walletAddress),
@@ -57,7 +66,7 @@ export function useCusdBalance(walletAddress: string | undefined | null) {
     fetchBalance();
     if (!walletAddress) return;
 
-    const interval = setInterval(fetchBalance, 15_000);
+    const interval = setInterval(fetchBalance, 30_000);
     return () => clearInterval(interval);
   }, [fetchBalance, walletAddress]);
 

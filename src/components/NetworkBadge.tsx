@@ -37,7 +37,7 @@ export function NetworkBadge() {
     };
 
     checkNetwork();
-    const interval = setInterval(checkNetwork, 15000);
+    const interval = setInterval(checkNetwork, 60000);
     return () => clearInterval(interval);
   }, []);
 
