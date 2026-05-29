@@ -67,6 +67,24 @@ ngrok http 3000
 
 ---
 
+## 🛠️ Celo SDK Utilities
+
+CeloPulse ships a set of Celo-specific TypeScript utilities for interacting with Celo Mainnet contracts:
+
+| Utility | File | Purpose |
+|---|---|---|
+| Network Monitor | `src/lib/celoNetwork.ts` | Fetches live block number and gas price from Celo mainnet |
+| cUSD Balance | `src/lib/cusdBalance.ts` | Reads cUSD balance from Celo mainnet token contract |
+| Activity Stats | `src/lib/activityManager.ts` | Reads user stats and global metrics from ActivityManager |
+| MiniPay Transactions | `src/lib/miniPayTx.ts` | Sends MiniPay-compatible transactions with cUSD feeCurrency |
+| Leaderboard | `src/lib/leaderboard.ts` | Reads top users and rank from Leaderboard contract |
+| Referral Stats | `src/lib/referralSystem.ts` | Reads referrer, count, and rewards from ReferralSystem |
+| Contract Constants | `src/lib/celoContracts.ts` | Centralized registry of all deployed contract addresses |
+
+All utilities use ethers.js v6 with a JsonRpcProvider connected to `https://forno.celo.org` (Celo Mainnet RPC).
+
+---
+
 ## 🤖 AI Agent Identity (ERC-8004 + Self Protocol)
 
 CeloPulse runs a verifiable AI agent registered on Celo Mainnet:
@@ -234,6 +252,35 @@ Our journey continues with upcoming features focused on governance, social graph
 ### Phase 3: Cross-Chain Pulse (Q4 2026)
 - **L2 Expansion**: Deploying Pulse engines on Arbitrum and Optimism with unified cross-chain leaderboards.
 - **Celo L2 Transition**: Native optimization for the upcoming Celo L2 architecture.
+
+---
+
+## 📋 Proof of Ship — May 2026 Milestone
+
+### What shipped this campaign:
+- ✅ Full MiniPay integration (`isMiniPay` detection, auto-connect, feeCurrency cUSD)
+- ✅ MiniPay discovery manifest at `/.well-known/minipay.json`
+- ✅ MiniPay hook direct path: `src/hooks/useMiniPay.ts`
+- ✅ 7 smart contracts deployed and verified on Celo Mainnet (Chain ID 42220)
+- ✅ ERC-8004 Agent Identity registered — AgentIdentity NFT #9093
+- ✅ x402 micropayment protocol integration via thirdweb
+- ✅ Tiered activity system (Bronze → Silver → Gold → Platinum)
+- ✅ Real-time contract data via ethers.js v6 + Forno RPC
+- ✅ Celo SDK utility library (7 modules)
+- ✅ Referral system with dual-reward tracking
+- ✅ Global leaderboard with composite scoring
+- ✅ 4,000+ unique wallets on Celo Mainnet
+
+### Live links:
+| Resource | URL |
+|---|---|
+| Live App | https://celo-pulse-omega.vercel.app/ |
+| GitHub | https://github.com/Dark-Brain07/celo-pulse |
+| MiniPay Manifest | https://celo-pulse-omega.vercel.app/.well-known/minipay.json |
+| MiniPay Hook | https://github.com/Dark-Brain07/celo-pulse/blob/main/src/hooks/useMiniPay.ts |
+| Talent Protocol | https://talent.app/~/projects/0cb56f43-e9a9-44c3-92bb-5dfa55d27bf5 |
+| Agent on 8004scan | https://8004scan.io/agents/9093 |
+| Blockscout | https://celo.blockscout.com/address/0xfd4960F33670f3477ebe817B184dd59fC4961437 |
 
 ---
 
