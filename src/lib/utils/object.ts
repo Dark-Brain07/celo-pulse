@@ -5,3 +5,4 @@ export const entries = <T extends object>(obj: T): [keyof T, T[keyof T]][] => Ob
 export const clone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
 export const omit = <T extends object, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> => { const res = { ...obj }; keys.forEach(key => delete res[key]); return res; };
 export const pick = <T extends object, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K> => keys.reduce((acc, key) => ({ ...acc, [key]: obj[key] }), {} as Pick<T, K>);
+export const merge = <T extends object, U extends object>(target: T, source: U): T & U => ({ ...target, ...source });
