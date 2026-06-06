@@ -4,3 +4,4 @@ export const inRange = (num: number, min: number, max: number): boolean => num >
 export const round = (num: number, decimals: number = 0): number => Number(Math.round(Number(num + 'e' + decimals)) + 'e-' + decimals);
 export const isNumber = (val: any): val is number => typeof val === 'number' && !isNaN(val);
 export const toFixed = (num: number, decimals: number = 2): string => num.toFixed(decimals);
+export const isEven = (num: number): boolean => num % 2 === 0;
