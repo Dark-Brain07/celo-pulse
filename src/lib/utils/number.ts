@@ -17,3 +17,4 @@ export const formatCurrency = (num: number, currency: string = 'USD'): string =>
 export const formatPercent = (num: number): string => new Intl.NumberFormat('en-US', { style: 'percent' }).format(num);
 export const formatCommas = (num: number): string => new Intl.NumberFormat('en-US').format(num);
 export const bytesToMb = (bytes: number): number => round(bytes / (1024 * 1024), 2);
+export const parseCompact = (str: string): number => { const map: Record<string, number> = { K: 1e3, M: 1e6, B: 1e9 }; const m = str.match(/(\d+(?:\.\d+)?)([KMB])/i); return m ? parseFloat(m[1]) * map[m[2].toUpperCase()] : parseFloat(str); };
