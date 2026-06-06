@@ -17,3 +17,4 @@ export const clearObject = (obj: Record<string, any>) => { Object.keys(obj).forE
 export const objectToQuery = (obj: Record<string, any>): string => new URLSearchParams(obj as Record<string, string>).toString();
 export const queryToObject = (query: string): Record<string, string> => Object.fromEntries(new URLSearchParams(query));
 export const mapKeys = (obj: Record<string, any>, fn: (val: any, key: string) => string) => Object.fromEntries(Object.entries(obj).map(([k, v]) => [fn(v, k), v]));
+export const mapValues = (obj: Record<string, any>, fn: (val: any, key: string) => any) => Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, fn(v, k)]));
