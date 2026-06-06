@@ -17,3 +17,4 @@ export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
 export const isSymbol = (val: any): val is symbol => typeof val === 'symbol';
 export const isFunction = (val: any): val is Function => typeof val === 'function';
 export const isEmptyString = (str: string): boolean => str.trim().length === 0;
+export const isPostalCode = (str: string): boolean => /^\d{5}(-\d{4})?$/.test(str);
