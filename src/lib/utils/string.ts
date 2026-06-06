@@ -16,3 +16,4 @@ export const countWords = (str: string): number => str.trim().split(/\s+/).lengt
 export const contains = (str: string, search: string): boolean => str.includes(search);
 export const repeat = (str: string, count: number): string => str.repeat(count);
 export const removeWhitespace = (str: string): string => str.replace(/\s/g, '');
+export const startsWithPattern = (str: string, prefix: string): boolean => str.startsWith(prefix);
