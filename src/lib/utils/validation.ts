@@ -11,3 +11,4 @@ export const isMacAddress = (str: string): boolean => /^([0-9A-Fa-f]{2}[:-]){5}(
 export const isPort = (str: string): boolean => { const p = parseInt(str, 10); return p > 0 && p <= 65535; };
 export const isLength = (str: string, min: number, max: number): boolean => str.length >= min && str.length <= max;
 export const isBase64 = (str: string): boolean => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(str);
+export const isJSON = (str: string): boolean => { try { JSON.parse(str); return true; } catch (e) { return false; } };
