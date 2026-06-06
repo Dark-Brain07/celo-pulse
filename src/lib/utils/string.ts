@@ -5,3 +5,4 @@ export const isString = (val: any): val is string => typeof val === 'string';
 export const reverseString = (str: string): string => str.split('').reverse().join('');
 export const truncate = (str: string, len: number): string => str.length > len ? str.substring(0, len) + '...' : str;
 export const camelCase = (str: string): string => str.replace(/(?:^\w|[A-Z]|\b\w)/g, (w, i) => i === 0 ? w.toLowerCase() : w.toUpperCase()).replace(/\s+/g, '');
+export const snakeCase = (str: string): string => str.replace(/\W+/g, ' ').split(/ |\B(?=[A-Z])/).map(w => w.toLowerCase()).join('_');
