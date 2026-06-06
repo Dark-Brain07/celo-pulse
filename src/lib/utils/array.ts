@@ -11,3 +11,4 @@ export const without = <T>(arr: T[], ...values: T[]): T[] => arr.filter(item => 
 export const intersection = <T>(arr1: T[], arr2: T[]): T[] => arr1.filter(item => arr2.includes(item));
 export const difference = <T>(arr1: T[], arr2: T[]): T[] => arr1.filter(item => !arr2.includes(item));
 export const union = <T>(...arrays: T[][]): T[] => unique(arrays.flat());
+export const sample = <T>(arr: T[]): T | undefined => arr[Math.floor(Math.random() * arr.length)];
