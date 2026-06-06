@@ -10,3 +10,4 @@ export const invert = (obj: Record<string, string>): Record<string, string> => O
 export const size = (obj: object): number => Object.keys(obj).length;
 export const isEmptyObject = (obj: object): boolean => Object.keys(obj).length === 0;
 export const has = <T extends object>(obj: T, key: PropertyKey): boolean => Object.prototype.hasOwnProperty.call(obj, key);
+export const cleanObject = <T extends object>(obj: T): Partial<T> => Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== undefined)) as Partial<T>;
