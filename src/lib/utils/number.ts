@@ -11,3 +11,4 @@ export const avg = (arr: number[]): number => arr.length ? sum(arr) / arr.length
 export const min = (arr: number[]): number => Math.min(...arr);
 export const max = (arr: number[]): number => Math.max(...arr);
 export const toInt = (val: string): number => parseInt(val, 10);
+export const toFloat = (val: string): number => parseFloat(val);
