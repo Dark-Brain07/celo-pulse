@@ -13,3 +13,4 @@ export const isLength = (str: string, min: number, max: number): boolean => str.
 export const isBase64 = (str: string): boolean => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(str);
 export const isJSON = (str: string): boolean => { try { JSON.parse(str); return true; } catch (e) { return false; } };
 export const isStrongPassword = (str: string): boolean => str.length >= 8 && /[A-Z]/.test(str) && /[0-9]/.test(str) && /[^A-Za-z0-9]/.test(str);
+export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
