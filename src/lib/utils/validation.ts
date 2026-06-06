@@ -12,3 +12,4 @@ export const isPort = (str: string): boolean => { const p = parseInt(str, 10); r
 export const isLength = (str: string, min: number, max: number): boolean => str.length >= min && str.length <= max;
 export const isBase64 = (str: string): boolean => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(str);
 export const isJSON = (str: string): boolean => { try { JSON.parse(str); return true; } catch (e) { return false; } };
+export const isStrongPassword = (str: string): boolean => str.length >= 8 && /[A-Z]/.test(str) && /[0-9]/.test(str) && /[^A-Za-z0-9]/.test(str);
