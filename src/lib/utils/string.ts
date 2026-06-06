@@ -6,3 +6,4 @@ export const reverseString = (str: string): string => str.split('').reverse().jo
 export const truncate = (str: string, len: number): string => str.length > len ? str.substring(0, len) + '...' : str;
 export const camelCase = (str: string): string => str.replace(/(?:^\w|[A-Z]|\b\w)/g, (w, i) => i === 0 ? w.toLowerCase() : w.toUpperCase()).replace(/\s+/g, '');
 export const snakeCase = (str: string): string => str.replace(/\W+/g, ' ').split(/ |\B(?=[A-Z])/).map(w => w.toLowerCase()).join('_');
+export const kebabCase = (str: string): string => str.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[\s_]+/g, '-').toLowerCase();
