@@ -14,3 +14,4 @@ export const cleanObject = <T extends object>(obj: T): Partial<T> => Object.from
 export const freeze = <T extends object>(obj: T): Readonly<T> => Object.freeze(obj);
 export const defineProp = (obj: object, key: string, val: any) => Object.defineProperty(obj, key, { value: val, enumerable: true });
 export const clearObject = (obj: Record<string, any>) => { Object.keys(obj).forEach(key => delete obj[key]); };
+export const objectToQuery = (obj: Record<string, any>): string => new URLSearchParams(obj as Record<string, string>).toString();
