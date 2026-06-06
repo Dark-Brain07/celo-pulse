@@ -6,3 +6,4 @@ export const isNumber = (val: any): val is number => typeof val === 'number' && 
 export const toFixed = (num: number, decimals: number = 2): string => num.toFixed(decimals);
 export const isEven = (num: number): boolean => num % 2 === 0;
 export const isOdd = (num: number): boolean => Math.abs(num % 2) === 1;
+export const sum = (arr: number[]): number => arr.reduce((a, b) => a + b, 0);
