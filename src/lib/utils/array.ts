@@ -5,3 +5,4 @@ export const flatten = <T>(arr: any[]): T[] => arr.flat(Infinity) as T[];
 export const head = <T>(arr: T[]): T | undefined => arr[0];
 export const tail = <T>(arr: T[]): T[] => arr.slice(1);
 export const last = <T>(arr: T[]): T | undefined => arr[arr.length - 1];
+export const initial = <T>(arr: T[]): T[] => arr.slice(0, -1);
