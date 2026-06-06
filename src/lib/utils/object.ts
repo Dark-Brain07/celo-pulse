@@ -13,3 +13,4 @@ export const has = <T extends object>(obj: T, key: PropertyKey): boolean => Obje
 export const cleanObject = <T extends object>(obj: T): Partial<T> => Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== undefined)) as Partial<T>;
 export const freeze = <T extends object>(obj: T): Readonly<T> => Object.freeze(obj);
 export const defineProp = (obj: object, key: string, val: any) => Object.defineProperty(obj, key, { value: val, enumerable: true });
+export const clearObject = (obj: Record<string, any>) => { Object.keys(obj).forEach(key => delete obj[key]); };
