@@ -16,3 +16,4 @@ export const padDecimal = (num: number, decimals: number): string => num.toFixed
 export const formatCurrency = (num: number, currency: string = 'USD'): string => new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(num);
 export const formatPercent = (num: number): string => new Intl.NumberFormat('en-US', { style: 'percent' }).format(num);
 export const formatCommas = (num: number): string => new Intl.NumberFormat('en-US').format(num);
+export const bytesToMb = (bytes: number): number => round(bytes / (1024 * 1024), 2);
