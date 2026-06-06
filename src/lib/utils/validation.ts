@@ -8,3 +8,4 @@ export const isAlphaNumeric = (str: string): boolean => /^[A-Za-z0-9]+$/.test(st
 export const isUuid = (str: string): boolean => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
 export const isIpAddress = (str: string): boolean => /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(str);
 export const isMacAddress = (str: string): boolean => /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(str);
+export const isPort = (str: string): boolean => { const p = parseInt(str, 10); return p > 0 && p <= 65535; };
