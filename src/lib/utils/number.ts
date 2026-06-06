@@ -5,3 +5,4 @@ export const round = (num: number, decimals: number = 0): number => Number(Math.
 export const isNumber = (val: any): val is number => typeof val === 'number' && !isNaN(val);
 export const toFixed = (num: number, decimals: number = 2): string => num.toFixed(decimals);
 export const isEven = (num: number): boolean => num % 2 === 0;
+export const isOdd = (num: number): boolean => Math.abs(num % 2) === 1;
