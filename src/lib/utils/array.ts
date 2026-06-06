@@ -3,3 +3,4 @@ export const chunk = <T>(arr: T[], size: number): T[][] => Array.from({ length: 
 export const shuffle = <T>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
 export const flatten = <T>(arr: any[]): T[] => arr.flat(Infinity) as T[];
 export const head = <T>(arr: T[]): T | undefined => arr[0];
+export const tail = <T>(arr: T[]): T[] => arr.slice(1);
