@@ -6,3 +6,4 @@ export const isAlpha = (str: string): boolean => /^[A-Za-z]+$/.test(str);
 export const isNumeric = (str: string): boolean => /^\d+$/.test(str);
 export const isAlphaNumeric = (str: string): boolean => /^[A-Za-z0-9]+$/.test(str);
 export const isUuid = (str: string): boolean => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
+export const isIpAddress = (str: string): boolean => /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(str);
