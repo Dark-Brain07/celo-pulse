@@ -15,3 +15,4 @@ export const sample = <T>(arr: T[]): T | undefined => arr[Math.floor(Math.random
 export const isArray = (val: any): val is any[] => Array.isArray(val);
 export const pluck = <T, K extends keyof T>(arr: T[], key: K): T[K][] => arr.map(item => item[key]);
 export const countBy = <T>(arr: T[], fn: (item: T) => string): Record<string, number> => arr.reduce((acc, item) => { const key = fn(item); acc[key] = (acc[key] || 0) + 1; return acc; }, {} as Record<string, number>);
+export const groupBy = <T>(arr: T[], key: keyof T): Record<string, T[]> => arr.reduce((acc, item) => { const k = String(item[key]); (acc[k] = acc[k] || []).push(item); return acc; }, {} as Record<string, T[]>);
