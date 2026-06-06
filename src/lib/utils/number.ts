@@ -15,3 +15,4 @@ export const toFloat = (val: string): number => parseFloat(val);
 export const padDecimal = (num: number, decimals: number): string => num.toFixed(decimals);
 export const formatCurrency = (num: number, currency: string = 'USD'): string => new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(num);
 export const formatPercent = (num: number): string => new Intl.NumberFormat('en-US', { style: 'percent' }).format(num);
+export const formatCommas = (num: number): string => new Intl.NumberFormat('en-US').format(num);
