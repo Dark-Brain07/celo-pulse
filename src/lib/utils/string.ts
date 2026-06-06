@@ -10,3 +10,4 @@ export const kebabCase = (str: string): string => str.replace(/([a-z])([A-Z])/g,
 export const stripHtml = (html: string): string => html.replace(/<[^>]*>?/gm, '');
 export const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m] as string);
 export const unescapeHtml = (str: string): string => str.replace(/&amp;|&lt;|&gt;|&quot;|&#39;/g, m => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" })[m] as string);
+export const padZero = (num: number, len: number = 2): string => String(num).padStart(len, '0');
