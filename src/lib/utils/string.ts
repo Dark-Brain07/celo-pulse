@@ -13,3 +13,4 @@ export const unescapeHtml = (str: string): string => str.replace(/&amp;|&lt;|&gt
 export const padZero = (num: number, len: number = 2): string => String(num).padStart(len, '0');
 export const trimSlashes = (str: string): string => str.replace(/^\/+||\/+$/g, '');
 export const countWords = (str: string): number => str.trim().split(/\s+/).length;
+export const contains = (str: string, search: string): boolean => str.includes(search);
