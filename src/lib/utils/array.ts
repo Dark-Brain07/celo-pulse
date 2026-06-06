@@ -14,3 +14,4 @@ export const union = <T>(...arrays: T[][]): T[] => unique(arrays.flat());
 export const sample = <T>(arr: T[]): T | undefined => arr[Math.floor(Math.random() * arr.length)];
 export const isArray = (val: any): val is any[] => Array.isArray(val);
 export const pluck = <T, K extends keyof T>(arr: T[], key: K): T[K][] => arr.map(item => item[key]);
+export const countBy = <T>(arr: T[], fn: (item: T) => string): Record<string, number> => arr.reduce((acc, item) => { const key = fn(item); acc[key] = (acc[key] || 0) + 1; return acc; }, {} as Record<string, number>);
