@@ -8,3 +8,4 @@ export const isToday = (date: Date): boolean => new Date().toDateString() === da
 export const isYesterday = (date: Date): boolean => { const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1); return yesterday.toDateString() === date.toDateString(); };
 export const startOfDay = (date: Date): Date => { const d = new Date(date); d.setHours(0, 0, 0, 0); return d; };
 export const endOfDay = (date: Date): Date => { const d = new Date(date); d.setHours(23, 59, 59, 999); return d; };
+export const diffDays = (d1: Date, d2: Date): number => Math.abs(Math.floor((d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24)));
