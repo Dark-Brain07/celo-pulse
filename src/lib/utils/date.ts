@@ -14,3 +14,4 @@ export const diffMinutes = (d1: Date, d2: Date): number => Math.abs(Math.floor((
 export const diffSeconds = (d1: Date, d2: Date): number => Math.abs(Math.floor((d1.getTime() - d2.getTime()) / 1000));
 export const formatIso = (date: Date): string => date.toISOString();
 export const formatDate = (date: Date): string => date.toLocaleDateString();
+export const formatTime = (date: Date): string => date.toLocaleTimeString();
