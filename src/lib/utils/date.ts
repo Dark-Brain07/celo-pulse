@@ -7,3 +7,4 @@ export const subDays = (date: Date, days: number): Date => addDays(date, -days);
 export const isToday = (date: Date): boolean => new Date().toDateString() === date.toDateString();
 export const isYesterday = (date: Date): boolean => { const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1); return yesterday.toDateString() === date.toDateString(); };
 export const startOfDay = (date: Date): Date => { const d = new Date(date); d.setHours(0, 0, 0, 0); return d; };
+export const endOfDay = (date: Date): Date => { const d = new Date(date); d.setHours(23, 59, 59, 999); return d; };
