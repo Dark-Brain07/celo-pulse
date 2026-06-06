@@ -14,3 +14,4 @@ export const isBase64 = (str: string): boolean => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Z
 export const isJSON = (str: string): boolean => { try { JSON.parse(str); return true; } catch (e) { return false; } };
 export const isStrongPassword = (str: string): boolean => str.length >= 8 && /[A-Z]/.test(str) && /[0-9]/.test(str) && /[^A-Za-z0-9]/.test(str);
 export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
+export const isSymbol = (val: any): val is symbol => typeof val === 'symbol';
