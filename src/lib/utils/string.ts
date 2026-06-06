@@ -12,3 +12,4 @@ export const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, m => 
 export const unescapeHtml = (str: string): string => str.replace(/&amp;|&lt;|&gt;|&quot;|&#39;/g, m => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" })[m] as string);
 export const padZero = (num: number, len: number = 2): string => String(num).padStart(len, '0');
 export const trimSlashes = (str: string): string => str.replace(/^\/+||\/+$/g, '');
+export const countWords = (str: string): number => str.trim().split(/\s+/).length;
