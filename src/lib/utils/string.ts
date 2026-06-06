@@ -17,3 +17,4 @@ export const contains = (str: string, search: string): boolean => str.includes(s
 export const repeat = (str: string, count: number): string => str.repeat(count);
 export const removeWhitespace = (str: string): string => str.replace(/\s/g, '');
 export const startsWithPattern = (str: string, prefix: string): boolean => str.startsWith(prefix);
+export const endsWithPattern = (str: string, suffix: string): boolean => str.endsWith(suffix);
