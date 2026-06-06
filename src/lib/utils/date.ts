@@ -17,3 +17,4 @@ export const formatDate = (date: Date): string => date.toLocaleDateString();
 export const formatTime = (date: Date): string => date.toLocaleTimeString();
 export const isFuture = (date: Date): boolean => date.getTime() > Date.now();
 export const isPast = (date: Date): boolean => date.getTime() < Date.now();
+export const cloneDate = (date: Date): Date => new Date(date.getTime());
