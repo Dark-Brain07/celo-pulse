@@ -16,3 +16,4 @@ export const isStrongPassword = (str: string): boolean => str.length >= 8 && /[A
 export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
 export const isSymbol = (val: any): val is symbol => typeof val === 'symbol';
 export const isFunction = (val: any): val is Function => typeof val === 'function';
+export const isEmptyString = (str: string): boolean => str.trim().length === 0;
