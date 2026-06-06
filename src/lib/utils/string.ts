@@ -15,3 +15,4 @@ export const trimSlashes = (str: string): string => str.replace(/^\/+||\/+$/g, '
 export const countWords = (str: string): number => str.trim().split(/\s+/).length;
 export const contains = (str: string, search: string): boolean => str.includes(search);
 export const repeat = (str: string, count: number): string => str.repeat(count);
+export const removeWhitespace = (str: string): string => str.replace(/\s/g, '');
