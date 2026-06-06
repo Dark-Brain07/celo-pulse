@@ -11,3 +11,4 @@ export const endOfDay = (date: Date): Date => { const d = new Date(date); d.setH
 export const diffDays = (d1: Date, d2: Date): number => Math.abs(Math.floor((d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24)));
 export const diffHours = (d1: Date, d2: Date): number => Math.abs(Math.floor((d1.getTime() - d2.getTime()) / (1000 * 60 * 60)));
 export const diffMinutes = (d1: Date, d2: Date): number => Math.abs(Math.floor((d1.getTime() - d2.getTime()) / (1000 * 60)));
+export const diffSeconds = (d1: Date, d2: Date): number => Math.abs(Math.floor((d1.getTime() - d2.getTime()) / 1000));
