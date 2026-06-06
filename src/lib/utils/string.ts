@@ -9,3 +9,4 @@ export const snakeCase = (str: string): string => str.replace(/\W+/g, ' ').split
 export const kebabCase = (str: string): string => str.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[\s_]+/g, '-').toLowerCase();
 export const stripHtml = (html: string): string => html.replace(/<[^>]*>?/gm, '');
 export const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m] as string);
+export const unescapeHtml = (str: string): string => str.replace(/&amp;|&lt;|&gt;|&quot;|&#39;/g, m => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" })[m] as string);
