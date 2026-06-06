@@ -8,3 +8,4 @@ export const camelCase = (str: string): string => str.replace(/(?:^\w|[A-Z]|\b\w
 export const snakeCase = (str: string): string => str.replace(/\W+/g, ' ').split(/ |\B(?=[A-Z])/).map(w => w.toLowerCase()).join('_');
 export const kebabCase = (str: string): string => str.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[\s_]+/g, '-').toLowerCase();
 export const stripHtml = (html: string): string => html.replace(/<[^>]*>?/gm, '');
+export const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m] as string);
