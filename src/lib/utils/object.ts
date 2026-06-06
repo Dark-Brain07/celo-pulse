@@ -7,3 +7,4 @@ export const omit = <T extends object, K extends keyof T>(obj: T, ...keys: K[]):
 export const pick = <T extends object, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K> => keys.reduce((acc, key) => ({ ...acc, [key]: obj[key] }), {} as Pick<T, K>);
 export const merge = <T extends object, U extends object>(target: T, source: U): T & U => ({ ...target, ...source });
 export const invert = (obj: Record<string, string>): Record<string, string> => Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]));
+export const size = (obj: object): number => Object.keys(obj).length;
