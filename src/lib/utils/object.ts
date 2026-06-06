@@ -9,3 +9,4 @@ export const merge = <T extends object, U extends object>(target: T, source: U):
 export const invert = (obj: Record<string, string>): Record<string, string> => Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]));
 export const size = (obj: object): number => Object.keys(obj).length;
 export const isEmptyObject = (obj: object): boolean => Object.keys(obj).length === 0;
+export const has = <T extends object>(obj: T, key: PropertyKey): boolean => Object.prototype.hasOwnProperty.call(obj, key);
